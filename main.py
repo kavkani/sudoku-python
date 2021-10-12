@@ -1,6 +1,10 @@
 from game2dboard import Board
 import pygame
 
+n = str(input('satr:'))
+m = str(input('sootoon:'))
+s = input(input('witch number'))
+
 table1_easy_1 = [
     1, 2, '-',
     2, '-', 1,
