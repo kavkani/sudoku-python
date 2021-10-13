@@ -38,4 +38,4 @@ def sodokoInput (sodoko,bigest):
         else:
             print("place is full")
             
-        
+    sodokoprint(sodoko)
