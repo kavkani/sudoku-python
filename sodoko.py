@@ -1,3 +1,22 @@
+def wrongnum(sodoko , satr , soton , adad , square):
+    if adad in sodoko[satr]:
+        return True
+    for i in sodoko:
+        if i[soton] == adad:
+            return True
+    satrc = satr // square
+    sotonc = soton // square
+    satr = satrc * square
+    soton = sotonc * square
+    while satr//square == satrc:
+        while soton//square == sotonc:
+            if sodoko[satr][soton] == adad:
+                return True
+            soton += 1
+        soton = sotonc * square
+        satr += 1
+    return False
+
 def isnull (sodoko):
     ans = False
     for i in range(len(sodoko)):
@@ -14,7 +33,7 @@ def sodokoprint (sodoko):
                 print("-" , end = " ")
         print()
 
-def sodokoInput (sodoko,bigest):
+def sodokoInput (sodoko,bigest,square):
     sotonlen = len(sodoko[0])
     satrlen = len(sodoko)
     while (isnull(sodoko)):
@@ -32,7 +51,10 @@ def sodokoInput (sodoko,bigest):
         adad = int(input("adad :"))
         if adad > bigest or adad < 1:
             print("invalid Number")
-            continue          
+            continue
+        elif wrongnum(sodoko , satr , soton , adad , square):
+            print("this num cant be added in here")
+            continue
         if sodoko[satr][soton] == None:
             sodoko[satr][soton] = adad
         else:
