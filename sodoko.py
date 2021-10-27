@@ -1,3 +1,4 @@
+import copy
 def wrongnum(sodoko , satr , soton , adad , square):
     if adad in sodoko[satr]:
         return True
@@ -36,11 +37,11 @@ def sodokoprint (sodoko):
 def sodokoInput (sodoko,bigest,square):
     sotonlen = len(sodoko[0])
     satrlen = len(sodoko)
-    backup = sodoko
+    backup = copy.deepcopy(sodoko)
     while (isnull(sodoko)):
         sodokoprint(sodoko)
         action = str(input("action :"))
-        if action != "delete" or action != "add":
+        if action != "delete" and action != "add":
             print("invalid input")
             continue
         satr = int(input("satr :"))
@@ -61,12 +62,14 @@ def sodokoInput (sodoko,bigest,square):
             elif wrongnum(sodoko , satr , soton , adad , square):
                 print("this num cant be added in here")
                 continue
-            if sodoko[satr][soton] == None:
+            elif sodoko[satr][soton] == None:
                 sodoko[satr][soton] = adad
             else:
                 print("place is full")
         else:
             if backup[satr][soton] == None:
                 sodoko[satr][soton] = None
+            else:
+                print("you cant delet this num!")
                 
     sodokoprint(sodoko)
