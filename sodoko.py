@@ -1,5 +1,6 @@
 import copy
-def wrongnum(sodoko , satr , soton , adad , square):
+
+def wrongnum(sodoko, satr, soton, adad, square):
     if adad in sodoko[satr]:
         return True
     for i in sodoko:
@@ -9,8 +10,8 @@ def wrongnum(sodoko , satr , soton , adad , square):
     sotonc = soton // square
     satr = satrc * square
     soton = sotonc * square
-    while satr//square == satrc:
-        while soton//square == sotonc:
+    while satr // square == satrc:
+        while soton // square == sotonc:
             if sodoko[satr][soton] == adad:
                 return True
             soton += 1
@@ -18,32 +19,37 @@ def wrongnum(sodoko , satr , soton , adad , square):
         satr += 1
     return False
 
-def isnull (sodoko):
+
+def isnull(sodoko):
     ans = False
     for i in range(len(sodoko)):
         if (None in sodoko[i]):
             return True
     return ans
 
-def sodokoprint (sodoko):
-    for i in range (len(sodoko)):
-        for j in range (len(sodoko[1])):
+
+def sodokoprint(sodoko):
+    for i in range(len(sodoko)):
+        for j in range(len(sodoko[1])):
             if sodoko[i][j] != None:
-                print(sodoko[i][j],end = " ")
+                print(sodoko[i][j], end=" ")
             else:
-                print("-" , end = " ")
+                print("-", end=" ")
         print()
 
-def sodokoInput (sodoko,bigest,square):
+
+def sodokoInput(sodoko, bigest, square):
     sotonlen = len(sodoko[0])
     satrlen = len(sodoko)
+    backup = sodoko
     backup = copy.deepcopy(sodoko)
     while (isnull(sodoko)):
         sodokoprint(sodoko)
         action = str(input("action :"))
-        if action != "delete" and action != "add":
-            print("invalid input")
-            continue
+        if action != "delete" or action != "add":
+            if action != "delete" and action != "add":
+                print("invalid input")
+                continue
         satr = int(input("satr :"))
         if satr > satrlen:
             print("invalid input")
@@ -59,18 +65,18 @@ def sodokoInput (sodoko,bigest,square):
             if adad > bigest or adad < 1:
                 print("invalid Number")
                 continue
-            elif wrongnum(sodoko , satr , soton , adad , square):
+            elif wrongnum(sodoko, satr, soton, adad, square):
                 print("this num cant be added in here")
                 continue
+
             elif sodoko[satr][soton] == None:
                 sodoko[satr][soton] = adad
             else:
                 print("place is full")
         else:
-            print("place is full")
-            
+            if backup[satr][soton] == None:
+                sodoko[satr][soton] = None
+            else:
+                print("you cant delet this num!")
+
     sodokoprint(sodoko)
-        if backup[satr][soton] == None:
-            sodoko[satr][soton] = None
-        else:
-            print("you cant delet this num!")
