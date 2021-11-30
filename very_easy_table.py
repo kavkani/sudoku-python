@@ -1,14 +1,28 @@
 bigest = 4
-very_easy_table_answare = [
-    2, 3, 4, 1,
-    4, 1, 2, 3,
-    3, 2, 1, 4,
-    1, 4, 3, 2
+table1 = [
+    7, None, None, None,
+    None, 6, None, None,
+    None, None, None, None,
+    2, None, None, None
 ]
 
-very_easy_table = [
-    [None, 3, 4, 1],
-    [4, 1, 2, None],
-    [3, 2, 1, None],
-    [None, 4, 3, 2]
+table2 = [
+    None, None, None, 6,
+    1, 4, 7, None,
+    2, None, None, None,
+    None, None, 8, 1
+]
+
+table3 = [
+    None, None, None, 7,
+    None, None, None, 6,
+    None, None, 5, None,
+    8, None, 3, None
+]
+
+table4 = [
+    None, None, None, None,
+    None, None, None, None,
+    None, None, None, None,
+    None, None, None, None
 ]
