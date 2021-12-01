@@ -1,6 +1,11 @@
 import very_easy_table
-import sudoku
+import check_value
 import audio_input
 import audio_procces
 
-sudoku.sodokoInput(very_easy_table.very_easy_table, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table1, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table2, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table3, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table4, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table5, very_easy_table.bigest, 4 * 4)
+check_value.sodokoInput(very_easy_table.table6, very_easy_table.bigest, 4 * 4)
