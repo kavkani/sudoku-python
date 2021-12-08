@@ -3,24 +3,18 @@ import random
 
 
 def Print_Board(board):
-    for i in range(9):
-        for j in range(9):
-            if j==0:
-                print("|",end='')
+    for i in range(4):
+        for j in range(4):
             if j!=8:
                 print(board[i,j],end=' ')
             else:
                 print(board[i,j],end='')
-            if (j + 1) % 3 == 0:
-                print("|",end='')
-        if (i + 1) % 3 == 0:
-            print("\n---------------------",end='')
         print()
 
 
 def Find_Empty_Cell(board):
-    for i in range(9):
-        for j in range(9):
+    for i in range(4):
+        for j in range(4):
             if board[i,j]==0:
                 row = i
                 col = j
