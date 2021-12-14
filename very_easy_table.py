@@ -1,42 +1,16 @@
-bigest = 10
-table1 = [
-    [7, None, None, None],
-    [None, 6, None, None],
-    [None, None, None, None],
-    [2, None, None, None]
+from Generator import Sudoku
+board = [
+    [0,0,7,0,4,0,0,0,0],
+    [0,0,0,0,0,8,0,0,6],
+    [0,4,1,0,0,0,9,0,0],
+    [0,0,0,0,0,0,1,7,0],
+    [0,0,0,0,0,6,0,0,0],
+    [0,0,8,7,0,0,2,0,0],
+    [3,0,0,0,0,0,0,0,0],
+    [0,0,0,1,2,0,0,0,0],
+    [8,6,0,0,7,0,0,0,5]
 ]
-
-table2 = [
-    [None, None, None, 6],
-    [1, 4, 7, None],
-    [2, None, None, None],
-    [None, None, 8, 1]
-]
-
-table3 = [
-    [None, None, None, 7],
-    [None, None, None, 6],
-    [None, None, 5, None],
-    [8, None, 3, None]
-]
-
-table4 = [
-    [None, 5, None, None],
-    [None, None, None, None],
-    [None, 7, None, None],
-    [None, None, 4, None]
-]
-
-table5 = [
-    [None, None, None, None],
-    [None, 1, 4, 6],
-    [None, 8, None, 5],
-    [6, None, 4, 1]
-]
-
-table6 = [
-    [None, 2, None, None],
-    [None, None, None, 7],
-    [3, None, None, None],
-    [None, None, None, None]
-]
+puzzle = Sudoku(3, board=board)
+print(puzzle)
+puzzle.solve().show_full()
+# puzzle.solve().display()
