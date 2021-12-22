@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import audio_procces
 
 
 def print_Board(board):
@@ -79,9 +80,14 @@ def generate_unsolved_puzzle(board,difficulty):
 
 def play_sudoku(Solved_Board,Unsolved_Board):
     while True:
-        row=int(input("Enter the row to insert number:")) - 1
-        col=int(input("Enter the column to insert number:")) - 1
-        number_check=int(input("Enter the number(or press 10 to exit):"))
+        print('row:', '\n')
+        row = int(audio_procces.procces('output.wav')) - 1
+        print(row)
+        print('col:', '\n')
+        col = int(audio_procces.procces('output.wav')) - 1
+        print(col)
+        number_check = int(audio_procces.procces('output.wav'))
+        print(number_check)
         if number_check!=10:
             if Unsolved_Board[row,col]==0:
                 print(Solved_Board[row,col])
@@ -141,5 +147,8 @@ def main():
         print("The board is not possible!")
     return
 
-if __name__=="__main__":
-    main()
+try:
+    if __name__=="__main__":
+        main()
+except:
+    print('Error')

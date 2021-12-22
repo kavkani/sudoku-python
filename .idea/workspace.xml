@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3914e1e-99a4-4028-876d-f15487674e62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.wav" beforeDir="false" afterPath="$PROJECT_DIR$/output.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sudoku_AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudoku_AI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/very_easy_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/very_easy_table.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,14 +39,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/JetBrains.Trial.Reset.v2.3.5/ide-eval-resetter.jar" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\User\Documents\GitHub\sudoku-python" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.very_easy_table">
+  <component name="RunManager" selected="Python.sudoku_AI">
     <configuration name="Generator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="sudoku-python" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,11 +160,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.very_easy_table" />
-        <item itemvalue="Python.Generator" />
         <item itemvalue="Python.sudoku_AI" />
-        <item itemvalue="Python.sudoku" />
+        <item itemvalue="Python.very_easy_table" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.sudoku" />
+        <item itemvalue="Python.Generator" />
       </list>
     </recent_temporary>
   </component>
@@ -178,7 +178,15 @@
       <updated>1638940783777</updated>
       <workItem from="1638940785051" duration="2675000" />
       <workItem from="1639412967718" duration="214000" />
-      <workItem from="1639466485911" duration="414000" />
+      <workItem from="1639466485911" duration="879000" />
+      <workItem from="1639501607506" duration="1000" />
+      <workItem from="1639502628180" duration="108000" />
+      <workItem from="1639502937544" duration="48000" />
+      <workItem from="1639506539931" duration="348000" />
+      <workItem from="1639546398250" duration="209000" />
+      <workItem from="1639546946964" duration="2098000" />
+      <workItem from="1640150491934" duration="166000" />
+      <workItem from="1640150672984" duration="296000" />
     </task>
     <servers />
   </component>
@@ -186,10 +194,10 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sudoku_python$very_easy_table.coverage" NAME="very_easy_table Coverage Results" MODIFIED="1639466824553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/sudoku_python$sudoku.coverage" NAME="sudoku Coverage Results" MODIFIED="1639413034789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/sudoku_python$Generator.coverage" NAME="Generator Coverage Results" MODIFIED="1639466717758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/sudoku_python$main.coverage" NAME="main Coverage Results" MODIFIED="1638942174993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/sudoku_python$sudoku_AI.coverage" NAME="sudoku_AI Coverage Results" MODIFIED="1639413117459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/sudoku_python$very_easy_table.coverage" NAME="very_easy_table Coverage Results" MODIFIED="1639548116188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/sudoku_python$sudoku.coverage" NAME="sudoku Coverage Results" MODIFIED="1639546585159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/sudoku_python$Generator.coverage" NAME="Generator Coverage Results" MODIFIED="1639502661572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/sudoku_python$main.coverage" NAME="main Coverage Results" MODIFIED="1639548049704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/sudoku_python$sudoku_AI.coverage" NAME="sudoku_AI Coverage Results" MODIFIED="1640150929737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
