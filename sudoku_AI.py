@@ -1,154 +1,80 @@
-import numpy as np
-import random
-import audio_procces
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 
-def print_Board(board):
+def print_board(board):
+    '''Prints the board'''
+
+    boardString = ''
     for i in range(9):
         for j in range(9):
-            if j != 8:
-                print(board[i,j],end=' ')
-            else:
-                print(board[i,j],end='')
-        print()
+            boardString += str(board[i][j]) + ' '
+
+            if j == 8:
+                boardString += '\n'
+
+    print(boardString)
 
 
-def find_empty_cell(board):
+def find_empty(board):
+    '''Finds an empty cell and returns its position as a tuple'''
+
     for i in range(9):
         for j in range(9):
-            if board[i,j]==0:
-                row = i
-                col = j
-                Fill_Chk = 1
-                res=np.array([row,col,Fill_Chk],dtype="int8")
-                return res
-    res = np.array([-1,-1,0])
-    return res
+            if board[i][j] == 0:
+                return (i, j)
 
 
-def check_validity(board,row,col,num):
-    row_start=(row//3)*3
-    col_start=(col//3)*3
-    if num in board[:,col] or num in board[row,:]:
-        return False
-    if num in board[row_start:row_start+3,col_start:col_start+3]:
-        return False
+def valid(board, pos, num):
+    '''Whether a number is valid in that cell, returns a bool'''
+
+    for i in range(9):
+        if board[i][pos[1]] == num and (i, pos[1]) != pos:  # make sure it isn't the same number we're checking for by comparing coords
+            return False
+
+    for j in range(9):
+        if board[pos[0]][j] == num and (pos[0], j) != pos:  # Same row but not same number
+            return False
+
+    start_i = pos[0] - pos[0] % 3  # ex. 5-5%3 = 3 and thats where the grid starts
+    start_j = pos[1] - pos[1] % 3
+    for i in range(3):
+        for j in range(3):  # adds i and j as needed to go from start of grid to where we need to be
+            if board[start_i + i][start_j + j] == num and (start_i + i,
+                    start_j + j) != pos:
+                return False
     return True
 
 
-def generate_unsolved_puzzle(board,difficulty):
-    count,done=0,False
-    if difficulty is "Easy":
-        print("Easy Difficulty Puzzle Generating...\n\n")
-        upper_limit=35
-    elif difficulty is "Medium":
-        print("Medium Difficulty Puzzle Generating...\n\n")
-        upper_limit=41
-    else:
-        print("Hard Difficulty Puzzle Generating...\n\n")
-        upper_limit=47
-    while True:
-        i=random.randint(0,8)
-        j=random.randint(0,8)
-        if count<=upper_limit:
-            if board[i,j]!=0:
-                not_check=board[i,j]
-                board[i,j]=0
-                board_copy=board
-                if solve_sudoku(board_copy, not_check):
-                    board[i,j]=not_check
-                    continue
-                row_start=(i//3)*3
-                col_start=(j//3)*3
-                if difficulty is "Easy":
-                    if np.count_nonzero(board[row_start:row_start+3,col_start:col_start+3])<5:
-                        board[i,j]=not_check
-                        continue
-                elif difficulty is "Medium":
-                    if np.count_nonzero(board[row_start:row_start+3,col_start:col_start+3])<4:
-                        board[i,j]=not_check
-                        continue
-                else:
-                    if np.count_nonzero(board[row_start:row_start+3,col_start:col_start+3])<3:
-                        board[i,j]=not_check
-                        continue
-                count+=1
-        else:
-            done=True
-            break
+def solve(board):
+    '''Solves the Sudoku board via the backtracking algorithm'''
 
-
-def play_sudoku(Solved_Board,Unsolved_Board):
-    while True:
-        print('row:', '\n')
-        row = int(audio_procces.procces('output.wav')) - 1
-        print(row)
-        print('col:', '\n')
-        col = int(audio_procces.procces('output.wav')) - 1
-        print(col)
-        number_check = int(audio_procces.procces('output.wav'))
-        print(number_check)
-        if number_check!=10:
-            if Unsolved_Board[row,col]==0:
-                print(Solved_Board[row,col])
-                if Solved_Board[row,col]==number_check:
-                    print("Correct! Updated board:")
-                    Unsolved_Board[row,col]=number_check
-                    print_Board(Unsolved_Board)
-                else:
-                    print("Incorrect!Updated board:")
-                    print_Board(Unsolved_Board)
-            else:
-                print("That location is already correctly filled!")
-            if np.array_equal(Solved_Board,Unsolved_Board):
-                print("Congrats on solving the sudoku!")
-                break
-        else:
-            print("\nThe solved board is:")
-            print_Board(Solved_Board)
-            print("\nThank you for playing!\nWe hope to see you again.\nRegards,\nYour friendly neighbourhood programmer")
-            return
-
-
-def solve_sudoku(board,not_check):
-    x= find_empty_cell(board)
-    if x[2]==0:
+    empty = find_empty(board)
+    if not empty:  # no empty spots are left so the board is solved
         return True
-    else:
-        row=x[0]
-        col=x[1]
-        for i in np.random.permutation(10):
-            if i!=0 and i!=not_check:
-                if check_validity(board, row, col, i):
-                    board[row,col]=i
-                    if solve_sudoku(board, not_check):
-                        return True
-                    board[row,col]=0
+
+    for nums in range(9):
+        if valid(board, empty, nums + 1):
+            board[empty[0]][empty[1]] = nums + 1
+
+            if solve(board):  # recursive step
+                return True
+            board[empty[0]][empty[1]] = 0  # this number is wrong so we set it back to 0
     return False
 
+a1 = list(map(int, input().strip().split()))
+a2 = list(map(int, input().strip().split()))
+a3 = list(map(int, input().strip().split()))
+a4 = list(map(int, input().strip().split()))
+a5 = list(map(int, input().strip().split()))
+a6 = list(map(int, input().strip().split()))
+a7 = list(map(int, input().strip().split()))
+a8 = list(map(int, input().strip().split()))
+a9 = list(map(int, input().strip().split()))
 
-def main():
-    ch = int(input("Hello!Choose the level of difficulty-\n1.Easy\n2.Medium\n3.Hard\nYour choice:"))
-    if ch == 1:
-        difficulty="Easy"
-    elif ch==2:
-        difficulty="Medium"
-    else:
-        difficulty="Hard"
-    board=np.zeros((9, 9),dtype="int8")
-    if solve_sudoku(board, -1):
-        Solved_Board=board.copy()
-        print("\n\nThe unsolved puzzle is:\n")
-        generate_unsolved_puzzle(board, difficulty)
-        print_Board(board)
-        Unsolved_Board=board.copy()
-        play_sudoku(Solved_Board, Unsolved_Board)
-    else:
-        print("The board is not possible!")
-    return
-
-try:
-    if __name__=="__main__":
-        main()
-except:
-    print('Error')
+if __name__ == '__main__':
+    board =  [
+        a1, a2, a3, a4, a5, a6, a7, a8, a9
+    ]
+    solve(board)
+    print_board(board)
