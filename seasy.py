@@ -1,5 +1,6 @@
 import copy
-
+import audio_procces
+import audio_input
 
 def wrongnum(sodoko, satr, soton, adad, square):
     if adad in sodoko[satr]:
@@ -60,7 +61,8 @@ def sodokoInput(sodoko, bigest, square):
             continue
         soton -= 1
         if action == "add":
-            adad = int(input("adad :"))
+            print('Say a number:')
+            adad = audio_procces.procces('output.wav')
             if adad > bigest or adad < 1:
                 print("invalid Number")
                 continue
@@ -78,6 +80,3 @@ def sodokoInput(sodoko, bigest, square):
                 print("you cant delet this num!")
 
     sodokoprint(sodoko)
-
-
-sodokoInput(sodoko, 4, 2)
