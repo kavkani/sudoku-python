@@ -1,14 +1,11 @@
 import pyodbc
-def insert(column,values,table):
+def insert(values,table):
     #connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
     #making command executer
     cursor = con.cursor()
     #making the command 
-    command = "insert into "+table+" ("
-    for i in range (len(column)-1):
-        command += column[i]+" , "
-    command += column[-1]+") values ("
+    command = "insert into "+table+" VALUES("
     for i in range(len(values)-1):
         if type(values[i]) == str:
             command += "'"
@@ -42,3 +39,17 @@ def select(ID,table,info):
     return data
     #closing conection
     con.close()
+def delete(table , ID):
+    #connecting to server
+    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    #making command executer
+    cursor = con.cursor()
+    #making the command
+    command = "DELETE FROM "+table+" WHERE ID = "+ID
+    #runing the command
+    cursor.execute(command)
+    #saving changes
+    con.commit()
+    #closing conection
+    con.close()
+delete('Users','2')
