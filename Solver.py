@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+import very_easy_table
 
 def print_board(board):
     '''Prints the board'''
@@ -62,18 +62,19 @@ def solve(board):
             board[empty[0]][empty[1]] = 0  # this number is wrong so we set it back to 0
     return False
 
-a1 = list(map(int, input().strip().split()))
-a2 = list(map(int, input().strip().split()))
-a3 = list(map(int, input().strip().split()))
-a4 = list(map(int, input().strip().split()))
-a5 = list(map(int, input().strip().split()))
-a6 = list(map(int, input().strip().split()))
-a7 = list(map(int, input().strip().split()))
-a8 = list(map(int, input().strip().split()))
-a9 = list(map(int, input().strip().split()))
+pmd = very_easy_table.generate_table()
+a1 = pmd[0]
+a2 = pmd[1]
+a3 = pmd[2]
+a4 = pmd[3]
+a5 = pmd[4]
+a6 = pmd[5]
+a7 = pmd[6]
+a8 = pmd[7]
+a9 = pmd[8]
 
 if __name__ == '__main__':
-    board =  [
+    board = [
         a1, a2, a3, a4, a5, a6, a7, a8, a9
     ]
     solve(board)

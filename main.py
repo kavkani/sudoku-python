@@ -1,4 +1,4 @@
-import sudoku_AI
+import Solver
 import audio_input
 import audio_procces
 
