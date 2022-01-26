@@ -1,6 +1,5 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import very_easy_table
+
 
 def print_board(board):
     '''Prints the board'''
@@ -29,7 +28,8 @@ def valid(board, pos, num):
     '''Whether a number is valid in that cell, returns a bool'''
 
     for i in range(9):
-        if board[i][pos[1]] == num and (i, pos[1]) != pos:  # make sure it isn't the same number we're checking for by comparing coords
+        if board[i][pos[1]] == num and (
+        i, pos[1]) != pos:  # make sure it isn't the same number we're checking for by comparing coords
             return False
 
     for j in range(9):
@@ -41,7 +41,7 @@ def valid(board, pos, num):
     for i in range(3):
         for j in range(3):  # adds i and j as needed to go from start of grid to where we need to be
             if board[start_i + i][start_j + j] == num and (start_i + i,
-                    start_j + j) != pos:
+                                                           start_j + j) != pos:
                 return False
     return True
 
@@ -61,6 +61,7 @@ def solve(board):
                 return True
             board[empty[0]][empty[1]] = 0  # this number is wrong so we set it back to 0
     return False
+
 
 pmd = very_easy_table.generate_table()
 a1 = pmd[0]
