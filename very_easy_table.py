@@ -3,7 +3,7 @@ import copy
 import random
 
 def generate_table():
-    level = input()
+    level = "Easy"
 
     """ [Level of Difficulty] = Input the level of difficulty of the sudoku puzzle. Difficulty levels
             include ‘Easy’ ‘Medium’ ‘Hard’ and ‘Insane’. Outputs a sudoku of desired
@@ -366,5 +366,3 @@ def generate_table():
             raise (ValueError)
 
     return main(level)
-
-print(generate_table())
