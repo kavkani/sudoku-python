@@ -1,7 +1,7 @@
 import very_easy_table
 
 
-def solver():
+def solver(pmd):
     def print_board(board):
         '''Prints the board'''
         pmd1 = []
@@ -37,7 +37,7 @@ def solver():
 
         pmd1 = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
-        print(pmd1)
+        return pmd1
 
     def find_empty(board):
         '''Finds an empty cell and returns its position as a tuple'''
@@ -84,7 +84,6 @@ def solver():
                 board[empty[0]][empty[1]] = 0  # this number is wrong so we set it back to 0
         return False
 
-    pmd = very_easy_table.generate_table()
     a1 = pmd[0]
     a2 = pmd[1]
     a3 = pmd[2]
@@ -98,4 +97,4 @@ def solver():
         a1, a2, a3, a4, a5, a6, a7, a8, a9
     ]
     solve(board)
-    print_board(board)
+    return print_board(board)
