@@ -10,20 +10,18 @@ def answer():
     for a in range(9):
         r2 = []
         for b in range(9):
-            if b_list[a * 9 + b].text == None:
+            if b_list[a * 9 + b].text == None or b_list[a * 9 + b].text_color == color.white:
                 r2.append(0)
             else:
                 r2.append(int(b_list[a * 9 + b].text))
         result.append(r2)
-    print(result)
     solved = Solver.solver(result)
-    print(solved)
     for num in nums:
-        destroy(num)
-    destroy(mic)
-    destroy(deselect)
-    destroy(check)
-    destroy(solve)
+        num.hide()
+    mic.hide()
+    deselect.hide()
+    check.hide()
+    solve.hide()
     for a in range(9):
         for b in range(9):
             b_list[a * 9 + b].text = str(solved[a][b])
@@ -33,16 +31,21 @@ def answer():
     menu.fit_to_text(radius=0.005)
 
 
-def enable(bx, t=0):
-    b_list[bx].color = color.black
-    if t != 0:
-        b_list[bx].text = t
+def enable(bx=-1, t=0):
+    if bx != -1:
+        b_list[bx].color = color.black
+        if t != 0:
+            b_list[bx].text = t
     for item in b_list:
         if item.text == None or item.text_color == color.white:
             item.disabled = False
     for num in nums:
         num.disabled = True
+    mic.disabled = True
     deselect.disabled = True
+    check.disabled = False
+
+
 
 
 def click(b, bx):
@@ -55,14 +58,16 @@ def click(b, bx):
         for num in nums:
             num.disabled = False
             num.on_click = Func(enable, bx, num.text)
+        mic.disabled = False
         deselect.disabled = False
+        check.disabled = True
         deselect.on_click = Func(enable, bx)
     return 0
 
 
 b_list = []
 mic = Button(icon="mic", scale=0.06, position=(0.6, -0.215), color=color.blue, disabled=True)
-deselect = Button(icon="deselect1", scale=0.06, position=(0.6, -0.29), color=color.blue, disabled=True)
+deselect = Button(icon="deselect", scale=0.06, position=(0.6, -0.29), color=color.blue, disabled=True)
 check = Button(text="Check", position=(0.6, -0.37), scale=(0.16, 0.08), color=color.orange)
 solve = Button(text="Show Answer", position=(0.6, -0.46))
 solve.fit_to_text(radius=0.005)
