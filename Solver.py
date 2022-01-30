@@ -1,6 +1,3 @@
-import very_easy_table
-
-
 def solver(pmd):
     def print_board(board):
         '''Prints the board'''

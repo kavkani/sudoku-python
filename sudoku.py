@@ -20,15 +20,14 @@ def answer():
         num.hide()
     mic.hide()
     deselect.hide()
-    check.hide()
-    solve.hide()
+    destroy(check)
+    destroy(solve)
     for a in range(9):
         for b in range(9):
             b_list[a * 9 + b].text = str(solved[a][b])
             b_list[a * 9 + b].text_color = color.lime
             b_list[a * 9 + b].disabled = True
-    menu = Button(text="Back to Main Menu", position=(0.6, -0.36), color=color.orange)
-    menu.fit_to_text(radius=0.005)
+    menu = Button(text="Back to Main Menu", position=(0.6, -0.36), color=color.orange, scale=(0.4, 0.08))
 
 
 def enable(bx=-1, t=0):
@@ -44,8 +43,6 @@ def enable(bx=-1, t=0):
     mic.disabled = True
     deselect.disabled = True
     check.disabled = False
-
-
 
 
 def click(b, bx):
