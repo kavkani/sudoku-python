@@ -32,13 +32,13 @@ def game():
             for b in range(9):
                 if b_list[a * 9 + b].text == None:
                     flag = 1
-                    break
                 else:
                     r2.append(int(b_list[a * 9 + b].text))
             result.append(r2)
         if check.is_valid_sudoku(result) == False or flag == 1:
-            scene.disabled = True
             t = Entity(model='quad', text="There is a mistake in you sudoku.")
+            scene.disabled = True
+
             time.sleep(3)
             scene.disabled = False
             destroy(t)
