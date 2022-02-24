@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: #bfff00;
+        }
+
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #40476D;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #FB4D3D;
+        }
+
+        .active {
+            background-color: #FB4D3D;
+        }
+
+        .pmd {
+            float: right;
+            background-color: #53DD6C;
+        }
+
+    </style>
+    <link rel="stylesheet" href="Button.css">
+    <link rel="stylesheet" href="menubar.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3D Sudoku</title>
+    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body style="direction: ltr">
+
+<section class="menubar">
+    <ul class="menubar1">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+        <li class="pmd" id="MHK"><a href="Login_v5/index.html">Log In / Sign Up</a></li>
+    </ul>
+</section>
+
+<section class="wraper">
+    <header class="header">
+        <br>
+        <br>
+        <h1 style="direction: ltr; color:#bfff00;">Welcome to our 3D Sudoku</h1>
+        <h2 style="direction: ltr; color:#c1cad6">Explore what we offer</h2>
+    </header>
+    <!-- .header -->
+    <section class="download">
+        <button class="button button1">Download Now</button>
+    </section>
+
+    <footer class="footer">
+    </footer>
+</section>
+<div class="fullscreen-bg" style="direction: ltr">
+    <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+        <source src="img/video-bg.mp4" type="video/mp4">
+    </video>
+</div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/coundown-timer.js"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>

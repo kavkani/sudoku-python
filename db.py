@@ -1,44 +1,54 @@
 import pyodbc
+
+
 def count_ID(table):
-    #connecting to server
+    # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
-    #making command executer
+    # making command executer
     cursor = con.cursor()
-    #making the command
-    command = "SELECT count(ID) FROM "+table
-    #runing the command
+    # making the command
+    command = "SELECT count(ID) FROM " + table
+    # runing the command
     cursor.execute(command)
-    #making data readabla
+    # making data readabla
     data = []
-    row = cursor.fetchone() 
-    while row: 
+    row = cursor.fetchone()
+    while row:
         for i in row:
             data.append(i)
         row = cursor.fetchone()
-    #closing conection
+    # closing conection
     con.close()
     #returning
     return data[0]+1
-def login(values):
+#def login(values):
     #connecting to server
+    # returning
+ #   return data[0] + 1
+
+
+def insert(values, table):
+    # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
-    #making command executer
+    # making command executer
     cursor = con.cursor()
-    #making the command
+    # making the command
     ID = str(count_ID('Users'))
     command = "insert into "+'Users'+" VALUES("+ID+','
     for i in range(len(values)-1):
+        command = "insert into " + table + " VALUES(" + ID + ','
+    for i in range(len(values) - 1):
         if type(values[i]) == str:
             command += "'"
         command += str(values[i])
         if type(values[i]) == str:
             command += "'"
-        command+= " , "
+        command += " , "
     if type(values[-1]) == str:
         command += "'"
     command += values[-1]
     if type(values[-1]) == str:
-            command += "'"
+        command += "'"
     command += ")"
     #runing the command
     cursor.execute(command)   
@@ -46,38 +56,45 @@ def login(values):
     #making the command
     command = "insert into UserXP VALUES("+ID+', 0 , 0)'
     #runing the command
+    # runing the command
     cursor.execute(command)
-    #saving changes
+    # saving changes
     con.commit()
-    #closing conection
+    # closing conection
     con.close()
-def select(ID,table,info):
-    #connecting to server
+
+
+def select(ID, table, info):
+    # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
-    #making command executer
+    # making command executer
     cursor = con.cursor()
-    #making the command
-    command = "SELECT "+info+" FROM "+table+" WHERE ID = "+ID
-    #runing the command
+    # making the command
+    command = "SELECT " + info + " FROM " + table + " WHERE ID = " + ID
+    # runing the command
     cursor.execute(command)
-    #making the data readable
+    # making the data readable
     data = []
-    row = cursor.fetchone() 
+    row = cursor.fetchone()
     while row:
         line = []
         for i in row:
             line.append(i)
         data.append(line)
         row = cursor.fetchone()
-    #closing conection
+    # closing conection
     con.close()
-    #returning
+    # returning
     return data
 def delete(ID):
     ID = str(ID)
     #connecting to server
+
+
+def delete(table, ID):
+    # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
-    #making command executer
+    # making command executer
     cursor = con.cursor()
     #making the command
     command = "DELETE FROM Users WHERE ID = "+ID
@@ -85,9 +102,11 @@ def delete(ID):
     cursor.execute(command)
     #making the command
     command = "DELETE FROM UserXP WHERE ID = "+ID
-    #runing the command
+    # making the command
+    command = "DELETE FROM " + table + " WHERE ID = " + ID
+    # runing the command
     cursor.execute(command)
-    #saving changes
+    # saving changes
     con.commit()
-    #closing conection
+    # closing conection
     con.close()

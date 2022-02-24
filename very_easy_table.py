@@ -2,13 +2,13 @@ import time
 import copy
 import random
 
+
 def generate_table():
     level = "Easy"
 
     """ [Level of Difficulty] = Input the level of difficulty of the sudoku puzzle. Difficulty levels
             include ‘Easy’ ‘Medium’ ‘Hard’ and ‘Insane’. Outputs a sudoku of desired
             difficulty."""
-
 
     class cell():
         """ Initilalizes cell object. A cell is a single box of a sudoku puzzle. 81 cells make up the body of a
@@ -70,7 +70,6 @@ def generate_table():
             self.answer = None
             self.solved = False
 
-
     def emptySudoku():
         ''' Creates an empty sudoku in row major form. Sets up all of the x, y, and z
             coordinates for the sudoku cells'''
@@ -96,7 +95,6 @@ def generate_table():
                 c = cell((x, y, z))
                 ans.append(c)
         return ans
-
 
     def printSudoku(sudoku):
         '''Prints out a sudoku in a format that is easy for a human to read'''
@@ -130,7 +128,6 @@ def generate_table():
                 row9.append(sudoku[i].returnSolved())
         pmd = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
         return pmd
-
 
     def sudokuGen():
         '''Generates a completed sudoku. Sudoku is completly random'''
@@ -177,7 +174,6 @@ def generate_table():
                         sudoku[i].remove(finalValue)
         return sudoku
 
-
     def sudokuChecker(sudoku):
         """ Checks to see if an input a completed sudoku puzzle is of the correct format and abides by all
             of the rules of a sudoku puzzle. Returns True if the puzzle is correct. False if otherwise"""
@@ -193,7 +189,6 @@ def generate_table():
                             return False
         return True
 
-
     def perfectSudoku():
         '''Generates a completed sudoku. Sudoku is in the correct format and is completly random'''
         result = False
@@ -201,7 +196,6 @@ def generate_table():
             s = sudokuGen()
             result = sudokuChecker(s)
         return s
-
 
     def solver(sudoku, f=0):
         """ Input an incomplete Sudoku puzzle and solver method will return the solution to the puzzle. First checks to see if any obvious answers can be set
@@ -264,7 +258,6 @@ def generate_table():
         else:
             return solver(sudoku, f + 1)
 
-
     def solve(sudoku, n=0):
         """ Uses the solver method to solve a puzzle. This method was built in order to avoid recursion depth errors. Returns True if the puzzle is solvable and
             false if otherwise"""
@@ -276,7 +269,6 @@ def generate_table():
                 solve(sudoku, n + 1)
         else:
             return False
-
 
     def puzzleGen(sudoku):
         """ Generates a puzzle with a unique solution. """
@@ -297,14 +289,12 @@ def generate_table():
                 f = solve(sudoku)
                 return sudoku, f[1], f[2]
 
-
     def equalChecker(s1, s2):
         """ Checks to see if two puzzles are the same"""
         for i in range(len(s1)):
             if s1[i].returnSolved() != s2[i].returnSolved():
                 return False
         return True
-
 
     def main(level):
         """ Input the level of difficulty of the sudoku puzzle. Difficulty levels
