@@ -21,11 +21,38 @@ def count_ID(table):
     con.close()
     #returning
     return data[0]+1
-#def login(values):
+def login(values):
     #connecting to server
-    # returning
- #   return data[0] + 1
-
+    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    #making command executer
+    cursor = con.cursor()
+    #making the command
+    ID = str(count_ID('Users'))
+    command = "insert into "+'Users'+" VALUES("+ID+','
+    for i in range(len(values)-1):
+        if type(values[i]) == str:
+            command += "'"
+        command += str(values[i])
+        if type(values[i]) == str:
+            command += "'"
+        command+= " , "
+    if type(values[-1]) == str:
+        command += "'"
+    command += values[-1]
+    if type(values[-1]) == str:
+            command += "'"
+    command += ")"
+    #runing the command
+    cursor.execute(command)   
+    #making a data for user
+    #making the command
+    command = "insert into UserXP VALUES("+ID+', 0 , 0)'
+    #runing the command
+    cursor.execute(command)
+    #saving changes
+    con.commit()
+    #closing conection
+    con.close()
 
 def insert(values, table):
     # connecting to server
@@ -64,7 +91,7 @@ def insert(values, table):
     con.close()
 
 
-def select(ID, table, info):
+def select(ID, table, info = '*'):
     # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
     # making command executer
@@ -89,12 +116,8 @@ def select(ID, table, info):
 def delete(ID):
     ID = str(ID)
     #connecting to server
-
-
-def delete(table, ID):
-    # connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
-    # making command executer
+    #making command executer
     cursor = con.cursor()
     #making the command
     command = "DELETE FROM Users WHERE ID = "+ID
@@ -102,12 +125,10 @@ def delete(table, ID):
     cursor.execute(command)
     #making the command
     command = "DELETE FROM UserXP WHERE ID = "+ID
-    # making the command
-    command = "DELETE FROM " + table + " WHERE ID = " + ID
-    # runing the command
+    #runing the command
     cursor.execute(command)
-    # saving changes
+    #saving changes
     con.commit()
-    # closing conection
+    #closing conection
     con.close()
 
