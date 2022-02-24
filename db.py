@@ -19,17 +19,14 @@ def count_ID(table):
     con.close()
     #returning
     return data[0]+1
-    
-    
-
-def insert(values,table):
+def login(values):
     #connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
     #making command executer
     cursor = con.cursor()
     #making the command
     ID = str(count_ID('Users'))
-    command = "insert into "+table+" VALUES("+ID+','
+    command = "insert into "+'Users'+" VALUES("+ID+','
     for i in range(len(values)-1):
         if type(values[i]) == str:
             command += "'"
@@ -43,6 +40,11 @@ def insert(values,table):
     if type(values[-1]) == str:
             command += "'"
     command += ")"
+    #runing the command
+    cursor.execute(command)   
+    #making a data for user
+    #making the command
+    command = "insert into UserXP VALUES("+ID+', 0 , 0)'
     #runing the command
     cursor.execute(command)
     #saving changes
@@ -71,13 +73,18 @@ def select(ID,table,info):
     con.close()
     #returning
     return data
-def delete(table , ID):
+def delete(ID):
+    ID = str(ID)
     #connecting to server
     con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
     #making command executer
     cursor = con.cursor()
     #making the command
-    command = "DELETE FROM "+table+" WHERE ID = "+ID
+    command = "DELETE FROM Users WHERE ID = "+ID
+    #runing the command
+    cursor.execute(command)
+    #making the command
+    command = "DELETE FROM UserXP WHERE ID = "+ID
     #runing the command
     cursor.execute(command)
     #saving changes
