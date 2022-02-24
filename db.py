@@ -110,3 +110,4 @@ def delete(table, ID):
     con.commit()
     # closing conection
     con.close()
+
