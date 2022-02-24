@@ -2,8 +2,7 @@ from ursina import *
 
 app = Ursina()
 
-punch_sound = Audio('assets/punch_sound', loop=False, autoplay=False)
-num_pick = 1
+punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 
 window.fps_counter.enabled = False
 window.exit_button.visible = False
@@ -26,24 +25,17 @@ class Voxel(Button):
                 punch_sound.play()
 
 
-for xy in range(3):
-    for xx in range(3):
-        Voxel(position=(0, xy, xx + 0.5), colour=color.green)
-        Text(text=str(xx), position=(-(xx / 7) - 0.04 - xy / 50, (xy / 8 + xx / 9) - 0.37))
-for xy in range(3):
-    for xx in range(3):
-        if xy == 0:
-            Voxel(position=(xx + 0.5, xy, 0), rotation=(0, 90, 0), colour=color.white)
-        elif xx == 2:
-            Voxel(position=(xx + 0.5, xy, 0), rotation=(0, 90, 0), colour=color.black)
-        else:
-            Voxel(position=(xx + 0.5, xy, 0), rotation=(0, 90, 0), colour=color.blue)
-        Text(text=str(xx), position=(xx / 7 + 0.03 + xy / 50, (xy / 8 + xx / 9) - 0.37))
-for xy in range(3):
-    for xx in range(3):
-        Voxel(position=(xx + 0.5, 2.5, xy + 0.5), rotation=(0, 0, 90), colour=color.red)
-
-
+for y in range(3):
+    for x in range(3):
+        Voxel(position=(0, y, x + 0.5), colour=color.lime)
+        Text(text=str(x + y * 3), position=(-(x / 7) - 0.04 - y / 50, (y / 8 + x / 9) - 0.37))
+for y in range(3):
+    for x in range(3):
+        Voxel(position=(x + 0.5, y, 0), rotation=(0, 90, 0), colour=color.orange)
+        Text(text=str(x + y * 3), position=(x / 7 + 0.03 + (2 - y) / 50, (y / 8 + x / 9) - 0.37))
+for y in range(3):
+    for x in range(3):
+        Voxel(position=(x + 0.5, 2.5, y + 0.5), rotation=(0, 0, 90), colour=color.red)
 camera.position = (-5, 10, -5)
 camera.rotation = Vec3(45, 45, 0)
 app.run()
