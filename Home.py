@@ -127,6 +127,7 @@ def game():
         for j in range(9):
             button = Button(scale=0.105, position=(x, y), highlight_color=rgb(191, 255, 0), color=rgb(251, 77, 61),
                             text_color=rgb(193, 202, 214))
+            print(button.text_color)
             if final[i][j] != 0:
                 button.text = str(final[i][j])
                 button.text_color = rgb(191, 255, 0)
