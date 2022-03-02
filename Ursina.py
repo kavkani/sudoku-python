@@ -38,19 +38,19 @@ class Cube:
         if up:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, 2.45, y + 0.55), rotation=(90, 0, 0), colour=color.red)
+                    Voxel(cube, position=(x + 0.5, 2.45, y + 0.55), icon="2", rotation=(90, 0, 0), colour=color.red)
         if left2:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(3, y, x + 0.5), colour=color.lime, rotation=(0, -90, 0))
+                    Voxel(cube, position=(3, y, x + 0.5), icon="3", colour=color.lime, rotation=(0, -90, 0))
         if right2:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, y, 3), rotation=(0, 180, 0), colour=color.orange)
+                    Voxel(cube, position=(x + 0.5, y, 3), icon="4", rotation=(0, 180, 0), colour=color.orange)
         if back:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, -0.55, y + 0.45), rotation=(-90, 0, 0), colour=color.red)
+                    Voxel(cube, position=(x + 0.5, -0.55, y + 0.45), icon="5", rotation=(-90, 0, 0), colour=color.red)
 
 
 c = Entity(model=None)
