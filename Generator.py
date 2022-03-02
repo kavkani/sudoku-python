@@ -20,28 +20,24 @@ def solver():
 
 
 pmd = solver()
-"""p = pmd[0]
-m = pmd[1]
-d = pmd[2]
-p2 = pmd[3]
-m2 = pmd[4]
-d2 = pmd[5]
-p[random.randrange(0, 9)] = 0
-p[random.randrange(0, 9)] = 0
-m[random.randrange(0, 9)] = 0
-m[random.randrange(0, 9)] = 0
-d[random.randrange(0, 9)] = 0
-d[random.randrange(0, 9)] = 0
-p2[random.randrange(0, 9)] = 0
-p2[random.randrange(0, 9)] = 0
-m2[random.randrange(0, 9)] = 0
-m2[random.randrange(0, 9)] = 0
-d2[random.randrange(0, 9)] = 0
-d2[random.randrange(0, 9)] = 0
-pm = []
-pm.append(p)
-pm.append(m)
-pm.append(d)
-pm.append(p2)
-pm.append(m2)
-pm.append(d2)"""
+pmd[0][0] = 0
+pmd[0][2] = 0
+pmd[0][6] = 0
+pmd[0][8] = 0
+pmd[1][0] = 0
+pmd[1][2] = 0
+pmd[1][6] = 0
+pmd[1][8] = 0
+pmd[2][0] = 0
+pmd[2][2] = 0
+pmd[2][6] = 0
+pmd[3][0] = 0
+pmd[3][2] = 0
+pmd[3][6] = 0
+pmd[4][0] = 0
+pmd[4][2] = 0
+pmd[4][6] = 0
+pmd[5][0] = 0
+pmd[5][2] = 0
+pmd[5][7] = 0
+pmd[5][8] = 0
