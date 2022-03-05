@@ -89,7 +89,7 @@ def game():
     for button in home_buttons:
         destroy(button)
     sudoku_parent.rotation = (45, 0, -45)
-    generated_sudoku = generator.solver()
+    generated_sudoku = generator.generate_and_remove()
     Cube(sudoku_parent, generated_sudoku)
     back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, 0.4))
     back_to_home_button.fit_to_text()
