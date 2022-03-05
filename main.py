@@ -3,14 +3,14 @@ import generator
 
 app = Ursina()
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
-sudoku_parent = Entity(model=None)
+sudoku_parent = Entity(model=None, position=(-0.5, 0, 0))
 home_buttons = []
 sudoku_buttons = []
 window.fullscreen = True
 
 
 class Voxel(Button):
-    def __init__(self, parent, icon="sword", position=(0, 0, 0), rotation=(0, 0, 0), colour=color.white, size=1):
+    def __init__(self, parent, icon, position=(0, 0, 0), rotation=(0, 0, 0), colour=color.white, size=1):
         super().__init__(
             parent=parent,
             position=position,
@@ -88,7 +88,7 @@ def home(scene_code=0):
 def game():
     for button in home_buttons:
         destroy(button)
-    sudoku_parent.rotation = (0, 0, 0)
+    sudoku_parent.rotation = (45, 0, -45)
     generated_sudoku = generator.solver()
     Cube(sudoku_parent, generated_sudoku)
     back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, 0.4))
