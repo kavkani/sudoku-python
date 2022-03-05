@@ -7,6 +7,8 @@ sudoku_parent = Entity(model=None, position=(-0.5, 0, 0))
 home_buttons = []
 sudoku_buttons = []
 window.fullscreen = True
+window.fps_counter.enabled = False
+window.exit_button.visible = False
 
 
 class Voxel(Button):
@@ -91,7 +93,7 @@ def game():
     sudoku_parent.rotation = (45, 0, -45)
     generated_sudoku = generator.generate_and_remove()
     Cube(sudoku_parent, generated_sudoku)
-    back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, 0.4))
+    back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, -0.4))
     back_to_home_button.fit_to_text()
     sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
@@ -103,5 +105,8 @@ def update():
         sudoku_parent.rotation_y += mouse.velocity[1] * 630
 
 
+exit_button = Button(color=color.red, text="Quit", position=(0.83, 0.46))
+exit_button.fit_to_text(0.15)
+exit_button.on_click = application.quit
 home()
 app.run()
