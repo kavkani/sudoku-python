@@ -1,4 +1,4 @@
-from ursina import *
+"""from ursina import *
 import very_easy_table
 import Solver
 import check
@@ -146,3 +146,4 @@ def game():
 
 main()
 app.run()
+"""

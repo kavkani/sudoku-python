@@ -1,5 +1,5 @@
 from ursina import *
-import Generator
+import generator
 
 app = Ursina()
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)

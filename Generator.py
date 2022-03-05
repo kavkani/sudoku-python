@@ -19,8 +19,8 @@ def solver():
     return pmd2
 
 
-pmd = solver()
-pmd[0][0] = 0
+# pmd = solver()
+"""pmd[0][0] = 0
 pmd[0][2] = 0
 pmd[0][6] = 0
 pmd[0][8] = 0
@@ -43,4 +43,4 @@ pmd[5][8] = 0
 pmd[2][8] = 0
 pmd[4][8] = 0
 pmd[3][8] = 0
-pmd[5][6] = 0
+pmd[5][6] = 0"""
