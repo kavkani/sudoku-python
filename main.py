@@ -14,10 +14,9 @@ window.exit_button.enabled = False
 
 
 def home(scene_code=0):
+    for button in classes.sudoku_buttons:
+        destroy(button)
     Sky(texture="bg")
-    if scene_code == 1:
-        for button in classes.sudoku_buttons:
-            destroy(button)
     tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0.35), color=rgb(83, 221, 108))
     home_buttons.append(tutorial)
     tutorial.tooltip = Tooltip("Tutorial")
@@ -35,7 +34,6 @@ def game():
         destroy(button)
     sudoku_parent.rotation = (0, 0, -0)
     generated_sudoku = generator.generate_and_remove()
-    print(generated_sudoku)
     classes.Cube(sudoku_parent, generated_sudoku)
     back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, -0.4))
     back_to_home_button.fit_to_text()

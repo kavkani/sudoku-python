@@ -16,6 +16,7 @@ class Voxel(Button):
             rotation=rotation,
             double_sided=True,
             icon=icon)
+        sudoku_buttons.append(self)
 
     def input(self, key):
         if self.hovered:
