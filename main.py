@@ -1,7 +1,6 @@
 from ursina import *
 import generator
 import classes
-from ursina.prefabs.first_person_controller import FirstPersonController
 
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
@@ -35,6 +34,7 @@ def game():
         destroy(button)
     sudoku_parent.rotation = (45, 0, -45)
     generated_sudoku = generator.generate_and_remove()
+    print(generated_sudoku)
     classes.Cube(sudoku_parent, generated_sudoku)
     back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, -0.4))
     back_to_home_button.fit_to_text()
@@ -51,7 +51,5 @@ def update():
 exit_button = Button(color=color.red, text="Quit", position=(0.81, 0.46))
 exit_button.fit_to_text(0.15)
 exit_button.on_click = application.quit
-player = FirstPersonController()
-ground = Entity(model="plane", scale=20, collider="mesh_collider")
 home()
 app.run()

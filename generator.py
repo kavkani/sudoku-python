@@ -40,7 +40,13 @@ def generate_and_remove():
     pmd[4][8] = 0
     pmd[3][8] = 0
     pmd[5][6] = 0
-    return pmd
-
-
-print(generate_and_remove())
+    list_3d_sudoku = []
+    for p in range(6):
+        side = []
+        for m in range(3):
+            row = []
+            for d in range(3):
+                row.append(pmd[p][m*3+d])
+            side.append(row)
+        list_3d_sudoku.append(side)
+    return list_3d_sudoku
