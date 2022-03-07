@@ -16,7 +16,7 @@ def generate_and_remove():
     x = 9
     for j in range(6):
         pmd.append(generate_face(x))
-    pmd[0][0] = 0
+    """pmd[0][0] = 0
     pmd[0][2] = 0
     pmd[0][6] = 0
     pmd[0][8] = 0
@@ -39,5 +39,5 @@ def generate_and_remove():
     pmd[2][8] = 0
     pmd[4][8] = 0
     pmd[3][8] = 0
-    pmd[5][6] = 0
+    pmd[5][6] = 0"""
     return pmd

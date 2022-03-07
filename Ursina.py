@@ -1,5 +1,4 @@
 from ursina import *
-import generator
 
 app = Ursina()
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
@@ -31,33 +30,27 @@ class Cube:
         if left:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(0, y, x + 0.5), icon=str(Generator.pmd[0][y * 3 + x]), colour=color.lime,
-                          rotation=(0, 90, 0))
+                    Voxel(cube, position=(0, y, x + 0.5), icon="6", colour=color.lime, rotation=(0, 90, 0))
         if right:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, y, 0), icon=str(Generator.pmd[1][y * 3 + x]), rotation=(0, 0, 0),
-                          colour=color.orange)
+                    Voxel(cube, position=(x + 0.5, y, 0), icon="1", rotation=(0, 0, 0), colour=color.orange)
         if up:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, 2.45, y + 0.55), icon=str(Generator.pmd[2][y * 3 + x]),
-                          rotation=(90, 0, 0), colour=color.red)
+                    Voxel(cube, position=(x + 0.5, 2.45, y + 0.55), icon="2", rotation=(90, 0, 0), colour=color.red)
         if left2:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(3, y, x + 0.5), icon=str(Generator.pmd[3][y * 3 + x]), colour=color.lime,
-                          rotation=(0, -90, 0))
+                    Voxel(cube, position=(3, y, x + 0.5), icon="3", colour=color.lime, rotation=(0, -90, 0))
         if right2:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, y, 3), icon=str(Generator.pmd[4][y * 3 + x]), rotation=(0, 180, 0),
-                          colour=color.orange)
+                    Voxel(cube, position=(x + 0.5, y, 3), icon="4", rotation=(0, 180, 0), colour=color.orange)
         if back:
             for y in range(3):
                 for x in range(3):
-                    Voxel(cube, position=(x + 0.5, -0.55, y + 0.45), icon=str(Generator.pmd[5][y * 3 + x]),
-                          rotation=(-90, 0, 0), colour=color.red)
+                    Voxel(cube, position=(x + 0.5, -0.55, y + 0.45), icon="5", rotation=(-90, 0, 0), colour=color.red)
 
 
 c = Entity(model=None)
@@ -70,5 +63,4 @@ def update():
 
 
 sudoku = Cube(c)
-print(Generator.pmd)
 app.run()

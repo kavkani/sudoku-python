@@ -5,7 +5,7 @@ punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 
 
 class Voxel(Button):
-    def __init__(self, parent, icon, position=(0, 0, 0), rotation=(0, 0, 0), colour=color.white, size=1):
+    def __init__(self, parent, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), colour=color.white, size=1):
         super().__init__(
             parent=parent,
             position=position,
@@ -25,6 +25,8 @@ class Voxel(Button):
 
 class Cube:
     def __init__(self, cube, generated, left=True, right=True, up=True, left2=True, right2=True, back=True):
+        b = Voxel(cube, position=(0, 0, 0 + 0.5), colour=color.lime, rotation=(0, 90, 0))
+        destroy(b)
         if left:
             for y in range(3):
                 for x in range(3):
