@@ -6,6 +6,7 @@ app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 sudoku_parent = Entity(model=None, position=(-0.5, 0, 0))
+c = Entity(model=None, position=(-0.5, 0, 0))
 home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
@@ -32,7 +33,7 @@ def home(scene_code=0):
 def game():
     for button in home_buttons:
         destroy(button)
-    sudoku_parent.rotation = (45, 0, -45)
+    sudoku_parent.rotation = (0, 0, -0)
     generated_sudoku = generator.generate_and_remove()
     print(generated_sudoku)
     classes.Cube(sudoku_parent, generated_sudoku)
@@ -44,9 +45,8 @@ def game():
 
 def update():
     if mouse.right:
-        sudoku_parent.rotation_x += mouse.velocity[0] * 630
-        sudoku_parent.rotation_y += mouse.velocity[1] * 630
-
+        sudoku_parent.rotation_x -= mouse.velocity[1] * 630
+        sudoku_parent.rotation_y -= mouse.velocity[0] * 630
 
 exit_button = Button(color=color.red, text="Quit", position=(0.81, 0.46))
 exit_button.fit_to_text(0.15)

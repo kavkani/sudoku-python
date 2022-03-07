@@ -37,17 +37,17 @@ class Cube:
                         button.icon = None
                     sudoku_buttons.append(button)
         if left:
-            side("(0, i, 2 - j + 0.5)", (0, 90, 0), 0)
+            side("(- 1.3, i - 1.3, 2 - j + 0.5 - 1.3)", (0, 90, 0), 0)
         if right:
-            side("(j + 0.5, i, 0)", (0, 0, 0), 1)
+            side("(j + 0.5 - 1.3, i - 1.3, 0 - 1.3)", (0, 0, 0), 1)
         if up:
-            side("(j + 0.5, 2.45, i + 0.55)", (90, 0, 0), 2)
+            side("(j + 0.5 - 1.3, 2.45 - 1.3, i + 0.55 - 1.3)", (90, 0, 0), 2)
         if left2:
-            side("(3, i, j + 0.5)", (0, -90, 0), 3)
+            side("(3 - 1.3, i - 1.3, j + 0.5 - 1.3)", (0, -90, 0), 3)
         if right2:
-            side("(2 - j + 0.5, i, 3)", (0, 180, 0), 4)
+            side("(2 - j + 0.5 - 1.3, i - 1.3, 3 - 1.3)", (0, 180, 0), 4)
         if back:
-            side("(j + 0.5, -0.55, i + 0.45)", (-90, 0, 0), 5)
-        """Voxel(scene, position=(2.6, 0.1, 0.5), rotation=(0, 90, 0), colour=color.lime)
-        Voxel(scene, position=(3, 0.1, 0), rotation=(0, 45, 0), colour=color.red)
-        Voxel(scene, position=(3, 0.4, -0), rotation=(90, 0, 0), colour=color.orange)"""
+            side("(j + 0.5 - 1.3, -0.55 - 1.3, i + 0.45 - 1.3)", (-90, 0, 0), 5)
+        Voxel(scene, position=(2.6, 0.1, 0.5), rotation=(0, 90, 0+20), colour=color.lime , icon='1')
+        Voxel(scene, position=(3, 0.1, 0), rotation=(0, 0, 0+ 20), colour=color.red, icon='2')
+        Voxel(scene, position=(3, 0.55, -0), rotation=(90, 0, 0+20), colour=color.orange, icon='3')
