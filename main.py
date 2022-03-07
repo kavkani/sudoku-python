@@ -1,6 +1,7 @@
 from ursina import *
 import generator
 import classes
+from ursina.prefabs.first_person_controller import FirstPersonController
 
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
@@ -47,8 +48,10 @@ def update():
         sudoku_parent.rotation_y += mouse.velocity[1] * 630
 
 
-exit_button = Button(color=color.red, text="Quit", position=(0.82, 0.46))
+exit_button = Button(color=color.red, text="Quit", position=(0.81, 0.46))
 exit_button.fit_to_text(0.15)
 exit_button.on_click = application.quit
+player = FirstPersonController()
+ground = Entity(model="plane", scale=20, collider="mesh_collider")
 home()
 app.run()

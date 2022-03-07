@@ -41,3 +41,6 @@ def generate_and_remove():
     pmd[3][8] = 0
     pmd[5][6] = 0
     return pmd
+
+
+print(generate_and_remove())

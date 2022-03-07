@@ -27,39 +27,27 @@ class Cube:
     def __init__(self, cube, generated, left=True, right=True, up=True, left2=True, right2=True, back=True):
         b = Voxel(cube, position=(0, 0, 0 + 0.5), colour=color.lime, rotation=(0, 90, 0))
         destroy(b)
+
+        def side(position, rotation, n):
+            for y in range(3):
+                for x in range(3):
+                    button = Voxel(cube, icon=str(generated[n][y * 3 + x]), position=eval(position),
+                                   rotation=rotation, colour=color.lime)
+                    if generated[n][y * 3 + x] == 0:
+                        button.icon = None
+                    sudoku_buttons.append(button)
         if left:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[0][y * 3 + x]), position=(0, y, x + 0.5),
-                                   rotation=(0, 90, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(0, y, x + 0.5)", (0, 90, 0), 0)
         if right:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[1][y * 3 + x]), position=(x + 0.5, y, 0),
-                                   rotation=(0, 0, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(x + 0.5, y, 0)", (0, 0, 0), 1)
         if up:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[2][y * 3 + x]), position=(x + 0.5, 2.45, y + 0.55),
-                                   rotation=(90, 0, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(x + 0.5, 2.45, y + 0.55)", (90, 0, 0), 2)
         if left2:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[3][y * 3 + x]), position=(3, y, x + 0.5),
-                                   rotation=(0, -90, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(3, y, x + 0.5)", (0, -90, 0), 3)
         if right2:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[4][y * 3 + x]), position=(x + 0.5, y, 3),
-                                   rotation=(0, 180, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(x + 0.5, y, 3)", (0, 180, 0), 4)
         if back:
-            for y in range(3):
-                for x in range(3):
-                    button = Voxel(cube, icon=str(generated[5][y * 3 + x]),
-                                   position=(x + 0.5, -0.55, y + 0.45), rotation=(-90, 0, 0), colour=color.lime)
-                    sudoku_buttons.append(button)
+            side("(x + 0.5, -0.55, y + 0.45)", (-90, 0, 0), 5)
+        Voxel(scene, position=(2.6, 0.1, 0.5), rotation=(0, 90, 0), colour=color.lime)
+        Voxel(scene, position=(3, 0.1, 0), rotation=(0, 45, 0), colour=color.red)
+        Voxel(scene, position=(3, 0.4, -0), rotation=(90, 0, 0), colour=color.orange)
