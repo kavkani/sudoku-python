@@ -5,11 +5,7 @@ import classes
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
-<<<<<<< Updated upstream
-sudoku_parent = Entity(model=None, position=(-1.8, 0, 0))
-=======
 sudoku_parent = Entity(model=None, position=(-4, 0, 0))
->>>>>>> Stashed changes
 home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
@@ -18,9 +14,8 @@ window.exit_button.enabled = False
 
 def home(scene_code=0):
     Sky(texture="bg")
-    if scene_code == 1:
-        for button in classes.sudoku_buttons:
-            destroy(button)
+    for button in classes.sudoku_buttons:
+        destroy(button)
     tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0.35), color=rgb(83, 221, 108))
     home_buttons.append(tutorial)
     tutorial.tooltip = Tooltip("Tutorial")
