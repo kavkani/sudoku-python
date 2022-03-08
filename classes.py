@@ -48,10 +48,12 @@ class Cube:
             side("(2 - j + 0.5, i, 3)", (0, 180, 0), 4)
         if back:
             side("(j + 0.5, -0.55, i + 0.45)", (-90, 0, 0), 5)
-        sudoku_out_parent = Entity(model=None, position=(-0.5, 0, 0), rotation=Vec3(-45, -45, 0))
-        b1 = Voxel(sudoku_out_parent, position=(2.5, 0.1, 0.5), rotation=(0, 90, 0), colour=color.lime)
-        sudoku_buttons.append(b1)
-        b2 = Voxel(sudoku_out_parent, position=(3, 0.1, 0), rotation=(0, 0, 0), colour=color.red)
-        sudoku_buttons.append(b2)
-        b3 = Voxel(sudoku_out_parent, position=(3, 0.55, 0.55), rotation=(90, 0, 0), colour=color.orange)
-        sudoku_buttons.append(b3)
+        for i in range(3, 6, 2):
+            for j in range(3, -4, -2):
+                sudoku_out_parent = Entity(model=None, position=(i - 0.5, j, 0), rotation=Vec3(-45, -45, 0))
+                b1 = Voxel(sudoku_out_parent, position=(2.5, 0.1, 0.5), rotation=(0, 90, 0), colour=color.lime)
+                sudoku_buttons.append(b1)
+                b2 = Voxel(sudoku_out_parent, position=(3, 0.1, 0), rotation=(0, 0, 0), colour=color.red)
+                sudoku_buttons.append(b2)
+                b3 = Voxel(sudoku_out_parent, position=(3, 0.55, 0.55), rotation=(90, 0, 0), colour=color.orange)
+                sudoku_buttons.append(b3)

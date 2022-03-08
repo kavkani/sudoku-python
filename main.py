@@ -5,7 +5,7 @@ import classes
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
-sudoku_parent = Entity(model=None, position=(-0.5, 0, 0))
+sudoku_parent = Entity(model=None, position=(-1.8, 0, 0))
 home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
