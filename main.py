@@ -5,7 +5,11 @@ import classes
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
+<<<<<<< Updated upstream
 sudoku_parent = Entity(model=None, position=(-1.8, 0, 0))
+=======
+sudoku_parent = Entity(model=None, position=(-4, 0, 0))
+>>>>>>> Stashed changes
 home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
@@ -45,6 +49,7 @@ def update():
     if mouse.right:
         sudoku_parent.rotation_x += mouse.velocity[0] * 630
         sudoku_parent.rotation_y += mouse.velocity[1] * 630
+
 
 
 exit_button = Button(color=color.red, text="Quit", position=(0.81, 0.46))
