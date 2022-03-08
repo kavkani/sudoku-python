@@ -2,10 +2,10 @@ import random
 
 
 def generate_and_remove():
-    def generate_face(b):
-        numbers_list = list(range(1, b + 1))
+    def generate_face(c):
+        numbers_list = list(range(1, c + 1))
         list1 = []
-        for i in range(1, b + 1):
+        for i in range(1, c + 1):
             random_num = random.choice(numbers_list)
             numbers_list.remove(random_num)
             list1.append(random_num)
