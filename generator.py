@@ -12,6 +12,7 @@ def generate_and_remove():
 
         return list1
 
+#AMK
     pmd = []
     x = 9
     for j in range(6):
