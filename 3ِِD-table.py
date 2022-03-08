@@ -1,0 +1,53 @@
+import random
+
+
+def generate_and_remove():
+    def generate_face(c):
+        numbers_list = list(range(1, c + 1))
+        list1 = []
+        for i in range(1, c + 1):
+            random_num = random.choice(numbers_list)
+            numbers_list.remove(random_num)
+            list1.append(random_num)
+
+        return list1
+
+    # AMK
+    pmd = []
+    x = 9
+    for j in range(6):
+        pmd.append(generate_face(x))
+    pmd[0][0] = 0
+    pmd[0][2] = 0
+    pmd[0][6] = 0
+    pmd[0][8] = 0
+    pmd[1][0] = 0
+    pmd[1][2] = 0
+    pmd[1][6] = 0
+    pmd[1][8] = 0
+    pmd[2][0] = 0
+    pmd[2][2] = 0
+    pmd[2][6] = 0
+    pmd[3][0] = 0
+    pmd[3][2] = 0
+    pmd[3][6] = 0
+    pmd[4][0] = 0
+    pmd[4][2] = 0
+    pmd[4][6] = 0
+    pmd[5][0] = 0
+    pmd[5][2] = 0
+    pmd[5][8] = 0
+    pmd[2][8] = 0
+    pmd[4][8] = 0
+    pmd[3][8] = 0
+    pmd[5][6] = 0
+    list_3d_sudoku = []
+    for p in range(6):
+        side = []
+        for m in range(3):
+            row = []
+            for d in range(3):
+                row.append(pmd[p][m * 3 + d])
+            side.append(row)
+        list_3d_sudoku.append(side)
+    return list_3d_sudoku
