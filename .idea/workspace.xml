@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment="3D with little cubes">
-      <change beforePath="$PROJECT_DIR$/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,9 +185,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.game_3d" />
       <item itemvalue="Python.classed" />
       <item itemvalue="Python.classes" />
-      <item itemvalue="Python.game_3d" />
       <item itemvalue="Python.generator" />
       <item itemvalue="Python.main (1)" />
       <item itemvalue="Python.main" />
@@ -205,7 +205,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="99fd3ece-813a-4bc5-a30d-aa412b14f34c" name="Changes" comment="" />
+      <changelist id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment="3D with little cubes" />
       <created>1645592066373</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -224,6 +224,7 @@
       <workItem from="1646669125949" duration="3438000" />
       <workItem from="1646673887561" duration="479000" />
       <workItem from="1646716862448" duration="2048000" />
+      <workItem from="1646747521729" duration="36000" />
     </task>
     <task id="LOCAL-00001" summary="3D position and rotation updated">
       <created>1646497184373</created>
