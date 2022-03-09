@@ -1,7 +1,6 @@
 import random
 import copy
 
-
 def generate_and_remove():
     def generate_face(b):
         numbers_list = list(range(1, b + 1))
@@ -109,7 +108,12 @@ def generate_and_remove():
     p7.append(26)
     p7.append(35)
     p7.append(44)
-
+    answers = [a0 ,a1 ,a2 ,a3 ,a4 ,a5 ,a6 ,a7]
+    randomized_answers = []
+    for i in range(len(answers)):
+        random_num = random.randint(0,len(answers)-1)
+        randomized_answers.append(answers[random_num])
+        answers.pop(random_num)
     list_3d_sudoku = []
     for p in range(6):
         side = []
@@ -119,6 +123,8 @@ def generate_and_remove():
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
-    pmd63 = [a0, a1, a2, a3, a4, a5, a6, a7]
-    pmd28 = [p0, p1, p2, p3, p4, p5, p6, p7]
-    return pmd63, pmd28, list_3d_sudoku
+    pmd63 = [list_3d_sudoku,list([p0, p1, p2, p3, p4, p5, p6, p7]),randomized_answers]
+    return pmd63
+
+
+print(generate_and_remove()[2])
