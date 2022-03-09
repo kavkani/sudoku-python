@@ -1,4 +1,5 @@
 from ursina import *
+from random import randint
 
 sudoku_buttons = []
 little_cubes = [[], [], [], [], [], [], [], []]
@@ -76,6 +77,7 @@ class Cube:
         for i in range(3, 6, 2):
             for j in range(3, -4, -2):
                 sudoku_out_parent = Entity(model=None, position=(i - 0.5, j, 0), rotation=Vec3(-45, -45, 0))
+                icons =
                 b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                             rotation=(0, 90, 0), colour=color.lime)
                 sudoku_buttons.append(b1)

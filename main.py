@@ -1,5 +1,4 @@
 from ursina import *
-
 import click
 import generator
 import classes
@@ -15,7 +14,6 @@ window.exit_button.enabled = False
 
 
 def home(scene_code=0):
-    Sky(texture="bg")
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
@@ -35,7 +33,7 @@ def game():
     for button in home_buttons:
         destroy(button)
     sudoku_parent.rotation = (45, 0, -45)
-    generated_sudoku = generator.generate_and_remove()
+    numbers, indexes, generated_sudoku = generator.generate_and_remove()
     classes.Cube(sudoku_parent, generated_sudoku)
     back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, -0.4))
     back_to_home_button.fit_to_text()
