@@ -190,9 +190,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.game_3d" />
       <item itemvalue="Python.classed" />
       <item itemvalue="Python.classes" />
+      <item itemvalue="Python.game_3d" />
       <item itemvalue="Python.generator" />
       <item itemvalue="Python.main (1)" />
       <item itemvalue="Python.main" />
