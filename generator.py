@@ -51,7 +51,6 @@ def generate_and_remove():
     p5 = []
     p6 = []
     p7 = []
-    p8 = []
     a0 = []
     a1 = []
     a2 = []
@@ -60,7 +59,6 @@ def generate_and_remove():
     a5 = []
     a6 = []
     a7 = []
-    a8 = []
     a0.append(pmd1[0][0])
     a0.append(pmd1[1][0])
     a0.append(pmd1[5][0])
@@ -109,7 +107,12 @@ def generate_and_remove():
     p7.append(26)
     p7.append(35)
     p7.append(44)
-
+    answers = [a0, a1, a2, a3, a4, a5, a6, a7]
+    randomized_answers = []
+    for i in range(len(answers)):
+        random_num = random.randint(0, len(answers)-1)
+        randomized_answers.append(answers[random_num])
+        answers.pop(random_num)
     list_3d_sudoku = []
     for p in range(6):
         side = []
@@ -119,6 +122,5 @@ def generate_and_remove():
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
-    pmd63 = [a0, a1, a2, a3, a4, a5, a6, a7]
-    pmd28 = [p0, p1, p2, p3, p4, p5, p6, p7]
-    return pmd63, pmd28, list_3d_sudoku
+    pmd63 = [p0, p1, p2, p3, p4, p5, p6, p7]
+    return randomized_answers, pmd63, list_3d_sudoku
