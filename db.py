@@ -1,9 +1,14 @@
-import pyodbc
+import mysql.connector
 
 
 def count_ID(table):
     # connecting to server
-    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+)
     # making command executer
     cursor = con.cursor()
     # making the command
@@ -23,7 +28,12 @@ def count_ID(table):
     return data[0]+1
 def login(values):
     #connecting to server
-    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+)
     #making command executer
     cursor = con.cursor()
     #making the command
@@ -56,7 +66,12 @@ def login(values):
 
 def insert(values, table):
     # connecting to server
-    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+)
     # making command executer
     cursor = con.cursor()
     # making the command
@@ -93,7 +108,12 @@ def insert(values, table):
 
 def select(ID, table, info = '*'):
     # connecting to server
-    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+)
     # making command executer
     cursor = con.cursor()
     # making the command
@@ -116,7 +136,12 @@ def select(ID, table, info = '*'):
 def delete(ID):
     ID = str(ID)
     #connecting to server
-    con = pyodbc.connect('DRIVER={SQL Server}; SERVER=DESKTOP-UT46DSN; Database=Sudoku; UID=sa; PWD=1234;')
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+)
     #making command executer
     cursor = con.cursor()
     #making the command
@@ -131,4 +156,3 @@ def delete(ID):
     con.commit()
     #closing conection
     con.close()
-
