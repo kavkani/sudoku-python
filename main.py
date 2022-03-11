@@ -2,6 +2,7 @@ from ursina import *
 import click
 import generator
 import classes
+import time
 
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
@@ -11,6 +12,15 @@ home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
 window.exit_button.enabled = False
+
+
+def output(generated):
+    if not classes.output_nums(generated):
+        t = Text(text="You didn't solve the 3D Sudoku correctly")
+        time.sleep(2)
+        destroy(t)
+    else:
+        home(1)
 
 
 def home(scene_code=0):
@@ -35,8 +45,12 @@ def game():
     sudoku_parent.rotation = (45, 0, -45)
     global indexes
     numbers, indexes, generated_sudoku = generator.generate_and_remove()
+    check_button = Button(text="Check", color=color.red, position=(0.7, -0.4))
+    check_button.fit_to_text()
+    check_button.on_click = Func(output, generated_sudoku)
     classes.Cube(sudoku_parent, numbers, generated_sudoku)
-    back_to_home_button = Button(color=color.red, text="Back to Home", position=(0.7, -0.4))
+    classes.sudoku_buttons.append(check_button)
+    back_to_home_button = Button(color=color.red, text="Back to Home", position=(-0.7, 0.4))
     back_to_home_button.fit_to_text()
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
@@ -49,10 +63,9 @@ def update():
     if classes.clicked[0] is not None and classes.clicked[1] is not None:
         click.is_clicked(classes.sudoku_buttons, classes.clicked[0], classes.little_cubes, classes.clicked[1], indexes)
         classes.clicked = [None, None]
+    if classes.delete != -1:
+        click.cancel(classes.sudoku_buttons, classes.delete, classes.little_cubes, indexes)
 
 
-exit_button = Button(color=color.red, text="Quit", position=(0.81, 0.46))
-exit_button.fit_to_text(0.15)
-exit_button.on_click = application.quit
 home()
 app.run()
