@@ -1,9 +1,19 @@
 from ursina import *
+import generator
 
+delete = -1
 sudoku_buttons = []
 little_cubes = [[], [], [], [], [], [], [], []]
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 clicked = [None, None]
+
+
+def output_nums(generated):
+    output_list = []
+    for item in sudoku_buttons[0:54]:
+        output_list.append(int(str(item.icon)[-1]))
+    result = generator.check(output_list, generated)
+    return result
 
 
 class Voxel(Button):
@@ -21,10 +31,13 @@ class Voxel(Button):
         self.list_code = list_code
 
     def input(self, key):
+        global delete
         if self.hovered:
             if key == 'left mouse down':
                 if str(self.icon)[-1] == '0':
                     clicked[0] = self.list_code
+            if key == 'backspace':
+                delete = self.list_code
 
 
 class Voxel2(Button):
@@ -75,7 +88,7 @@ class Cube:
             side("(jj + 0.5 - 1.3, -0.55 - 1.3, ii + 0.45 - 1.3)", (-90, 0, 0), 5)
         for i in range(3, 6, 2):
             for j in range(3, -4, -2):
-                sudoku_out_parent = Entity(model=None, position=(i - 0.5, j, 0), rotation=Vec3(-45, -45, 0))
+                sudoku_out_parent = Entity(model=None, position=(i - 0.3, j, 0), rotation=Vec3(-40, -35, 0))
                 b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                             rotation=(0, 90, 0), colour=color.lime,
                             icon=str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0]))

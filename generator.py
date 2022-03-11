@@ -59,54 +59,54 @@ def generate_and_remove():
     a5 = []
     a6 = []
     a7 = []
+    a0.append(pmd1[0][8])
     a0.append(pmd1[1][6])
     a0.append(pmd1[2][0])
-    a0.append(pmd1[0][8])
+    a1.append(pmd1[4][8])
     a1.append(pmd1[0][6])
     a1.append(pmd1[2][6])
-    a1.append(pmd1[4][8])
     a2.append(pmd1[0][0])
     a2.append(pmd1[4][2])
     a2.append(pmd1[5][6])
-    a3.append(pmd1[1][0])
-    a3.append(pmd1[5][0])
     a3.append(pmd1[0][2])
+    a3.append(pmd1[5][0])
+    a3.append(pmd1[1][0])
+    a4.append(pmd1[3][8])
     a4.append(pmd1[4][6])
     a4.append(pmd1[2][8])
-    a4.append(pmd1[3][8])
     a5.append(pmd1[5][2])
     a5.append(pmd1[3][0])
     a5.append(pmd1[1][2])
-    a6.append(pmd1[2][2])
     a6.append(pmd1[1][8])
     a6.append(pmd1[3][6])
-    a7.append(pmd1[5][8])
-    a7.append(pmd1[3][2])
+    a6.append(pmd1[2][2])
     a7.append(pmd1[4][0])
+    a7.append(pmd1[3][2])
+    a7.append(pmd1[5][8])
+    p0.append(8)
     p0.append(15)
     p0.append(18)
-    p0.append(8)
+    p1.append(44)
     p1.append(6)
     p1.append(24)
-    p1.append(44)
     p2.append(0)
     p2.append(38)
     p2.append(51)
-    p3.append(9)
-    p3.append(45)
     p3.append(2)
+    p3.append(45)
+    p3.append(9)
+    p4.append(35)
     p4.append(42)
     p4.append(26)
-    p4.append(35)
     p5.append(47)
     p5.append(27)
     p5.append(11)
-    p6.append(20)
     p6.append(17)
     p6.append(33)
-    p7.append(53)
-    p7.append(29)
+    p6.append(20)
     p7.append(36)
+    p7.append(29)
+    p7.append(53)
     answers = [a0, a1, a2, a3, a4, a5, a6, a7]
     randomized_answers = []
     for i in range(len(answers)):
@@ -123,6 +123,21 @@ def generate_and_remove():
             side.append(row)
         list_3d_sudoku.append(side)
     pmd63 = [p0, p1, p2, p3, p4, p5, p6, p7]
-    print(list_3d_sudoku)
-    print(pmd63)
     return randomized_answers, pmd63, list_3d_sudoku
+
+
+def check(sudoku_list, answers):
+    if 0 in sudoku_list:
+        return False
+    list_3d_sudoku = []
+    for p in range(6):
+        side = []
+        for m in range(3):
+            row = []
+            for d in range(3):
+                row.append(sudoku_list[p * 9 + m * 3 + d])
+            side.append(row)
+        list_3d_sudoku.append(side)
+    if list_3d_sudoku != answers:
+        return False
+    return True
