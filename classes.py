@@ -29,6 +29,7 @@ class Voxel(Button):
             double_sided=True,
             icon=icon)
         self.list_code = list_code
+        self.little_cube = None
 
     def input(self, key):
         global delete

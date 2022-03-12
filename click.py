@@ -10,6 +10,7 @@ def is_clicked(sudoku_buttons, code1, little_cubes, code2, indexes):
                 if c2 > 2:
                     c2 = 0
                 sudoku_buttons[item[c1]].icon = str(little_cubes[code2[0]][c2].icon)[-1]
+                sudoku_buttons[item[c1]].little_cube = little_cubes[code2[0]][c2]
                 c1 += 1
                 c2 += 1
     for i in range(3):
@@ -25,11 +26,4 @@ def cancel(sudoku_buttons, code1, little_cubes, indexes):
     for num in corner:
         sudoku_buttons[num].icon = '0'
     for little_cube in little_cubes:
-        icons = []
-        for i in range(3):
-            icons.append(int(str(little_cube[i].icon)[-1]))
-        if corner == icons:
-            print("lefbede3")
-            for i in range(3):
-                little_cube[i].disabled = False
-                little_cube[i].show()
+        (sudoku_buttons[ode1[0] * 9 + code1[1] * 3 + code1[2]].little_cube).disabled = False
