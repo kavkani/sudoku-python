@@ -2,7 +2,6 @@ from ursina import *
 import click
 import generator
 import classes
-import time
 
 app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
@@ -58,13 +57,18 @@ def game():
 
 def update():
     if mouse.right:
-        sudoku_parent.rotation_x += mouse.velocity[0] * 630
-        sudoku_parent.rotation_y += mouse.velocity[1] * 630
+        sudoku_parent.rotation_x = mouse.velocity[1] * 630
+        sudoku_parent.rotation_y += mouse.velocity[0] * 630
     if classes.clicked[0] is not None and classes.clicked[1] is not None:
         click.is_clicked(classes.sudoku_buttons, classes.clicked[0], classes.little_cubes, classes.clicked[1], indexes)
         classes.clicked = [None, None]
     if classes.delete != -1:
-        click.cancel(classes.sudoku_buttons, classes.delete, classes.little_cubes, indexes)
+        c = click.cancel(classes.sudoku_buttons, classes.delete, classes.little_cubes, indexes)
+        classes.delete = -1
+        classes.clicked = [None, None]
+        for i in range(3):
+            (classes.sudoku_buttons[c[i]]).little_cube = None
+        print(1)
 
 
 home()

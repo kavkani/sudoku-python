@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment=":|">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sudoku-python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sudoku-python.iml" afterDir="false" />
+    <list default="true" id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment="3D with little cubes disappear and coming back">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Home - Copy.py" beforeDir="false" afterPath="$PROJECT_DIR$/Home - Copy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/click.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +232,10 @@
       <workItem from="1646800991306" duration="3458000" />
       <workItem from="1646839025443" duration="5080000" />
       <workItem from="1646931961418" duration="5611000" />
-      <workItem from="1646982149806" duration="18281000" />
+      <workItem from="1646982149806" duration="20401000" />
+      <workItem from="1647070859552" duration="6071000" />
+      <workItem from="1647082064698" duration="1562000" />
+      <workItem from="1647090151121" duration="3684000" />
     </task>
     <task id="LOCAL-00001" summary="3D position and rotation updated">
       <created>1646497184373</created>
@@ -307,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646934000842</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="3D with little cubes disappear and coming back">
+      <created>1647029395532</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1647029395532</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,7 +354,8 @@
     <MESSAGE value="3D with little cubes" />
     <MESSAGE value="3D with little cubes compliting (bugs)" />
     <MESSAGE value=":|" />
-    <option name="LAST_COMMIT_MESSAGE" value=":|" />
+    <MESSAGE value="3D with little cubes disappear and coming back" />
+    <option name="LAST_COMMIT_MESSAGE" value="3D with little cubes disappear and coming back" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sudoku_python$generator.coverage" NAME="generator Coverage Results" MODIFIED="1646746363886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -361,7 +369,7 @@
     <SUITE FILE_PATH="coverage/Generator_py$Login.coverage" NAME="Login Coverage Results" MODIFIED="1646934610639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Pajouheshi" />
     <SUITE FILE_PATH="coverage/main_py$generator.coverage" NAME="generator Coverage Results" MODIFIED="1646661681347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main Coverage Results" MODIFIED="1646663584553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Generator_py$main.coverage" NAME="main Coverage Results" MODIFIED="1647028850370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Generator_py$main.coverage" NAME="main Coverage Results" MODIFIED="1647096886895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/game_3d_py$main.coverage" NAME="main Coverage Results" MODIFIED="1646545070197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sudoku_python$main.coverage" NAME="main Coverage Results" MODIFIED="1646743841516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Generator_py$classes.coverage" NAME="classes Coverage Results" MODIFIED="1646763954198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
