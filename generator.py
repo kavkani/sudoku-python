@@ -72,71 +72,88 @@ def generate_and_remove(delete_count):
     a5 = []
     a6 = []
     a7 = []
+    answers = []
     if 0 in delete:
         a0.append(pmd1[0][8])
         a0.append(pmd1[1][6])
         a0.append(pmd1[2][0])
+        answers.append(a0)
     if 1 in delete:
         a1.append(pmd1[4][8])
         a1.append(pmd1[0][6])
         a1.append(pmd1[2][6])
+        answers.append(a1)
     if 2 in delete:
         a2.append(pmd1[0][0])
         a2.append(pmd1[4][2])
         a2.append(pmd1[5][6])
+        answers.append(a2)
     if 3 in delete:
         a3.append(pmd1[0][2])
         a3.append(pmd1[5][0])
         a3.append(pmd1[1][0])
+        answers.append(a3)
     if 4 in delete:
         a4.append(pmd1[3][8])
         a4.append(pmd1[4][6])
         a4.append(pmd1[2][8])
+        answers.append(a4)
     if 5 in delete:
         a5.append(pmd1[5][2])
         a5.append(pmd1[3][0])
         a5.append(pmd1[1][2])
+        answers.append(a5)
     if 6 in delete:
         a6.append(pmd1[1][8])
         a6.append(pmd1[3][6])
         a6.append(pmd1[2][2])
+        answers.append(a6)
     if 7 in delete:
         a7.append(pmd1[4][0])
         a7.append(pmd1[3][2])
         a7.append(pmd1[5][8])
+        answers.append(a7)
+    pmd63 = []
     if 0 in delete:
         p0.append(8)
         p0.append(15)
         p0.append(18)
+        pmd63.append(p0)
     if 1 in delete:
         p1.append(44)
         p1.append(6)
         p1.append(24)
+        pmd63.append(p1)
     if 2 in delete:
         p2.append(0)
         p2.append(38)
         p2.append(51)
+        pmd63.append(p2)
     if 3 in delete:
         p3.append(2)
         p3.append(45)
         p3.append(9)
+        pmd63.append(p3)
     if 4 in delete:
         p4.append(35)
         p4.append(42)
         p4.append(26)
+        pmd63.append(p4)
     if 5 in delete:
         p5.append(47)
         p5.append(27)
         p5.append(11)
+        pmd63.append(p5)
     if 6 in delete:
         p6.append(17)
         p6.append(33)
         p6.append(20)
+        pmd63.append(p6)
     if 7 in delete:
         p7.append(36)
         p7.append(29)
         p7.append(53)
-    answers = [a0, a1, a2, a3, a4, a5, a6, a7]
+        pmd63.append(p7)
     randomized_answers = []
     for i in range(len(answers)):
         random_num = random.randint(0, len(answers)-1)
@@ -151,7 +168,6 @@ def generate_and_remove(delete_count):
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
-    pmd63 = [p0, p1, p2, p3, p4, p5, p6, p7]
     return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 
