@@ -13,6 +13,11 @@ window.fps_counter.enabled = False
 window.exit_button.enabled = False
 
 
+def about():
+    rect = Entity(model="quad", scale=(3, 1))
+    photo = Button()
+
+
 def solver(solved):
     for i in range(6):
         for j in range(9):
@@ -47,6 +52,12 @@ def output(solved):
 
 
 def home(scene_code=0):
+    """if login_code == 1:
+        t = Text(text="Please login first.", scale=2, position=(-0.2, 0))
+        import login
+        while quit_code == 0:
+            pass
+        destroy(t)"""
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
@@ -58,10 +69,14 @@ def home(scene_code=0):
     home_buttons.append(account)
     account.tooltip = Tooltip("Account")
     new_game = Button(icon="s4", text_origin=(0, -0.45), scale=(0.45, 0.55),
-                      color=rgb(54, 158, 255))
-    t = Text(text="Start a 3D Sudoku", parent=new_game, position=(-0.3, -0.4), scale=3)
+                      color=rgb(54, 158, 255), position=(0, -0.1))
+    t = Text(text="Start a 3D Sudoku", parent=new_game, position=(-0.3, -0.35), scale=3)
+    about_us = Button(text="About us", position=(0, 0.25), color=rgb(255, 151, 54))
+    about_us.fit_to_text()
+    # about_us.on_click = Func(about)
     home_buttons.append(new_game)
     home_buttons.append(t)
+    home_buttons.append(about_us)
     new_game.on_click = Func(game)
 
 
