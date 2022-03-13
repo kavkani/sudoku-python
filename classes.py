@@ -8,11 +8,11 @@ punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 clicked = [None, None]
 
 
-def output_nums(generated):
+def output_nums(solved):
     output_list = []
     for item in sudoku_buttons[0:54]:
-        output_list.append(int(str(item.icon)[-1]))
-    result = generator.check(output_list, generated)
+        output_list.append(int(str(item.icon_entity.texture)[0]))
+    result = generator.check(output_list, solved)
     return result
 
 
@@ -38,7 +38,6 @@ class Voxel(Button):
         if self.hovered:
             if key == 'left mouse down':
                 if str(self.icon)[-1] == '0':
-                    print("lefbede")
                     clicked[0] = self.list_code
             if key == 'backspace':
                 if self.generated[self.list_code[0]][self.list_code[1]][self.list_code[2]] == 0:

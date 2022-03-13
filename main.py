@@ -13,28 +13,55 @@ window.fps_counter.enabled = False
 window.exit_button.enabled = False
 
 
-def output(generated):
-    if not classes.output_nums(generated):
-        t = Text(text="You didn't solve the 3D Sudoku correctly")
-        time.sleep(2)
-        destroy(t)
+def solver(solved):
+    for i in range(6):
+        for j in range(9):
+            classes.sudoku_buttons[i * 9 + j].icon = str(solved[i][j])
+            classes.sudoku_buttons[i * 9 + j].disabled = True
+    for item in classes.sudoku_buttons[54: 80]:
+        classes.sudoku_buttons.pop(classes.sudoku_buttons.index(item))
+        destroy(item)
+
+
+def after_check(t=None, ok_b=None):
+    if t is None:
+        for button in classes.sudoku_buttons[:-1]:
+            destroy(button)
+            classes.sudoku_buttons = []
+        t = Text(text="Congratulations!", color=color.red, size=2, position=(-0.3, -0.4))
+        home_buttons.append(t)
     else:
-        home(1)
+        destroy(t)
+        destroy(ok_b)
+
+
+def output(solved):
+    if not classes.output_nums(solved):
+        print("You didn't solve the 3D Sudoku correctly")
+        t = Text(text="You didn't solve the 3D Sudoku correctly", color=color.red, scale=1.25, position=(-0.5, -0.4))
+        ok_button = Button(text="OK", color=color.red, position=(0.15, -0.42))
+        ok_button.fit_to_text()
+        ok_button.on_click = Func(after_check, t, ok_button)
+    else:
+        after_check()
 
 
 def home(scene_code=0):
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
-    tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0.35), color=rgb(83, 221, 108))
+            classes.sudoku_buttons = []
+    tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0.35), color=rgb(255, 151, 54))
     home_buttons.append(tutorial)
     tutorial.tooltip = Tooltip("Tutorial")
-    account = Button(icon="account", scale=0.13, position=(0.7, 0.35), color=rgb(83, 221, 108))
+    account = Button(icon="account", scale=0.13, position=(0.7, 0.35), color=rgb(255, 151, 54))
     home_buttons.append(account)
     account.tooltip = Tooltip("Account")
-    new_game = Button(icon="s4", text="Start a New 3D Sudoku", text_origin=(0, -0.45), scale=(0.49, 0.6),
-                      color=rgb(64, 71, 109))
+    new_game = Button(icon="s4", text_origin=(0, -0.45), scale=(0.45, 0.55),
+                      color=rgb(54, 158, 255))
+    t = Text(text="Start a 3D Sudoku", parent=new_game, position=(-0.3, -0.4), scale=3)
     home_buttons.append(new_game)
+    home_buttons.append(t)
     new_game.on_click = Func(game)
 
 
@@ -43,13 +70,17 @@ def game():
         destroy(button)
     sudoku_parent.rotation = (45, 0, -45)
     global indexes
-    numbers, indexes, generated_sudoku = generator.generate_and_remove()
-    check_button = Button(text="Check", color=color.red, position=(0.7, -0.4))
+    numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove()
+    check_button = Button(text="Check", color=rgb(54, 158, 255), position=(-0.6, -0.45))
     check_button.fit_to_text()
-    check_button.on_click = Func(output, generated_sudoku)
     classes.Cube(sudoku_parent, numbers, generated_sudoku)
+    check_button.on_click = Func(output, correct_answers)
     classes.sudoku_buttons.append(check_button)
-    back_to_home_button = Button(color=color.red, text="Back to Home", position=(-0.7, 0.4))
+    solve = Button(text="Solve", color=rgb(54, 158, 255), position=(-0.75, -0.45))
+    solve.fit_to_text()
+    solve.on_click = Func(solver, correct_answers)
+    classes.sudoku_buttons.append(solve)
+    back_to_home_button = Button(color=rgb(255, 151, 54), text="Back to Home", position=(-0.7, 0.4))
     back_to_home_button.fit_to_text()
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
@@ -68,7 +99,6 @@ def update():
         classes.clicked = [None, None]
         for i in range(3):
             (classes.sudoku_buttons[c[i]]).little_cube = None
-        print(1)
 
 
 home()

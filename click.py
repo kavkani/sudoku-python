@@ -29,9 +29,7 @@ def cancel(sudoku_buttons, code1, little_cubes, indexes):
         sudoku_buttons[i].icon = '0'
     for cube in little_cubes:
         if sudoku_buttons[corner[0]].little_cube in cube:
-            print("lefbede")
             for i in range(3):
                 cube[i].disabled = False
                 cube[i].show()
-    print(2)
     return corner

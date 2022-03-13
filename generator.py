@@ -123,20 +123,18 @@ def generate_and_remove():
             side.append(row)
         list_3d_sudoku.append(side)
     pmd63 = [p0, p1, p2, p3, p4, p5, p6, p7]
-    return randomized_answers, pmd63, list_3d_sudoku
+    return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 
 def check(sudoku_list, answers):
     if 0 in sudoku_list:
+        print(0)
         return False
     list_3d_sudoku = []
     for p in range(6):
         side = []
-        for m in range(3):
-            row = []
-            for d in range(3):
-                row.append(sudoku_list[p * 9 + m * 3 + d])
-            side.append(row)
+        for m in range(9):
+            side.append(sudoku_list[p * 6 + m])
         list_3d_sudoku.append(side)
     if list_3d_sudoku != answers:
         return False
