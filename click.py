@@ -33,3 +33,4 @@ def cancel(sudoku_buttons, code1, little_cubes, indexes):
                 cube[i].disabled = False
                 cube[i].show()
     return corner
+

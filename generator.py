@@ -139,3 +139,4 @@ def check(sudoku_list, answers):
     if list_3d_sudoku != answers:
         return False
     return True
+

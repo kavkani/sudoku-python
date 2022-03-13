@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment="3D with check and solve">
-      <change afterPath="$PROJECT_DIR$/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8042651e-a466-42f4-a1e3-a1a5bad214d3" name="Changes" comment="3D with about us first step">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -237,7 +235,7 @@
       <workItem from="1647090151121" duration="7347000" />
       <workItem from="1647111102239" duration="5360000" />
       <workItem from="1647120488742" duration="316000" />
-      <workItem from="1647155859538" duration="10465000" />
+      <workItem from="1647155859538" duration="10856000" />
     </task>
     <task id="LOCAL-00001" summary="3D position and rotation updated">
       <created>1646497184373</created>
@@ -330,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647156272606</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="3D with about us first step">
+      <created>1647188837999</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1647188837999</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +378,8 @@
     <MESSAGE value="3D with little cubes disappear and coming back" />
     <MESSAGE value="3D with little cubes bugs fixed" />
     <MESSAGE value="3D with check and solve" />
-    <option name="LAST_COMMIT_MESSAGE" value="3D with check and solve" />
+    <MESSAGE value="3D with about us first step" />
+    <option name="LAST_COMMIT_MESSAGE" value="3D with about us first step" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

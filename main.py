@@ -15,7 +15,7 @@ window.exit_button.enabled = False
 
 def about():
     rect = Entity(model="quad", scale=(3, 1))
-    photo = Button()
+    # photo = Button(icon=)
 
 
 def solver(solved):

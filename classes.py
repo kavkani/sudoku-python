@@ -108,3 +108,4 @@ class Cube:
                             icon=str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2]))
                 sudoku_buttons.append(b3)
                 little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b3)
+
