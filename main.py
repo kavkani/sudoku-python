@@ -13,9 +13,57 @@ window.fps_counter.enabled = False
 window.exit_button.enabled = False
 
 
+def difficulty(num):
+    print(num)
+    game(num)
+
+
+def difficulty_show(d_l):
+    for item in d_l:
+        item.disabled = False
+        item.show()
+
+
+def to_home(a_l):
+    for item in a_l:
+        destroy(item)
+    home()
+
+
 def about():
-    rect = Entity(model="quad", scale=(3, 1))
-    # photo = Button(icon=)
+    global home_buttons
+    for button in home_buttons[:-1]:
+        destroy(button)
+    home_buttons = []
+    about_list = []
+    photo1 = Button(icon="amirmohammad", scale=0.25, position=(-0.3, 0.3))
+    about_list.append(photo1)
+    t1 = Text(text="Amirmohammad Kavkani", scale=3, position=(-0.15, 0.4), color=rgb(255, 164, 80),
+              font='TheGodfather-v2.ttf')
+    about_list.append(t1)
+    d1 = Text(text="AI Department", scale=1.75, position=(-0.15, 0.3), color=rgb(255, 151, 54),
+              font='SelfDestructButtonBB_reg.ttf')
+    about_list.append(d1)
+    photo2 = Button(icon="arash", scale=0.25, position=(-0.3, 0))
+    about_list.append(photo2)
+    t2 = Text(text="Arash Ostadsharif", scale=3, position=(-0.15, 0.1), color=rgb(255, 164, 80),
+              font='TheGodfather-v2.ttf')
+    about_list.append(t2)
+    d2 = Text(text="Database Department", scale=1.75, position=(-0.15, 0), color=rgb(255, 151, 54),
+              font='SelfDestructButtonBB_reg.ttf')
+    about_list.append(d2)
+    photo3 = Button(icon="bardia", scale=0.25, position=(-0.3, -0.3))
+    about_list.append(photo3)
+    t3 = Text(text="Bardia Sohrabi", scale=3, position=(-0.15, -0.2), color=rgb(255, 164, 80),
+              font='TheGodfather-v2.ttf')
+    about_list.append(t3)
+    d3 = Text(text="Graphics Department", scale=1.75, position=(-0.15, -0.3), color=rgb(255, 151, 54),
+              font='SelfDestructButtonBB_reg.ttf')
+    about_list.append(d3)
+    back = Button(color=rgb(255, 151, 54), text="Back", position=(-0.7, 0.4))
+    back.fit_to_text()
+    about_list.append(back)
+    back.on_click = Func(to_home, about_list)
 
 
 def solver(solved):
@@ -42,7 +90,6 @@ def after_check(t=None, ok_b=None):
 
 def output(solved):
     if not classes.output_nums(solved):
-        print("You didn't solve the 3D Sudoku correctly")
         t = Text(text="You didn't solve the 3D Sudoku correctly", color=color.red, scale=1.25, position=(-0.5, -0.4))
         ok_button = Button(text="OK", color=color.red, position=(0.15, -0.42))
         ok_button.fit_to_text()
@@ -52,12 +99,7 @@ def output(solved):
 
 
 def home(scene_code=0):
-    """if login_code == 1:
-        t = Text(text="Please login first.", scale=2, position=(-0.2, 0))
-        import login
-        while quit_code == 0:
-            pass
-        destroy(t)"""
+    global home_buttons
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
@@ -68,24 +110,42 @@ def home(scene_code=0):
     account = Button(icon="account", scale=0.13, position=(0.7, 0.35), color=rgb(255, 151, 54))
     home_buttons.append(account)
     account.tooltip = Tooltip("Account")
-    new_game = Button(icon="s4", text_origin=(0, -0.45), scale=(0.45, 0.55),
-                      color=rgb(54, 158, 255), position=(0, -0.1))
-    t = Text(text="Start a 3D Sudoku", parent=new_game, position=(-0.3, -0.35), scale=3)
-    about_us = Button(text="About us", position=(0, 0.25), color=rgb(255, 151, 54))
+    new_game = Button(icon="s4", scale=(0.45, 0.55), color=rgb(54, 158, 255), position=(0, -0.05))
+    t = Text(text="New Game", parent=new_game, position=(-0.2, -0.35), scale=5, font='Soulgood.ttf')
+    about_us = Button(text="About us", position=(0, 0.3), color=rgb(255, 151, 54))
     about_us.fit_to_text()
-    # about_us.on_click = Func(about)
+    about_us.on_click = Func(about)
     home_buttons.append(new_game)
     home_buttons.append(t)
     home_buttons.append(about_us)
-    new_game.on_click = Func(game)
+    sudoku = Text(text="3D Sudoku", position=(-0.23, 0.45), scale=5, color=rgb(54, 158, 255), font='Soulgood.ttf')
+    home_buttons.append(sudoku)
+    home_buttons.append(['0'])
+    del home_buttons[-1][0]
+    easy = Button(text="Easy", position=(-0.107, -0.35), color=rgb(255, 151, 54), disabled=True)
+    easy.fit_to_text()
+    easy.hide()
+    easy.on_click = Func(difficulty, 4)
+    home_buttons[-1].append(easy)
+    medium = Button(text="Medium", position=(0, -0.35), color=rgb(255, 151, 54), disabled=True)
+    medium.hide()
+    medium.fit_to_text()
+    medium.on_click = Func(difficulty, 6)
+    home_buttons[-1].append(medium)
+    hard = Button(text="Hard", position=(0.11, -0.35), color=rgb(255, 151, 54), disabled=True)
+    hard.hide()
+    hard.fit_to_text()
+    hard.on_click = Func(difficulty, 8)
+    home_buttons[-1].append(hard)
+    new_game.on_click = Func(difficulty_show, home_buttons[-1])
 
 
-def game():
-    for button in home_buttons:
+def game(d):
+    for button in home_buttons[:-1]:
         destroy(button)
     sudoku_parent.rotation = (45, 0, -45)
     global indexes
-    numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove()
+    numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove(d)
     check_button = Button(text="Check", color=rgb(54, 158, 255), position=(-0.6, -0.45))
     check_button.fit_to_text()
     classes.Cube(sudoku_parent, numbers, generated_sudoku)
@@ -103,7 +163,7 @@ def game():
 
 def update():
     if mouse.right:
-        sudoku_parent.rotation_x = mouse.velocity[1] * 630
+        sudoku_parent.rotation_x += mouse.velocity[1] * 630
         sudoku_parent.rotation_y += mouse.velocity[0] * 630
     if classes.clicked[0] is not None and classes.clicked[1] is not None:
         click.is_clicked(classes.sudoku_buttons, classes.clicked[0], classes.little_cubes, classes.clicked[1], indexes)

@@ -156,7 +156,7 @@ def generate_and_remove(delete_count):
         pmd63.append(p7)
     randomized_answers = []
     for i in range(len(answers)):
-        random_num = random.randint(0, len(answers)-1)
+        random_num = random.randint(0, len(answers) - 1)
         randomized_answers.append(answers[random_num])
         answers.pop(random_num)
     list_3d_sudoku = []
@@ -171,17 +171,19 @@ def generate_and_remove(delete_count):
     return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 
-def check(sudoku_list, answers):
-    if 0 in sudoku_list:
-        print(0)
-        return False
-    list_3d_sudoku = []
-    for p in range(6):
-        side = []
-        for m in range(9):
-            side.append(sudoku_list[p * 6 + m])
-        list_3d_sudoku.append(side)
-    if list_3d_sudoku != answers:
-        return False
-    return True
+def check(sudoku_list):
 
+    list_2d_sudoku = []
+    for p in range(6):
+        nums = []
+        for m in range(9):
+            nums.append(int(str((sudoku_list[p * 9 + m]).icon_entity.texture)[0]))
+        if 0 in nums:
+            print(0)
+            return False
+        if len(set(nums)) != 9:
+            print(nums)
+            return False
+
+
+    return True
