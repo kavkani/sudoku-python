@@ -80,7 +80,8 @@ def after_check(t=None, ok_b=None):
     if t is None:
         for button in classes.sudoku_buttons[:-1]:
             destroy(button)
-            classes.sudoku_buttons = []
+        classes.sudoku_buttons = []
+        classes.little_cubes = [[], [], [], [], [], [], [], []]
         t = Text(text="Congratulations!", color=color.red, size=2, position=(-0.3, -0.4))
         home_buttons.append(t)
     else:
@@ -104,7 +105,8 @@ def home(scene_code=0):
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
-            classes.sudoku_buttons = []
+        classes.sudoku_buttons = []
+        classes.little_cubes = [[], [], [], [], [], [], [], []]
     tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0.35), color=rgb(255, 151, 54))
     home_buttons.append(tutorial)
     tutorial.tooltip = Tooltip("Tutorial")

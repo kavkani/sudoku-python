@@ -18,9 +18,6 @@ def is_clicked(sudoku_buttons, code1, little_cubes, code2, indexes):
                 c2 += 1
     for i in range(3):
         little_cubes[code2[0]][i].disabled = True
-        print(little_cubes)
-        print()
-        print(code2[0])
         little_cubes[code2[0]][i].hide()
 
 
