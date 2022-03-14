@@ -7,14 +7,12 @@ app = Ursina(borderless=False)
 window.title = "Sudoku 3D"
 punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 sudoku_parent = Entity(model=None, position=(-1.8, 0, 0))
-home_buttons = []
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
 window.exit_button.enabled = False
 
 
 def difficulty(num):
-    print(num)
     game(num)
 
 
@@ -33,6 +31,8 @@ def to_home(a_l):
 def about():
     global home_buttons
     for button in home_buttons[:-1]:
+        destroy(button)
+    for button in home_buttons[-1]:
         destroy(button)
     home_buttons = []
     about_list = []
@@ -100,6 +100,7 @@ def output(solved):
 
 def home(scene_code=0):
     global home_buttons
+    home_buttons = []
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
@@ -141,8 +142,12 @@ def home(scene_code=0):
 
 
 def game(d):
+    global home_buttons
     for button in home_buttons[:-1]:
         destroy(button)
+    for button in home_buttons[-1]:
+        destroy(button)
+    home_buttons = []
     sudoku_parent.rotation = (45, 0, -45)
     global indexes
     numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove(d)

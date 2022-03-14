@@ -34,7 +34,6 @@ class Voxel(Button):
         if self.hovered:
             if key == 'left mouse down':
                 if str(self.icon)[-1] == '0':
-                    print(int(str(self.icon_entity.texture)[0]))
                     clicked[0] = self.list_code
             if key == 'backspace':
                 if self.generated[self.list_code[0]][self.list_code[1]][self.list_code[2]] == 0:
@@ -92,8 +91,6 @@ class Cube:
         for idx in range(len(little_g)):
             i = (idx // 4) * 2 + 3
             j = (4 - (idx % 4)) * 2 - 5
-            print(i, j)
-            print(str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))]))
             sudoku_out_parent = Entity(model=None, position=(i - 0.3, j, 0), rotation=Vec3(-40, -35, 0))
             b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
