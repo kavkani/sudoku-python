@@ -66,14 +66,16 @@ def about():
     back.on_click = Func(to_home, about_list)
 
 
-def solver(solved):
+def solver(solved,little_cubes_count):
     for i in range(6):
         for j in range(9):
             classes.sudoku_buttons[i * 9 + j].icon = str(solved[i][j])
             classes.sudoku_buttons[i * 9 + j].disabled = True
-    for item in classes.sudoku_buttons[54: 80]:
-        classes.sudoku_buttons.pop(classes.sudoku_buttons.index(item))
-        destroy(item)
+    back_to_home_button = classes.sudoku_buttons[54+little_cubes_count*3+2]
+    for item in classes.sudoku_buttons[54: 54+little_cubes_count*3+5]:
+        if item != back_to_home_button:
+            classes.sudoku_buttons.pop(classes.sudoku_buttons.index(item))
+            destroy(item)
 
 
 def after_check(t=None, ok_b=None):
@@ -95,6 +97,8 @@ def output(solved):
         ok_button = Button(text="OK", color=color.red, position=(0.15, -0.42))
         ok_button.fit_to_text()
         ok_button.on_click = Func(after_check, t, ok_button)
+        classes.sudoku_buttons.append(t)
+        classes.sudoku_buttons.append(ok_button)
     else:
         after_check()
 
@@ -160,7 +164,7 @@ def game(d):
     classes.sudoku_buttons.append(check_button)
     solve = Button(text="Solve", color=rgb(54, 158, 255), position=(-0.75, -0.45))
     solve.fit_to_text()
-    solve.on_click = Func(solver, correct_answers)
+    solve.on_click = Func(solver, correct_answers,d)
     classes.sudoku_buttons.append(solve)
     back_to_home_button = Button(color=rgb(255, 151, 54), text="Back to Home", position=(-0.7, 0.4))
     back_to_home_button.fit_to_text()
