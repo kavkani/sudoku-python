@@ -26,7 +26,7 @@ def count_ID(table):
     con.close()
     #returning
     return data[0]+1
-def login(values):
+def signup(values):
     #connecting to server
     con = mysql.connector.connect(
   host="sql6.freesqldatabase.com",
@@ -56,7 +56,7 @@ def login(values):
     cursor.execute(command)   
     #making a data for user
     #making the command
-    command = "insert into UserXP VALUES("+ID+', 0 , 0)'
+    command = "insert into UserXP VALUES("+ID+', 0 , 1)'
     #runing the command
     cursor.execute(command)
     #saving changes
@@ -76,9 +76,7 @@ def insert(values, table):
     cursor = con.cursor()
     # making the command
     ID = str(count_ID('Users'))
-    command = "insert into "+'Users'+" VALUES("+ID+','
-    for i in range(len(values)-1):
-        command = "insert into " + table + " VALUES(" + ID + ','
+    command = "insert into " + table + " VALUES("
     for i in range(len(values) - 1):
         if type(values[i]) == str:
             command += "'"
@@ -88,25 +86,21 @@ def insert(values, table):
         command += " , "
     if type(values[-1]) == str:
         command += "'"
-    command += values[-1]
+    command += str(values[-1])
     if type(values[-1]) == str:
         command += "'"
     command += ")"
     #runing the command
+    print(command)
     cursor.execute(command)   
-    #making a data for user
-    #making the command
-    command = "insert into UserXP VALUES("+ID+', 0 , 0)'
-    #runing the command
-    # runing the command
-    cursor.execute(command)
     # saving changes
     con.commit()
     # closing conection
     con.close()
 
 
-def select(ID, table, info = '*'):
+def select(ID, table, info = '*',condition = 'ID'):
+    ID = str(ID)
     # connecting to server
     con = mysql.connector.connect(
   host="sql6.freesqldatabase.com",
@@ -117,7 +111,7 @@ def select(ID, table, info = '*'):
     # making command executer
     cursor = con.cursor()
     # making the command
-    command = "SELECT " + info + " FROM " + table + " WHERE ID = " + ID
+    command = "SELECT " + info + " FROM " + table + " WHERE "+condition+" = " + ID
     # runing the command
     cursor.execute(command)
     # making the data readable
@@ -156,3 +150,34 @@ def delete(ID):
     con.commit()
     #closing conection
     con.close()
+def update(id,xp):
+    #connecting to server
+    con = mysql.connector.connect(
+  host="sql6.freesqldatabase.com",
+  user="sql6478428",
+  password="**********",
+  database = "sql6478428"
+    )
+    id = str(id)
+    xp = str(xp)
+    #connecting to server
+    user_level = (select(id, 'UserXP', 'UserLevel'))[0][0]
+    if user_level == 0:
+        user_level = 1
+    needed_xp = (select(user_level, 'Levels', 'NeededXP','Level'))[0][0]
+    user_xp = (select(id, 'UserXP', 'XP'))[0][0]
+    new_xp = int(user_xp)+int(xp)
+    if new_xp >= needed_xp:
+        user_level += 1
+        new_xp %= needed_xp
+    # making command executer
+    cursor = con.cursor()
+    # making the command
+    command = "update UserXP SET UserLevel = "+str(user_level)+" , XP = "+str(new_xp)+" where ID = "+str(id)
+    # runing the command
+    cursor.execute(command)
+    #saving changes
+    con.commit()
+    #closing conection
+    con.close()
+    
