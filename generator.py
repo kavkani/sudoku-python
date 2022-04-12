@@ -172,18 +172,12 @@ def generate_and_remove(delete_count):
 
 
 def check(sudoku_list):
-
-    list_2d_sudoku = []
     for p in range(6):
         nums = []
         for m in range(9):
             nums.append(int(str((sudoku_list[p * 9 + m]).icon_entity.texture)[0]))
         if 0 in nums:
-            print(0)
             return False
         if len(set(nums)) != 9:
-            print(nums)
             return False
-
-
     return True

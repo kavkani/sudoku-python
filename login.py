@@ -4,14 +4,14 @@ import database
 
 
 def username_check(username):
-    id = database.select('Username', username, 'Users', info='ID')
+    id = database.select(username, 'Users', info='ID', condition='username')
     if id is None:
         return "Username not found."
     return str(id[0][0])
 
 
 def password_check(id, password):
-    true_password = database.select('ID', id, 'Users', info='Password')[0][0]
+    true_password = database.select(id, 'Users', info='Password', condition='ID')[0][0]
     if true_password == password:
         return True
     return "Wrong password."
@@ -127,11 +127,14 @@ while while_flag2 == 0:
                     else:
                         quit_code = 1
                         pygame.display.quit()
+                        break
                 elif len(user_text) > 20:
                     len_flag = 1
                     len_flag2 = 1
                 else:
                     user_text += event.unicode
+    if quit_code == 1:
+        break
     if active:
         color = color_active
     else:
