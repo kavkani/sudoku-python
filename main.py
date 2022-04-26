@@ -5,38 +5,36 @@ import classes
 import time
 import threading
 
-
 app = Ursina()
 window.title = "Sudoku 3D"
 sudoku_parent = Entity(model=None, position=(-1.6, 0, 0))
 window.fullscreen = True
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
-"""def login_run():
-    import login"""
 stop_thread = False
 time_show = None
 
 
 def countdown(t):
-    global time_show, stop_thread
+    global time_show, stop_thread, timer_on
     stop_thread = False
-    print(t)
+    timer_on = True
     time_show = Text(text="00:00")
     while t:
         mins = t // 60
         secs = t % 60
         timer = '{:02d}:{:02d}'.format(mins, secs)
-        print(timer)
         destroy(time_show)
-        time_show = Text(text=timer)
-        print(stop_thread)
+        time_show = Text(text=timer, color=rgb(54, 158, 255), position=(-0.1, 0.4), scale=2)
         if stop_thread:
-            print("stop")
+            timer_on = False
+            destroy(time_show)
             return True
         time.sleep(1)
         t -= 1
-    print('Blast Off!!!')
+    destroy(time_show)
+    timer_on = False
+    after_check("timer")
 
 
 def manage_timer(t):
@@ -66,16 +64,23 @@ def give_tip():
 
 
 def difficulty(num, d_l):
-    """for i in range(3):
+    for i in range(3):
         d_l[i].disabled = True
         d_l[i].hide()
     d_l[3].disabled = False
-    d_l[3].show()"""
-    print(1)
-    game(num)
+    d_l[3].show()
+    t_yes = Button(parent=d_l[3], color=rgb(255, 151, 54), position=(0.29, -0.01), text="Yes")
+    t_yes.text_entity.font = 'fonts/Soulgood.ttf'
+    t_yes.fit_to_text()
+    t_yes.on_click = Func(game, num, True)
+    t_no = Button(parent=d_l[3], color=rgb(255, 151, 54), position=(0.35, -0.01), text="No")
+    t_no.text_entity.font = 'fonts/Soulgood.ttf'
+    t_no.fit_to_text()
+    t_no.on_click = Func(game, num, False)
 
 
-def difficulty_show(d_l):
+def difficulty_show(d_l, main_button):
+    main_button.disabled = True
     for i in range(3):
         d_l[i].disabled = False
         d_l[i].show()
@@ -127,11 +132,15 @@ def about():
 
 
 def solver(solved, little_cubes_count):
+    global stop_thread, timer_on
     for i in range(6):
         for j in range(9):
             classes.sudoku_buttons[i * 9 + j].icon = f'images/{str(solved[i][j])}'
             classes.sudoku_buttons[i * 9 + j].disabled = True
-    back_to_home_button = classes.sudoku_buttons[54 + little_cubes_count * 3 + 2]
+    back_to_home_button = classes.sudoku_buttons[54 + little_cubes_count * 3 + 3]
+    if timer_on:
+        stop_thread = True
+        timer_on = False
     for item in classes.sudoku_buttons[54: 54 + little_cubes_count * 3 + 8]:
         if item != back_to_home_button:
             classes.sudoku_buttons.pop(classes.sudoku_buttons.index(item))
@@ -139,14 +148,22 @@ def solver(solved, little_cubes_count):
 
 
 def after_check(d, t=None, ok_b=None):
-    global time_show
+    global time_show, stop_thread, timer_on
+    if d == "timer":
+        for button in classes.sudoku_buttons[:-1]:
+            destroy(button)
+        c = Button(icon='images/clock', color=rgb(64, 64, 64), disabled=True, scale=0.6)
+        t = Text(text='Time is up!', color=rgb(255, 151, 54), scale=3, position=(-0.15, -0.3),
+                 font='fonts/Soulgood.ttf')
+        classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
     if t is None:
         for button in classes.sudoku_buttons[:-1]:
             destroy(button)
-        text = f"Congratulations! +{d ** 2} XP"
-        c = Button(icon='images/cup', color=rgb(64, 64, 64), disabled=True, scale=0.6)
-        t = Text(text=text, color=rgb(255, 151, 54), scale=2, position=(-0.2, -0.3), font='fonts/Soulgood.ttf')
-        classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
+        xp_timer = 0
+        if timer_on:
+            stop_thread = True
+            timer_on = False
+            xp_timer = 30
         try:
             file = open("data/points.pmd", 'r+')
             xp = eval(file.read())
@@ -155,8 +172,12 @@ def after_check(d, t=None, ok_b=None):
         except:
             xp = d ** 2
         file = open('data/points.pmd', 'w')
-        file.write(str(xp))
+        file.write(str(xp + xp_timer))
         file.close()
+        t = Text(text=f"Congratulations! +{xp + xp_timer} XP", color=rgb(255, 151, 54), scale=2, position=(-0.2, -0.3),
+                 font='fonts/Soulgood.ttf')
+        c = Button(icon='images/cup', color=rgb(64, 64, 64), disabled=True, scale=0.6)
+        classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
     else:
         destroy(t)
         destroy(ok_b)
@@ -233,38 +254,35 @@ def home(scene_code=0, t=None, c=None):
     home_buttons.append(['0'])
     del home_buttons[-1][0]
     easy = Button(text="Easy", position=(-0.077, -0.33), color=rgb(255, 151, 54), disabled=True)
-    e_t = Text(text="+8 xp", parent=easy, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7),
-               font='fonts/Soulgood.ttf')
+    Text(text="+8 xp", parent=easy, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7), font='fonts/Soulgood.ttf')
     easy.text_entity.font = 'fonts/Soulgood.ttf'
     easy.fit_to_text()
     easy.hide()
     easy.on_click = Func(difficulty, 4, home_buttons[-1])
     home_buttons[-1].append(easy)
     medium = Button(text="Medium", position=(0, -0.33), color=rgb(255, 151, 54), disabled=True)
-    m_t = Text(text="+36 xp", parent=medium, scale=(15, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
-               font='fonts/Soulgood'
-                    '.ttf')
+    Text(text="+36 xp", parent=medium, scale=(15, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
+         font='fonts/Soulgood.ttf')
     medium.text_entity.font = 'fonts/Soulgood.ttf'
     medium.hide()
     medium.fit_to_text()
     medium.on_click = Func(difficulty, 6, home_buttons[-1])
     home_buttons[-1].append(medium)
     hard = Button(text="Hard", position=(0.076, -0.33), color=rgb(255, 151, 54), disabled=True)
-    h_t = Text(text="+64 xp", parent=hard, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7),
-               font='fonts/Soulgood'
-                    '.ttf')
+    Text(text="+64 xp", parent=hard, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7),
+         font='fonts/Soulgood.ttf')
     hard.text_entity.font = 'fonts/Soulgood.ttf'
     home_buttons[-1].append(hard)
     hard.hide()
     hard.fit_to_text()
     hard.on_click = Func(difficulty, 8, home_buttons[-1])
-    time = Text(text="Time limit? (+30 xp)", color=rgb(54, 158, 255), position=(-0.18, -0.32), disabled=True)
-    time.hide()
-    home_buttons[-1].append(time)
-    new_game.on_click = Func(difficulty_show, home_buttons[-1])
+    time_limit = Text(text="Time limit? (+30 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
+    time_limit.hide()
+    home_buttons[-1].append(time_limit)
+    new_game.on_click = Func(difficulty_show, home_buttons[-1], new_game)
 
 
-def game(d):
+def game(d, t=False):
     global home_buttons
     if time_show is not None:
         destroy(time_show)
@@ -274,7 +292,6 @@ def game(d):
         destroy(button)
     home_buttons = []
     sudoku_parent.rotation = (45, 0, -45)
-    print(2)
     global indexes
     numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove(d)
     check_button = Button(text="Check", color=rgb(54, 158, 255), position=(-0.74, -0.45))
@@ -292,13 +309,14 @@ def game(d):
     changeable.text_entity.font = 'fonts/Soulgood.ttf'
     changeable.fit_to_text()
     classes.sudoku_buttons.append(changeable)
-    changeable.on_click = Func(classes.show_changeable, generated_sudoku)
+    changeable.on_click = Func(classes.show_changeable, generated_sudoku, changeable)
     back_to_home_button = Button(color=rgb(255, 151, 54), text="Back to Home", position=(-0.7, 0.4))
     back_to_home_button.text_entity.font = 'fonts/Soulgood.ttf'
     back_to_home_button.fit_to_text()
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
-    manage_timer(60)
+    if t:
+        manage_timer(20 * d)
 
 
 def update():
@@ -316,5 +334,6 @@ def update():
             (classes.sudoku_buttons[c[i]]).little_cube = None
 
 
+timer_on = False
 home()
 app.run()

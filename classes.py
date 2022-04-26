@@ -4,7 +4,6 @@ import generator
 delete = -1
 sudoku_buttons = []
 little_cubes = [[], [], [], [], [], [], [], []]
-punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 clicked = [None, None]
 
 
@@ -15,16 +14,15 @@ def close_changeable(exit_b):
     destroy(exit_b)
 
 
-def show_changeable(sudoku_list):
+def show_changeable(sudoku_list, changeable):
     global sudoku_buttons
-    print(sudoku_list)
     for i in range(6):
         for j in range(3):
             for k in range(3):
                 if sudoku_list[i][j][k] == 0:
                     sudoku_buttons[i * 9 + j * 3 + k * 3].color = rgb(255, 164, 80)
-    exit_button = Button(scale=0.04, position=(-0.45, -0.45), color=rgb(54, 158, 255), icon="images/close")
-    sudoku_buttons.append(exit_button)
+    exit_button = Button(parent=changeable, scale=(0.2, 1), position=(0.62, 0), color=rgb(54, 158, 255), icon="images"
+                                                                                                            "/close")
     exit_button.on_click = Func(close_changeable, exit_button)
 
 
