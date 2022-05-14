@@ -12,7 +12,7 @@ def is_clicked(sudoku_buttons, code1, little_cubes, code2, indexes):
                     c1 = 0
                 if c2 > 2:
                     c2 = 0
-                sudoku_buttons[item[c1]].icon = str(little_cubes[code2[0]][c2].icon)[-1]
+                sudoku_buttons[item[c1]].icon = f'images/{str(little_cubes[code2[0]][c2].icon)[-1]}'
                 sudoku_buttons[item[c1]].little_cube = little_cubes[code2[0]][i]
                 c1 += 1
                 c2 += 1
@@ -26,7 +26,7 @@ def cancel(sudoku_buttons, code1, little_cubes, indexes):
         if code1[0] * 9 + code1[1] * 3 + code1[2] in little_cube:
             corner = little_cube
     for i in corner:
-        sudoku_buttons[i].icon = '0'
+        sudoku_buttons[i].icon = 'images/0'
     for cube in little_cubes:
         if sudoku_buttons[corner[0]].little_cube in cube:
             for i in range(3):
@@ -34,3 +34,6 @@ def cancel(sudoku_buttons, code1, little_cubes, indexes):
                 cube[i].show()
     return corner
 
+
+def xp_add(xp):
+    database.update

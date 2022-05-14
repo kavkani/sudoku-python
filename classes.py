@@ -4,8 +4,26 @@ import generator
 delete = -1
 sudoku_buttons = []
 little_cubes = [[], [], [], [], [], [], [], []]
-punch_sound = Audio('punch_sound', loop=False, autoplay=False)
 clicked = [None, None]
+
+
+def close_changeable(exit_b):
+    global sudoku_buttons
+    for button in sudoku_buttons[0:54]:
+        button.color = rgb(188, 134, 90)
+    destroy(exit_b)
+
+
+def show_changeable(sudoku_list, changeable):
+    global sudoku_buttons
+    for i in range(6):
+        for j in range(3):
+            for k in range(3):
+                if sudoku_list[i][j][k] == 0:
+                    sudoku_buttons[i * 9 + j * 3 + k * 3].color = rgb(255, 164, 80)
+    exit_button = Button(parent=changeable, scale=(0.2, 1), position=(0.62, 0), color=rgb(54, 158, 255), icon="images"
+                                                                                                            "/close")
+    exit_button.on_click = Func(close_changeable, exit_button)
 
 
 def output_nums(solved):
@@ -19,7 +37,7 @@ class Voxel(Button):
             position=position,
             model="Quad",
             origin_y=0.05,
-            texture="wood",
+            texture="images/wood-islam",
             scale=Vec2(size, size),
             rotation=rotation,
             double_sided=True,
@@ -33,7 +51,7 @@ class Voxel(Button):
         global delete
         if self.hovered:
             if key == 'left mouse down':
-                if str(self.icon)[-1] == '0':
+                if str(self.icon_entity.texture)[0] == '0':
                     clicked[0] = self.list_code
             if key == 'backspace':
                 if self.generated[self.list_code[0]][self.list_code[1]][self.list_code[2]] == 0:
@@ -51,7 +69,9 @@ class Voxel2(Button):
             scale=Vec2(size, size),
             rotation=rotation,
             double_sided=True,
-            icon=icon)
+            icon=icon,
+            texture="images/wood-islam",
+            dragable=True)
         self.list_code = list_code
 
     def input(self, key):
@@ -68,8 +88,9 @@ class Cube:
         def side(position, rotation, n):
             for ii in range(3):
                 for jj in range(3):
-                    button = Voxel(cube, list([n, ii, jj]), generated, colour=rgb(188, 134, 90), icon=str(generated[n][ii][jj]),
-                                   position=eval(position), rotation=rotation)
+                    button = Voxel(cube, list([n, ii, jj]), generated, colour=rgb(188, 134, 90),
+                                   icon=f'images/{str(generated[n][ii][jj])}', position=eval(position),
+                                   rotation=rotation)
                     if generated[n][ii][jj] == 0:
                         button.icon = None
                     sudoku_buttons.append(button)
@@ -94,17 +115,26 @@ class Cube:
             sudoku_out_parent = Entity(model=None, position=(i - 0.3, j, 0), rotation=Vec3(-40, -35, 0))
             b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
-                        icon=str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0]))
+                        icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0])}')
             sudoku_buttons.append(b1)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b1)
             b2 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 1]), position=(3, 0.1, 0),
                         rotation=(0, 0, 0), colour=rgb(188, 134, 90),
-                        icon=str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][1]))
+                        icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][1])}')
             sudoku_buttons.append(b2)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b2)
             b3 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 2]), position=(3, 0.55, 0.55),
                         rotation=(90, 0, 0), colour=rgb(188, 134, 90),
-                        icon=str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2]))
+                        icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2])}')
             sudoku_buttons.append(b3)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b3)
 
+
+class Image(Entity):
+    def __init__(self, texture):
+        super().__init__(
+            parent=camera.ui,
+            model='quad',
+            position=(0.47, -0.25),
+            scale=(0.842, 0.5),
+            texture=texture)
