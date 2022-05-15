@@ -3,6 +3,8 @@ import copy
 
 
 def generate_and_remove(delete_score):
+    delete_score *= 3
+    delete_score_b = delete_score
     def generate_face(b):
         numbers_list = list(range(1, b + 1))
         list1 = []
@@ -23,8 +25,19 @@ def generate_and_remove(delete_score):
     corners_delete = []
     midles_delete = []
     between_delete = []
+    c = 0
     while delete_score > 0:
-        print(delete_score)
+        if c == 1:
+            corners = [0, 1, 2, 3, 4, 5, 6, 7]
+            midles = [0,1,2,3,4,5]
+            between = [0, 1, 2, 3, 4, 5, 6, 7]
+            delete = []
+            corners_delete = []
+            midles_delete = []
+            between_delete = []
+            c = 0
+        if delete_score < 3 :
+            c = 1
         random_num = random.choice([1,2])
         if random_num == 1 and len(corners) > 0 and (delete_score-3 > -1):
             random_num = random.choice(corners)
@@ -175,50 +188,67 @@ def generate_and_remove(delete_score):
     a5 = []
     if 0 in corners_delete:
         pmd[0][4] = 0
+        a0.append(0)
+        a0.append(0)
         a0.append(pmd1[0][4])
-        a0.append(0)
-        a0.append(0)
         answers.append(a0)
+        p0.append(4)
+        p0.append(4)
         p0.append(4)
         pmd63.append(p0)
     if 1 in corners_delete:
         pmd[1][4] = 0
+        
+        a1.append(0)
+        a1.append(0)
         a1.append(pmd1[1][4])
-        a1.append(0)
-        a1.append(0)
         answers.append(a1)
+        p1.append(4+(1*9))
+        p1.append(4+(1*9))
         p1.append(4+(1*9))
         pmd63.append(p1)
     if 2 in corners_delete:
         pmd[2][4] = 0
+        
+        a2.append(0)
+        a2.append(0)
         a2.append(pmd1[2][4])
-        a2.append(0)
-        a2.append(0)
         answers.append(a2)
+        p2.append(4+(2*9))
+        p2.append(4+(2*9))
         p2.append(4+(2*9))
         pmd63.append(p2)
     if 3 in corners_delete:
         pmd[3][4] = 0
+        
+        a3.append(0)
+        a3.append(0)
         a3.append(pmd1[3][4])
-        a3.append(0)
-        a3.append(0)
         answers.append(a3)
+        p3.append(4+(3*9))
+        p3.append(4+(3*9))
         p3.append(4+(3*9))
         pmd63.append(p3)
     if 4 in corners_delete:
         pmd[4][4] = 0
+        
+        a4.append(0)
+        a4.append(0)
         a4.append(pmd1[4][4])
-        a4.append(0)
-        a4.append(0)
         answers.append(a4)
+        p4.append(4+(4*9))
+        p4.append(4+(4*9))
         p4.append(4+(4*9))
         pmd63.append(p4)
     if 5 in corners_delete:
         pmd[5][4] = 0
+        
+        a5.append(0)
+        a5.append(0)
         a5.append(pmd1[5][4])
-        a5.append(0)
-        a5.append(0)
         answers.append(a5)
+        p5.append(4+(5*9))
+        p5.append(4+(5*9))
         p5.append(4+(5*9))
         pmd63.append(p5)
     
