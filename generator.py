@@ -27,19 +27,8 @@ def generate_and_remove(delete_score):
     between_delete = []
     c = 0
     while delete_score > 0:
-        if c == 1:
-            corners = [0, 1, 2, 3, 4, 5, 6, 7]
-            midles = [0,1,2,3,4,5]
-            between = [0, 1, 2, 3, 4, 5, 6, 7]
-            delete = []
-            corners_delete = []
-            midles_delete = []
-            between_delete = []
-            c = 0
-        if delete_score < 3 :
-            c = 1
         random_num = random.choice([1,2])
-        if random_num == 1 and len(corners) > 0 and (delete_score-3 > -1):
+        if random_num == 1 and len(corners) > 0 :
             random_num = random.choice(corners)
             corners.remove(random_num)
             corners_delete.append(random_num)
@@ -49,7 +38,7 @@ def generate_and_remove(delete_score):
             midles.remove(random_num)
             midles_delete.append(random_num)
             delete_score -= 1
-        if (random_num == 3) and (len(between) > 0) and delete_score - 2 > -1 :
+        if (random_num == 3) and (len(between) > 0):
             random_num = random.choice(between)
             between.remove(random_num)
             between_delete.append(random_num)
@@ -186,7 +175,7 @@ def generate_and_remove(delete_score):
     a3 = []
     a4 = []
     a5 = []
-    if 0 in corners_delete:
+    if 0 in midles_delete:
         pmd[0][4] = 0
         a0.append(0)
         a0.append(0)
@@ -196,7 +185,7 @@ def generate_and_remove(delete_score):
         p0.append(4)
         p0.append(4)
         pmd63.append(p0)
-    if 1 in corners_delete:
+    if 1 in midles_delete:
         pmd[1][4] = 0
         
         a1.append(0)
@@ -207,7 +196,7 @@ def generate_and_remove(delete_score):
         p1.append(4+(1*9))
         p1.append(4+(1*9))
         pmd63.append(p1)
-    if 2 in corners_delete:
+    if 2 in midles_delete:
         pmd[2][4] = 0
         
         a2.append(0)
@@ -218,7 +207,7 @@ def generate_and_remove(delete_score):
         p2.append(4+(2*9))
         p2.append(4+(2*9))
         pmd63.append(p2)
-    if 3 in corners_delete:
+    if 3 in midles_delete:
         pmd[3][4] = 0
         
         a3.append(0)
@@ -229,7 +218,7 @@ def generate_and_remove(delete_score):
         p3.append(4+(3*9))
         p3.append(4+(3*9))
         pmd63.append(p3)
-    if 4 in corners_delete:
+    if 4 in midles_delete:
         pmd[4][4] = 0
         
         a4.append(0)
@@ -240,7 +229,7 @@ def generate_and_remove(delete_score):
         p4.append(4+(4*9))
         p4.append(4+(4*9))
         pmd63.append(p4)
-    if 5 in corners_delete:
+    if 5 in midles_delete:
         pmd[5][4] = 0
         
         a5.append(0)
@@ -271,10 +260,7 @@ def generate_and_remove(delete_score):
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
-    print(randomized_answers)
-    print(pmd63)
-    print(list_3d_sudoku)
-    print(pmd1)
+    print(randomized_answers,'\n', pmd63,'\n', list_3d_sudoku,'\n' ,pmd1)
     return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 
