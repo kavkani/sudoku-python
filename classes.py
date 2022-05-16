@@ -3,27 +3,27 @@ import generator
 
 delete = -1
 sudoku_buttons = []
-little_cubes = [[], [], [], [], [], [], [], []]
+little_cubes = []
 clicked = [None, None]
 
 
-def close_changeable(exit_b):
-    global sudoku_buttons
+def close_changeable():
+    global sudoku_buttons, exit_button
     for button in sudoku_buttons[0:54]:
         button.color = rgb(188, 134, 90)
-    destroy(exit_b)
+    destroy(exit_button)
 
 
 def show_changeable(sudoku_list, changeable):
-    global sudoku_buttons
+    global sudoku_buttons, exit_button
     for i in range(6):
         for j in range(3):
             for k in range(3):
                 if sudoku_list[i][j][k] == 0:
-                    sudoku_buttons[i * 9 + j * 3 + k * 3].color = rgb(255, 164, 80)
-    exit_button = Button(parent=changeable, scale=(0.2, 1), position=(0.62, 0), color=rgb(54, 158, 255), icon="images"
-                                                                                                            "/close")
-    exit_button.on_click = Func(close_changeable, exit_button)
+                    sudoku_buttons[i * 9 + j * 3 + k].color = rgb(255, 164, 80)
+    exit_button = Button(parent=changeable, scale=(0.2, 1), position=(0.62, 0), color=rgb(54, 158, 255),
+                         icon="images/close")
+    exit_button.on_click = Func(close_changeable)
 
 
 def output_nums(solved):
@@ -110,9 +110,10 @@ class Cube:
         """for i in range(3, 6, 2):
             for j in range(3, -4, -2):"""
         for idx in range(len(little_g)):
+            little_cubes.append([])
             i = (idx // 4) * 2 + 3
             j = (4 - (idx % 4)) * 2 - 5
-            sudoku_out_parent = Entity(model=None, position=(i - 0.3, j, 0), rotation=Vec3(-40, -35, 0))
+            sudoku_out_parent = Entity(model=None, position=(i - 2.2, j, 0), rotation=Vec3(-40, -35, 0))
             b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0])}')
@@ -138,3 +139,6 @@ class Image(Entity):
             position=(0.47, -0.25),
             scale=(0.842, 0.5),
             texture=texture)
+
+
+exit_button = None

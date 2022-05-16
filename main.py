@@ -11,12 +11,23 @@ sudoku_parent = Entity(model=None, position=(-1.6, 0, 0))
 window.fullscreen = True
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
+window.exit_button.enabled = False
 stop_thread = False
 time_show = None
 
 
+def exit_game():
+    global stop_thread
+    stop_thread = True
+    application.quit()
+
+
+exit_game_button = Button(text="x", position=(0.86, 0.485), scale=(0.06, 0.03), color=color.red)
+exit_game_button.on_click = Func(exit_game)
+
+
 def countdown(t):
-    global time_show, stop_thread, timer_on
+    global time_show, stop_thread, timer_on, time_check
     stop_thread = False
     timer_on = True
     time_show = Text(text="00:00")
@@ -34,7 +45,9 @@ def countdown(t):
         t -= 1
     destroy(time_show)
     timer_on = False
-    after_check("timer")
+    if time_check:
+        after_check("timer")
+    time_check = True
 
 
 def manage_timer(t):
@@ -47,16 +60,17 @@ def close_tip(t_l):
         destroy(item)
 
 
-def give_tip():
+def give_tip(tip_button):
     tip_list = []
-    border = Entity(model='wireframe_quad', position=(-4.8, 0.75), scale=3, color=rgb(54, 158, 255))
+    border = Entity(parent=tip_button, model='wireframe_quad', position=(1.04, -2.08), scale=3.043,
+                    color=rgb(54, 158, 255))
     tip_list.append(border)
-    t = Text(parent=border, text="Click on New Game and start\nplaying!\n\nIn the game you hold right click,\nyou can "
-                                 "rotate the cube. To put\na little cube in an empty place,\nclick on one side of the "
-                                 "little\ncube and then where you want\nit to be positioned. To undo any\nplacements, "
-                                 "just click on one\nside of the positioned little cube\nand click backspace.\n\nGood "
-                                 "Luck!",
-             scale=2.6, position=(-0.48, 0.48))
+    t = Text(parent=border, text="Click on New Game and start\nplaying!\n\nIn the game if you hold right click,\nyou "
+                                 "can rotate the cube. To put a\nlittle cube in an empty place, click\non one side of "
+                                 "the little cube and\nthen click on where you want it to\nbe positioned. If you want "
+                                 "to undo\nany placement, just click on one\nside of the positioned little cube\nand "
+                                 "click backspace.\n\nGood Luck!\n:)",
+             scale=2.47, position=(-0.49, 0.49))
     tip_list.append(t)
     out = Button(scale=0.08, parent=border, position=(0.46, 0.46), color=rgb(54, 158, 255), icon="images/close")
     tip_list.append(out)
@@ -131,24 +145,25 @@ def about():
     back.on_click = Func(to_home, about_list)
 
 
-def solver(solved, little_cubes_count):
+def solver(solved):
     global stop_thread, timer_on
     for i in range(6):
         for j in range(9):
             classes.sudoku_buttons[i * 9 + j].icon = f'images/{str(solved[i][j])}'
             classes.sudoku_buttons[i * 9 + j].disabled = True
-    back_to_home_button = classes.sudoku_buttons[54 + little_cubes_count * 3 + 3]
+    back_to_home_button = classes.sudoku_buttons[54 + len(classes.little_cubes) * 3 + 3]
     if timer_on:
         stop_thread = True
         timer_on = False
-    for item in classes.sudoku_buttons[54: 54 + little_cubes_count * 3 + 8]:
+    for item in classes.sudoku_buttons[54: 54 + len(classes.little_cubes) * 3 + 8]:
         if item != back_to_home_button:
             classes.sudoku_buttons.pop(classes.sudoku_buttons.index(item))
             destroy(item)
+    classes.close_changeable()
 
 
 def after_check(d, t=None, ok_b=None):
-    global time_show, stop_thread, timer_on
+    global time_show, stop_thread, timer_on, time_check
     if d == "timer":
         for button in classes.sudoku_buttons[:-1]:
             destroy(button)
@@ -164,6 +179,8 @@ def after_check(d, t=None, ok_b=None):
             stop_thread = True
             timer_on = False
             xp_timer = 30
+        time.sleep(0.2)
+        time_check = False
         try:
             file = open("data/points.pmd", 'r+')
             xp = eval(file.read())
@@ -174,8 +191,8 @@ def after_check(d, t=None, ok_b=None):
         file = open('data/points.pmd', 'w')
         file.write(str(xp + xp_timer))
         file.close()
-        t = Text(text=f"Congratulations! +{xp + xp_timer} XP", color=rgb(255, 151, 54), scale=2, position=(-0.2, -0.3),
-                 font='fonts/Soulgood.ttf')
+        t = Text(text=f"Congratulations! +{d ** 2 + xp_timer} XP", color=rgb(255, 151, 54), scale=2,
+                 position=(-0.2, -0.3), font='fonts/Soulgood.ttf')
         c = Button(icon='images/cup', color=rgb(64, 64, 64), disabled=True, scale=0.6)
         classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
     else:
@@ -205,14 +222,14 @@ def home(scene_code=0, t=None, c=None):
         for button in classes.sudoku_buttons:
             destroy(button)
         classes.sudoku_buttons = []
-        classes.little_cubes = [[], [], [], [], [], [], [], []]
+        classes.little_cubes = []
     if scene_code == 2:
         destroy(t)
         destroy(c)
         for button in classes.sudoku_buttons:
             destroy(button)
         classes.sudoku_buttons = []
-        classes.little_cubes = [[], [], [], [], [], [], [], []]
+        classes.little_cubes = []
     # tutorial = Button(icon='video', scale=0.13, position=(-0.7, 0), color=rgb(255, 151, 54))
     # tutorial.on_click = Func(login_run)
     # home_buttons.append(tutorial)
@@ -229,7 +246,7 @@ def home(scene_code=0, t=None, c=None):
     # home_buttons.append(t)
     home_buttons.append(about_us)
     tips = Button(scale=0.13, position=(-0.7, 0.35), color=rgb(255, 151, 54), icon='images/tip')
-    tips.on_click = Func(give_tip)
+    tips.on_click = Func(give_tip, tips)
     tips.tooltip = Tooltip("Tips")
     home_buttons.append(tips)
     sudoku = Text(text="3D Sudoku", position=(-0.23, 0.45), scale=5, color=rgb(54, 158, 255), font='fonts/Soulgood.ttf')
@@ -254,7 +271,8 @@ def home(scene_code=0, t=None, c=None):
     home_buttons.append(['0'])
     del home_buttons[-1][0]
     easy = Button(text="Easy", position=(-0.077, -0.33), color=rgb(255, 151, 54), disabled=True)
-    Text(text="+8 xp", parent=easy, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7), font='fonts/Soulgood.ttf')
+    Text(text="+16 xp", parent=easy, scale=(17, 18), color=rgb(54, 158, 255), position=(-0.58, -0.7),
+         font='fonts/Soulgood.ttf')
     easy.text_entity.font = 'fonts/Soulgood.ttf'
     easy.fit_to_text()
     easy.hide()
@@ -303,7 +321,7 @@ def game(d, t=False):
     solve = Button(text="Solve", color=rgb(54, 158, 255), position=(-0.82, -0.45))
     solve.text_entity.font = 'fonts/Soulgood.ttf'
     solve.fit_to_text()
-    solve.on_click = Func(solver, correct_answers, d)
+    solve.on_click = Func(solver, correct_answers)
     classes.sudoku_buttons.append(solve)
     changeable = Button(text="Show Changeable Parts", color=rgb(54, 158, 255), position=(-0.55, -0.45))
     changeable.text_entity.font = 'fonts/Soulgood.ttf'
@@ -335,5 +353,6 @@ def update():
 
 
 timer_on = False
+time_check = True
 home()
 app.run()
