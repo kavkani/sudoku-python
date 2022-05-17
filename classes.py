@@ -118,8 +118,8 @@ class Cube:
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0])}')
             if str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0]) == "0":
+                b1.enabled = False
                 b1.hide()
-                b1.disabled = True
             sudoku_buttons.append(b1)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b1)
             b2 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 1]), position=(3, 0.1, 0),
@@ -128,15 +128,15 @@ class Cube:
             sudoku_buttons.append(b2)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b2)
             if str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][1]) == '0':
+                b2.enabled = False
                 b2.hide()
-                b2.disabled = True
             b3 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 2]), position=(3, 0.55, 0.55),
                         rotation=(90, 0, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2])}')
             sudoku_buttons.append(b3)
             if str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2]) == "0":
+                b3.enabled = False
                 b3.hide()
-                b3.disabled = True
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b3)
 
 

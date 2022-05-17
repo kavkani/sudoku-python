@@ -25,8 +25,10 @@ def generate_and_remove(delete_score):
     between = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     corners_delete = []
     centres_delete = []
-    between_delete = []
-    while delete_score > 0:
+    between_delete = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+
+    '''    while delete_score > 0:
         random_num = random.choice([1, 2, 3])
         if random_num == 1 and len(corners) > 0:
             random_num = random.choice(corners)
@@ -42,7 +44,7 @@ def generate_and_remove(delete_score):
             random_num = random.choice(between)
             between.remove(random_num)
             between_delete.append(random_num)
-            delete_score -= 2
+            delete_score -= 2'''
 
     p0 = []
     p1 = []
@@ -245,6 +247,10 @@ def generate_and_remove(delete_score):
     p5 = []
     p6 = []
     p7 = []
+    p8 = []
+    p9 = []
+    p10 = []
+    p11 = []
     a0 = []
     a1 = []
     a2 = []
@@ -253,6 +259,10 @@ def generate_and_remove(delete_score):
     a5 = []
     a6 = []
     a7 = []
+    a8 = []
+    a9 = []
+    a10 = []
+    a11 = []
     if 0 in between_delete:
         pmd[5][3] = 0
         pmd[0][1] = 0
@@ -341,50 +351,51 @@ def generate_and_remove(delete_score):
         p7.append(2 * 9 + 5)
         p7.append(3 * 9 + 7)
         pmd63.append(p7)
+
     if 8 in between_delete:
         pmd[3][3] = 0
         pmd[1][5] = 0
-        a4.append(0)
-        a4.append(pmd1[3][3])
-        a4.append(pmd1[1][5])
-        answers.append(a4)
-        p4.append(3 * 9 + 3)
-        p4.append(3 * 9 + 3)
-        p4.append(14)
-        pmd63.append(p4)
+        a8.append(0)
+        a8.append(pmd1[3][3])
+        a8.append(pmd1[1][5])
+        answers.append(a8)
+        p8.append(3 * 9 + 3)
+        p8.append(3 * 9 + 3)
+        p8.append(14)
+        pmd63.append(p8)
     if 9 in between_delete:
         pmd[3][5] = 0
         pmd[4][3] = 0
-        a5.append(0)
-        a5.append(pmd1[3][5])
-        a5.append(pmd1[4][3])
-        answers.append(a5)
-        p5.append(3 * 9 + 5)
-        p5.append(3 * 9 + 5)
-        p5.append(4 * 9 + 3)
-        pmd63.append(p5)
+        a9.append(0)
+        a9.append(pmd1[3][5])
+        a9.append(pmd1[4][3])
+        answers.append(a9)
+        p9.append(3 * 9 + 5)
+        p9.append(3 * 9 + 5)
+        p9.append(4 * 9 + 3)
+        pmd63.append(p9)
     if 10 in between_delete:
         pmd[0][3] = 0
         pmd[4][5] = 0
-        a6.append(0)
-        a6.append(pmd1[0][3])
-        a6.append(pmd1[4][5])
-        answers.append(a6)
-        p6.append(3)
-        p6.append(3)
-        p6.append(4 * 9 + 5)
-        pmd63.append(p6)
+        a10.append(0)
+        a10.append(pmd1[0][3])
+        a10.append(pmd1[4][5])
+        answers.append(a10)
+        p10.append(3)
+        p10.append(3)
+        p10.append(4 * 9 + 5)
+        pmd63.append(p10)
     if 11 in between_delete:
         pmd[0][5] = 0
         pmd[1][3] = 0
-        a7.append(0)
-        a7.append(pmd1[0][5])
-        a7.append(pmd1[1][3])
-        answers.append(a7)
-        p7.append(5)
-        p7.append(5)
-        p7.append(12)
-        pmd63.append(p7)
+        a11.append(0)
+        a11.append(pmd1[0][5])
+        a11.append(pmd1[1][3])
+        answers.append(a11)
+        p11.append(5)
+        p11.append(5)
+        p11.append(12)
+        pmd63.append(p11)
     for i in range(distraction_cubes):
         if len(answers) >= 12:
             break
@@ -417,6 +428,7 @@ def generate_and_remove(delete_score):
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
+    print(list_3d_sudoku)
     return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 

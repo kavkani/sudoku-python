@@ -29,6 +29,8 @@ def is_clicked(sudoku_buttons, code1, little_cubes, code2, indexes):
             if zeros == 1:
                 if item[0] % 9 not in [1, 3, 5, 7]:
                     return None
+                if c2 == 0:
+                    c2 += 1
                 sudoku_buttons[item[c1]].icon = f'images/{str(little_cubes[code2[0]][c2].icon)[-1]}'
                 sudoku_buttons[item[c1]].little_cube = little_cubes[code2[0]][c2]
                 c1 = abs(c1 - 2)
