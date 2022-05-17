@@ -113,7 +113,9 @@ class Cube:
             little_cubes.append([])
             i = (idx // 4) * 2 + 3
             j = (4 - (idx % 4)) * 2 - 5
-            sudoku_out_parent = Entity(model=None, position=(i - 2.2, j, 0), rotation=Vec3(-40, -35, 0))
+            x = 13.5 - ((idx // 6) * 2 + 3)
+            y = (4 - (idx % 6)) * 2 - 3.2
+            sudoku_out_parent = Entity(model=None, position=((x - 3) * 0.7, y * 0.7, 0), rotation=Vec3(-40, -35, 0), scale=0.75)
             b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0])}')
@@ -145,8 +147,8 @@ class Image(Entity):
         super().__init__(
             parent=camera.ui,
             model='quad',
-            position=(0.47, -0.25),
-            scale=(0.842, 0.5),
+            position=(0.48, -0.26),
+            scale=(0.825, 0.49),
             texture=photo)
 
 

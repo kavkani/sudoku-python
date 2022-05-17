@@ -6,8 +6,8 @@ import time
 import threading
 
 app = Ursina()
-window.title = "Sudoku 3D"
-sudoku_parent = Entity(model=None, position=(-1.6, 0, 0))
+window.title = "3D Sudoku"
+sudoku_parent = Entity(model=None, position=(-3, 0, 0))
 window.fullscreen = True
 window.cog_button.enabled = False
 window.fps_counter.enabled = False
@@ -78,26 +78,37 @@ def give_tip(tip_button):
 
 
 def difficulty(num, d_l):
-    for i in range(3):
-        d_l[i].disabled = True
+    for i in range(4):
+        d_l[i].enabled = False
         d_l[i].hide()
-    d_l[3].disabled = False
-    d_l[3].show()
-    t_yes = Button(parent=d_l[3], color=rgb(255, 151, 54), position=(0.29, -0.01), text="Yes")
-    t_yes.text_entity.font = 'fonts/Soulgood.ttf'
-    t_yes.fit_to_text()
-    t_yes.on_click = Func(game, num, True)
-    t_no = Button(parent=d_l[3], color=rgb(255, 151, 54), position=(0.35, -0.01), text="No")
-    t_no.text_entity.font = 'fonts/Soulgood.ttf'
-    t_no.fit_to_text()
-    t_no.on_click = Func(game, num, False)
+    if num == -1:
+        game(num, False)
+    else:
+        d_l[4].enabled = True
+        d_l[4].show()
+        t_yes = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.29, -0.01), text="Yes")
+        t_yes.text_entity.font = 'fonts/Soulgood.ttf'
+        t_yes.fit_to_text()
+        t_yes.on_click = Func(game, num, True)
+        t_no = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.35, -0.01), text="No")
+        t_no.text_entity.font = 'fonts/Soulgood.ttf'
+        t_no.fit_to_text()
+        t_no.on_click = Func(game, num, False)
+
+
+def close_difficulty(main_button, difficulties):
+    main_button.disabled = False
+    for item in difficulties:
+        item.enabled = False
+        item.hide()
 
 
 def difficulty_show(d_l, main_button):
     main_button.disabled = True
-    for i in range(3):
-        d_l[i].disabled = False
-        d_l[i].show()
+    for i in range(6):
+        if i != 4:
+            d_l[i].enabled = True
+            d_l[i].show()
 
 
 def to_home(a_l):
@@ -180,7 +191,7 @@ def after_check(d, t=None, ok_b=None):
         if timer_on:
             stop_thread = True
             timer_on = False
-            xp_timer = 30
+            xp_timer = 32
         time.sleep(0.2)
         time_check = False
         try:
@@ -272,7 +283,7 @@ def home(scene_code=0, t=None, c=None):
     home_buttons.append(xp_show)
     home_buttons.append(['0'])
     del home_buttons[-1][0]
-    easy = Button(text="Easy", position=(-0.077, -0.33), color=rgb(255, 151, 54), disabled=True)
+    easy = Button(text="Easy", position=(-0.122, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+16 xp", parent=easy, scale=(17, 18), color=rgb(54, 158, 255), position=(-0.58, -0.7),
          font='fonts/Soulgood.ttf')
     easy.text_entity.font = 'fonts/Soulgood.ttf'
@@ -280,7 +291,7 @@ def home(scene_code=0, t=None, c=None):
     easy.hide()
     easy.on_click = Func(difficulty, 4, home_buttons[-1])
     home_buttons[-1].append(easy)
-    medium = Button(text="Medium", position=(0, -0.33), color=rgb(255, 151, 54), disabled=True)
+    medium = Button(text="Medium", position=(-0.046, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+36 xp", parent=medium, scale=(15, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
          font='fonts/Soulgood.ttf')
     medium.text_entity.font = 'fonts/Soulgood.ttf'
@@ -288,17 +299,30 @@ def home(scene_code=0, t=None, c=None):
     medium.fit_to_text()
     medium.on_click = Func(difficulty, 6, home_buttons[-1])
     home_buttons[-1].append(medium)
-    hard = Button(text="Hard", position=(0.076, -0.33), color=rgb(255, 151, 54), disabled=True)
-    Text(text="+64 xp", parent=hard, scale=18, color=rgb(54, 158, 255), position=(-0.5, -0.7),
+    hard = Button(text="Hard", position=(0.031, -0.33), color=rgb(255, 151, 54), enabled=False)
+    Text(text="+64 xp", parent=hard, scale=18, color=rgb(54, 158, 255), position=(-0.58, -0.7),
          font='fonts/Soulgood.ttf')
     hard.text_entity.font = 'fonts/Soulgood.ttf'
     home_buttons[-1].append(hard)
     hard.hide()
     hard.fit_to_text()
     hard.on_click = Func(difficulty, 8, home_buttons[-1])
-    time_limit = Text(text="Time limit? (+30 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
+    expert = Button(text="Expert", position=(0.109, -0.33), color=rgb(255, 151, 54), enabled=False)
+    Text(text="+512 xp", parent=expert, scale=(14, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
+         font='fonts/Soulgood.ttf')
+    expert.text_entity.font = 'fonts/Soulgood.ttf'
+    home_buttons[-1].append(expert)
+    expert.hide()
+    expert.fit_to_text()
+    expert.on_click = Func(difficulty, -1, home_buttons[-1])
+    time_limit = Text(text="Time limit? (+32 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
     time_limit.hide()
     home_buttons[-1].append(time_limit)
+    close_d = Button(scale=(0.076, 0.067), parent=new_game, position=(0.45, -0.53), color=rgb(255, 151, 54),
+                     icon="images/close", enabled=False)
+    close_d.hide()
+    home_buttons[-1].append(close_d)
+    close_d.on_click = Func(close_difficulty, new_game, home_buttons[-1])
     new_game.on_click = Func(difficulty_show, home_buttons[-1], new_game)
 
 
@@ -336,7 +360,7 @@ def game(d, t=False):
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
     if t:
-        manage_timer(20 * d)
+        manage_timer(30 * d)
 
 
 def update():
