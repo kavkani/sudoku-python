@@ -3,6 +3,7 @@ import copy
 
 
 def generate_and_remove(delete_score):
+    distraction_cubes = delete_score//4
     delete_score *= 3
     delete_score_b = delete_score
     def generate_face(b):
@@ -25,24 +26,23 @@ def generate_and_remove(delete_score):
     midles_delete = []
     between_delete = []
     while delete_score > 0:
-
-        random_num = random.choice([1,2,3])
+        random_num = random.choice([1,2])
         if random_num == 1 and len(corners) > 0 :
             random_num = random.choice(corners)
             corners.remove(random_num)
             corners_delete.append(random_num)
             delete_score -= 3
-        if random_num == 2 and len(midles) > 0 :
+        elif random_num == 2 and len(midles) > 0 :
             random_num = random.choice(midles)
             midles.remove(random_num)
             midles_delete.append(random_num)
             delete_score -= 1
-        if (random_num == 3) and (len(between) > 0):
+        elif (random_num == 3) and (len(between) > 0):
             random_num = random.choice(between)
             between.remove(random_num)
             between_delete.append(random_num)
             delete_score -= 2
-        print(delete_score, corners_delete, between_delete, midles_delete)
+
 
 
 
@@ -388,6 +388,24 @@ def generate_and_remove(delete_score):
         p7.append(5)
         p7.append(12)
         pmd63.append(p7)
+    for i in range(distraction_cubes):
+        random_num = random.choice([1,2])
+        if random_num == 1 and len(between_delete) > 1:
+            a0 = []
+            a0.append(0)
+            a0.append(random.choice(random.choice(answers[len(corners_delete)-1:len(corners_delete)+len(between_delete)])))
+            a0.append(random.choice(random.choice(answers[len(corners_delete)-1:len(corners_delete)+len(between_delete)])))
+            answers.append(a0)
+        elif len(corners_delete) > 1:
+            print('q')
+            a0 = []
+            a0.append(random.choice(answers[:len(corners_delete)]))
+            a0.append(random.choice(answers[:len(corners_delete)]))
+            a0.append(random.choice(answers[:len(corners_delete)]))
+            answers.append(a0)
+
+
+
 
 
 
@@ -452,7 +470,6 @@ def extra_cubes():
         p1.append(list(return_list[j:j1]))
         j = j1
 
-    print(p1)
 
 
 def check(sudoku_list):
