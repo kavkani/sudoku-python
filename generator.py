@@ -400,7 +400,7 @@ def generate_and_remove(delete_score):
         p11.append(12)
         pmd63.append(p11)
     for i in range(distraction_cubes):
-        if len(answers) >= 12:
+        if len(answers) >= 30:
             break
         random_num = random.choice([1, 2])
         a0 = []
@@ -408,8 +408,12 @@ def generate_and_remove(delete_score):
             a0.append(0)
             a0.append(random.choice(
                 random.choice(answers[len(corners_delete) - 1:len(corners_delete) + len(between_delete)])))
-            a0.append(random.choice(
-                random.choice(answers[len(corners_delete) - 1:len(corners_delete) + len(between_delete)])))
+            randint = random.choice(
+                random.choice(answers[len(corners_delete) - 1:len(corners_delete) + len(between_delete)]))
+            while randint == 0:
+                randint = random.choice(
+                    random.choice(answers[len(corners_delete) - 1:len(corners_delete) + len(between_delete)]))
+            a0.append(randint)
             answers.append(a0)
         elif len(corners_delete) > 1:
             a0.append(random.choice(random.choice(answers[:len(corners_delete)])))
@@ -431,7 +435,6 @@ def generate_and_remove(delete_score):
                 row.append(pmd[p][m * 3 + d])
             side.append(row)
         list_3d_sudoku.append(side)
-    print(list_3d_sudoku)
     return randomized_answers, pmd63, list_3d_sudoku, pmd1
 
 
