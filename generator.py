@@ -5,7 +5,6 @@ import copy
 def generate_and_remove(delete_score):
     distraction_cubes = delete_score//4
     delete_score *= 3
-    delete_score_b = delete_score
     def generate_face(b):
         numbers_list = list(range(1, b + 1))
         list1 = []
@@ -26,13 +25,13 @@ def generate_and_remove(delete_score):
     midles_delete = []
     between_delete = []
     while delete_score > 0:
-        random_num = random.choice([1,2])
-        if random_num == 1 and len(corners) > 0 :
+        random_num = random.choice([1, 2, 3])
+        if random_num == 1 and len(corners) > 0:
             random_num = random.choice(corners)
             corners.remove(random_num)
             corners_delete.append(random_num)
             delete_score -= 3
-        elif random_num == 2 and len(midles) > 0 :
+        elif random_num == 2 and len(midles) > 0:
             random_num = random.choice(midles)
             midles.remove(random_num)
             midles_delete.append(random_num)
@@ -42,7 +41,6 @@ def generate_and_remove(delete_score):
             between.remove(random_num)
             between_delete.append(random_num)
             delete_score -= 2
-
 
 
 
@@ -313,7 +311,7 @@ def generate_and_remove(delete_score):
         pmd63.append(p4)
     if 5 in between_delete:
         pmd[2][3] = 0
-        pmd[1][2] = 0
+        pmd[0][7] = 0
         a5.append(0)
         a5.append(pmd1[2][3])
         a5.append(pmd1[0][7])
@@ -342,7 +340,7 @@ def generate_and_remove(delete_score):
         answers.append(a7)
         p7.append(2 * 9 + 5)
         p7.append(2 * 9 + 5)
-        p7.append(2 * 9 + 7)
+        p7.append(3 * 9 + 7)
         pmd63.append(p7)
     if 8 in between_delete:
         pmd[3][3] = 0
@@ -351,8 +349,8 @@ def generate_and_remove(delete_score):
         a4.append(pmd1[3][3])
         a4.append(pmd1[1][5])
         answers.append(a4)
-        p4.append(3 * 3 + 3)
-        p4.append(3 * 3 + 3)
+        p4.append(3 * 9 + 3)
+        p4.append(3 * 9 + 3)
         p4.append(14)
         pmd63.append(p4)
     if 9 in between_delete:
@@ -389,6 +387,8 @@ def generate_and_remove(delete_score):
         p7.append(12)
         pmd63.append(p7)
     for i in range(distraction_cubes):
+        if len(answers) >= 12:
+            break
         random_num = random.choice([1,2])
         if random_num == 1 and len(between_delete) > 1:
             a0 = []
@@ -397,11 +397,10 @@ def generate_and_remove(delete_score):
             a0.append(random.choice(random.choice(answers[len(corners_delete)-1:len(corners_delete)+len(between_delete)])))
             answers.append(a0)
         elif len(corners_delete) > 1:
-            print('q')
             a0 = []
-            a0.append(random.choice(answers[:len(corners_delete)]))
-            a0.append(random.choice(answers[:len(corners_delete)]))
-            a0.append(random.choice(answers[:len(corners_delete)]))
+            a0.append(random.choice(random.choice(answers[:len(corners_delete)])))
+            a0.append(random.choice(random.choice(answers[:len(corners_delete)])))
+            a0.append(random.choice(random.choice(answers[:len(corners_delete)])))
             answers.append(a0)
 
 

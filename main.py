@@ -165,15 +165,17 @@ def solver(solved):
 def after_check(d, t=None, ok_b=None):
     global time_show, stop_thread, timer_on, time_check
     if d == "timer":
-        for button in classes.sudoku_buttons[:-1]:
-            destroy(button)
+        for button in classes.sudoku_buttons:
+            if button != back_to_home_button:
+                destroy(button)
         c = Button(icon='images/clock', color=rgb(64, 64, 64), disabled=True, scale=0.6)
         t = Text(text='Time is up!', color=rgb(255, 151, 54), scale=3, position=(-0.15, -0.3),
                  font='fonts/Soulgood.ttf')
-        classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
+        back_to_home_button.on_click = Func(home, 2, t, c)
     if t is None:
-        for button in classes.sudoku_buttons[:-1]:
-            destroy(button)
+        for button in classes.sudoku_buttons:
+            if button != back_to_home_button:
+                destroy(button)
         xp_timer = 0
         if timer_on:
             stop_thread = True
@@ -194,7 +196,7 @@ def after_check(d, t=None, ok_b=None):
         t = Text(text=f"Congratulations! +{d ** 2 + xp_timer} XP", color=rgb(255, 151, 54), scale=2,
                  position=(-0.2, -0.3), font='fonts/Soulgood.ttf')
         c = Button(icon='images/cup', color=rgb(64, 64, 64), disabled=True, scale=0.6)
-        classes.sudoku_buttons[-1].on_click = Func(home, 2, t, c)
+        back_to_home_button.on_click = Func(home, 2, t, c)
     else:
         destroy(t)
         destroy(ok_b)
@@ -301,7 +303,7 @@ def home(scene_code=0, t=None, c=None):
 
 
 def game(d, t=False):
-    global home_buttons
+    global home_buttons, back_to_home_button
     if time_show is not None:
         destroy(time_show)
     for button in home_buttons[:-1]:
@@ -354,5 +356,6 @@ def update():
 
 timer_on = False
 time_check = True
+back_to_home_button = None
 home()
 app.run()
