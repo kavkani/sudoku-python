@@ -25,26 +25,29 @@ def generate_and_remove(delete_score):
     between = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     corners_delete = []
     centres_delete = []
-    between_delete = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-
-
-    '''    while delete_score > 0:
-        random_num = random.choice([1, 2, 3])
-        if random_num == 1 and len(corners) > 0:
-            random_num = random.choice(corners)
-            corners.remove(random_num)
-            corners_delete.append(random_num)
-            delete_score -= 3
-        elif random_num == 2 and len(centres) > 0:
-            random_num = random.choice(centres)
-            centres.remove(random_num)
-            centres_delete.append(random_num)
-            delete_score -= 1
-        elif (random_num == 3) and (len(between) > 0):
-            random_num = random.choice(between)
-            between.remove(random_num)
-            between_delete.append(random_num)
-            delete_score -= 2'''
+    between_delete = []
+    if delete_score < 0:
+        corners_delete = [0, 1, 2, 3, 4, 5, 6, 7]
+        centres_delete = [0, 1, 2, 3, 4, 5]
+        between_delete = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    else:
+        while delete_score > 0:
+            random_num = random.choice([1, 2, 3])
+            if random_num == 1 and len(corners) > 0:
+                random_num = random.choice(corners)
+                corners.remove(random_num)
+                corners_delete.append(random_num)
+                delete_score -= 3
+            elif random_num == 2 and len(centres) > 0:
+                random_num = random.choice(centres)
+                centres.remove(random_num)
+                centres_delete.append(random_num)
+                delete_score -= 1
+            elif (random_num == 3) and (len(between) > 0):
+                random_num = random.choice(between)
+                between.remove(random_num)
+                between_delete.append(random_num)
+                delete_score -= 2
 
     p0 = []
     p1 = []
