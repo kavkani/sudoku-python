@@ -1,13 +1,11 @@
 from ursina import *
+import tkinter
+import pyglet
 import generator
-
 delete = -1
 sudoku_buttons = []
 little_cubes = []
 clicked = [None, None]
-effect = Audio('jump.mp3', loop=False, autoplay=False)
-
-
 def close_changeable():
     global sudoku_buttons, exit_button
     for button in sudoku_buttons[0:54]:
@@ -32,7 +30,7 @@ def output_nums():
 
 
 class Voxel(Button):
-    def __init__(self, parent, list_code, generated, colour, wood, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
+    def __init__(self, parent, list_code, generated, colour, sound, wood, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
         super().__init__(
             parent=parent,
             position=position,
@@ -47,12 +45,20 @@ class Voxel(Button):
         self.list_code = list_code
         self.little_cube = None
         self.generated = generated
+        self.sound = sound
 
     def input(self, key):
         global delete
         if self.hovered:
             if key == 'left mouse down':
                 if str(self.icon_entity.texture)[0] == '0':
+                    if self.sound == "on":
+                        root = tkinter.Tk()
+                        player = pyglet.media.Player()
+                        effect = "images/click.mp3"
+                        src = pyglet.media.load(effect)
+                        player.queue(src)
+                        player.play()
                     clicked[0] = self.list_code
             if key == 'backspace':
                 if self.generated[self.list_code[0]][self.list_code[1]][self.list_code[2]] == 0:
@@ -81,19 +87,24 @@ class Voxel2(Button):
         if self.hovered:
             if key == 'left mouse down':
                 if self.sound == "on":
-                    effect.play()
+                    root = tkinter.Tk()
+                    player = pyglet.media.Player()
+                    effect = "images/click.mp3"
+                    src = pyglet.media.load(effect)
+                    player.queue(src)
+                    player.play()
                 clicked[1] = self.list_code
 
 
 class Cube:
     def __init__(self, cube, little_g, generated, settings, left=True, right=True, up=True, left2=True, right2=True, back=True):
-        b = Voxel(cube, -1, generated, wood=settings["texture"], colour=color.lime, position=(0, 0, 0 + 0.5), rotation=(0, 90, 0))
+        b = Voxel(cube, -1 ,generated, sound=settings["sound_effect"], wood=settings["texture"], colour=color.lime, position=(0, 0, 0 + 0.5), rotation=(0, 90, 0))
         destroy(b)
 
         def side(position, rotation, n):
             for ii in range(3):
                 for jj in range(3):
-                    button = Voxel(cube, list([n, ii, jj]), generated, wood=settings["texture"], colour=rgb(188, 134, 90),
+                    button = Voxel(cube, list([n, ii, jj]), generated, wood=settings["texture"], sound=settings["sound_effect"], colour=rgb(188, 134, 90),
                                    icon=f'images/{str(generated[n][ii][jj])}', position=eval(position),
                                    rotation=rotation)
                     if generated[n][ii][jj] == 0:

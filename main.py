@@ -193,7 +193,7 @@ def settings_menu():
     settings_list.append(texture_dropdown)
     sound_effect_text = Text(text="Sound Effect:", position=(-0.3, 0.2))
     settings_list.append(sound_effect_text)
-    sound_effect_choose = ButtonGroup(('off', 'on'), position=(-0.08, 0.21), min_selection=1, default='on')
+    sound_effect_choose = ButtonGroup(('off', 'on'), position=(-0.08, 0.21), min_selection=1, default=setting_changes['sound_effect'])
     settings_list.append(sound_effect_choose)
 
     def on_value_changed_sound():
@@ -276,7 +276,7 @@ def after_check(d, t=None, ok_b=None):
             if button != back_to_home_button:
                 destroy(button)
 
-        c = Button(icon='images/clock', color=rgb(64, 64, 64), disabled=True, scale=0.6)
+        c = Button(icon='images/clock', color=rgb(64, 64, 64), disabled=True, scale=0.6, position=(0, 0.13))
         if lang[0] == "arialbd.ttf":
             time_is_up = get_display(arabic_reshaper.reshape(lang[8]))
         else:
@@ -504,7 +504,7 @@ def home(scene_code=0, destroy_list = []):
 
 
 def game(d, t=False):
-    global home_buttons, back_to_home_button, setting_changes
+    global home_buttons, back_to_home_button
     if time_show is not None:
         destroy(time_show)
     for button in home_buttons[:-1]:
@@ -553,7 +553,7 @@ def game(d, t=False):
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
     if t:
-        manage_timer(1)
+        manage_timer(30* d)
 
 
 def update():
