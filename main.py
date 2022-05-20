@@ -214,9 +214,6 @@ def settings_menu():
     save.on_click = Func(save_chabges, setting_changes)
 
 
-#will do it later
-
-
 def about():
     global home_buttons
     for button in home_buttons[:-1]:
@@ -287,6 +284,7 @@ def after_check(d, t=None, ok_b=None):
 
         t = Text(text=f'{time_is_up}', color=rgb(255, 151, 54), scale=3, position=(0, -0.12),
                  font=f'fonts/{lang[1]}')
+        t.position = (t.position.x - (t.width/2), t.position.y, t.position.z)
         back_to_home_button.on_click = Func(home, 2, [t, c])
     elif t is None:
         for button in classes.sudoku_buttons:
@@ -350,7 +348,7 @@ def home(scene_code=0, destroy_list = []):
     lang = setting_changes['language']
     globals()[setting_changes['language']] = []
     en = ['calibrib.ttf', 'Soulgood.ttf', 'Settings', 'About Us', 'Tips', 'Start a New Game', 'yes', 'no', 'Time is up!'
-                                                 , 'Congratulations!', 'You didn`t solve the 3D Sudoku correctly', 'OK'
+                                                 , 'Congratulations!', 'You didn`t solve the 3D Sudoku correctly', 'OK',
                                                  'easy', 'medium', 'hard', 'expert', 'time limit?', 'check', "Solve",
                                                                             "Show Changeable Parts", "Back to Home"]
 
@@ -489,11 +487,12 @@ def home(scene_code=0, destroy_list = []):
     expert.hide()
     expert.fit_to_text()
     expert.on_click = Func(difficulty, -1, home_buttons[-1])
+    # expert.position.x = e
     if lang[0] == "arialbd.ttf":
         limit = get_display(arabic_reshaper.reshape(lang[16]))
     else:
         limit = lang[16]
-    time_limit = Text(text=f"{limit} (+32 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
+    time_limit = Text(text=f"{limit} (+32 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33), font=f'fonts/{lang[0]}')
     time_limit.hide()
     home_buttons[-1].append(time_limit)
     close_d = Button(scale=(0.076, 0.067), parent=new_game, position=(0.45, -0.53), color=rgb(255, 151, 54),
@@ -523,7 +522,7 @@ def game(d, t=False):
     check_button = Button(text=check, color=rgb(54, 158, 255), position=(-0.74, -0.45))
     check_button.text_entity.font = f'fonts/{lang[1]}'
     check_button.fit_to_text()
-    classes.Cube(sudoku_parent, numbers, generated_sudoku)
+    classes.Cube(sudoku_parent, numbers, generated_sudoku, setting_changes)
     check_button.on_click = Func(output, d)
     classes.sudoku_buttons.append(check_button)
     if lang[0] == "arialbd.ttf":
@@ -554,7 +553,7 @@ def game(d, t=False):
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
     if t:
-        manage_timer(30 * d)
+        manage_timer(1)
 
 
 def update():

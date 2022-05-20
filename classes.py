@@ -59,7 +59,7 @@ class Voxel(Button):
 
 
 class Voxel2(Button):
-    def __init__(self, parent, list_code, colour, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
+    def __init__(self, parent, list_code, colour, settings, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
         super().__init__(
             parent=parent,
             position=position,
