@@ -18,6 +18,19 @@ window.exit_button.enabled = False
 stop_thread = False
 time_show = None
 setting_changes = {"texture": "wood_islam", "sound_effect": "on", "language": "en"}
+try:
+    file = open("settings/settings.txt", 'r+')
+    language = (file.readline())[:-1]
+    sound_effect = (file.readline())[:-1]
+    texture = (file.readline())[:-1]
+    file.close()
+except:
+    language = 'en'
+    sound_effect = 'on'
+    texture = 'wood_islam'
+setting_changes["language"] = language
+setting_changes["sound_effect"] = sound_effect
+setting_changes["texture"] = texture
 
 
 def exit_game():
@@ -79,6 +92,7 @@ def give_tip(tip_button):
 
 
 def difficulty(num, d_l):
+    global lang
     for i in range(4):
         d_l[i].enabled = False
         d_l[i].hide()
@@ -87,12 +101,18 @@ def difficulty(num, d_l):
     else:
         d_l[4].enabled = True
         d_l[4].show()
-        t_yes = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.29, -0.01), text="Yes")
-        t_yes.text_entity.font = 'fonts/Soulgood.ttf'
+        if lang[0] == "arialbd.ttf":
+            yes = get_display(arabic_reshaper.reshape(lang[6]))
+            no = get_display(arabic_reshaper.reshape(lang[7]))
+        else:
+            yes = lang[6]
+            no = lang[7]
+        t_yes = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.29, -0.01), text=yes)
+        t_yes.text_entity.font = f'fonts/{lang[1]}'
         t_yes.fit_to_text()
         t_yes.on_click = Func(game, num, True)
-        t_no = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.35, -0.01), text="No")
-        t_no.text_entity.font = 'fonts/Soulgood.ttf'
+        t_no = Button(parent=d_l[4], color=rgb(255, 151, 54), position=(0.35, -0.01), text=no)
+        t_no.text_entity.font = f'fonts/{lang[1]}'
         t_no.fit_to_text()
         t_no.on_click = Func(game, num, False)
 
@@ -112,9 +132,30 @@ def difficulty_show(d_l, main_button):
             d_l[i].show()
 
 
+def save_chabges (settings_changes):
+    file = open("settings/settings.txt","w")
+    file.write(settings_changes["language"]+'\n')
+    file.write(settings_changes["sound_effect"]+'\n')
+    file.write(settings_changes["texture"]+'\n')
+    file.close()
+
 def to_home(a_l):
     for item in a_l:
         destroy(item)
+    global setting_changes
+    try:
+        file = open("settings/settings.txt", 'r+')
+        language = (file.readline())[:-1]
+        sound_effect = (file.readline())[:-1]
+        texture = (file.readline())[:-1]
+        file.close()
+    except:
+        language = 'en'
+        sound_effect = 'on'
+        texture = 'wood_islam'
+    setting_changes["language"] = language
+    setting_changes["sound_effect"] = sound_effect
+    setting_changes["texture"] = texture
     home()
 
 
@@ -166,6 +207,15 @@ def settings_menu():
     settings_list.append(back)
     back.on_click = Func(to_home, settings_list)
 
+    save = Button(color=rgb(255, 151, 54), text="save", position=(0.7, -0.4))
+    save.text_entity.font = 'fonts/Soulgood.ttf'
+    save.fit_to_text()
+    settings_list.append(save)
+    save.on_click = Func(save_chabges, setting_changes)
+
+
+#will do it later
+
 
 def about():
     global home_buttons
@@ -205,7 +255,6 @@ def about():
     about_list.append(back)
     back.on_click = Func(to_home, about_list)
 
-
 def solver(solved):
     global stop_thread, timer_on, back_to_home_button
     for i in range(6):
@@ -224,16 +273,22 @@ def solver(solved):
 
 
 def after_check(d, t=None, ok_b=None):
-    global time_show, stop_thread, timer_on, time_check
+    global time_show, stop_thread, timer_on, time_check, lang
     if d == "timer":
         for button in classes.sudoku_buttons:
             if button != back_to_home_button:
                 destroy(button)
+
         c = Button(icon='images/clock', color=rgb(64, 64, 64), disabled=True, scale=0.6)
-        t = Text(text='Time is up!', color=rgb(255, 151, 54), scale=3, position=(-0.15, -0.3),
-                 font='fonts/Soulgood.ttf')
-        back_to_home_button.on_click = Func(home, 2, t, c)
-    if t is None:
+        if lang[0] == "arialbd.ttf":
+            time_is_up = get_display(arabic_reshaper.reshape(lang[8]))
+        else:
+            time_is_up = lang[8]
+
+        t = Text(text=f'{time_is_up}', color=rgb(255, 151, 54), scale=3, position=(0, -0.12),
+                 font=f'fonts/{lang[1]}')
+        back_to_home_button.on_click = Func(home, 2, [t, c])
+    elif t is None:
         for button in classes.sudoku_buttons:
             if button != back_to_home_button:
                 destroy(button)
@@ -254,21 +309,32 @@ def after_check(d, t=None, ok_b=None):
         file = open('data/points.pmd', 'w')
         file.write(str(xp + xp_timer))
         file.close()
-        t = Text(text=f"Congratulations! +{d ** 2 + xp_timer} XP", color=rgb(255, 151, 54), scale=2,
-                 position=(-0.2, -0.3), font='fonts/Soulgood.ttf')
+        if lang[0] == "arialbd.ttf":
+            Congratulations = get_display(arabic_reshaper.reshape(lang[9]))
+        else:
+            Congratulations = lang[9]
+        t = Text(text=f"{Congratulations} +{d ** 2 + xp_timer} XP", color=rgb(255, 151, 54), scale=2,
+                 position=(-0.2, -0.3), font=f'fonts/{lang[1]}')
         c = Button(icon='images/cup', color=rgb(64, 64, 64), disabled=True, scale=0.6)
-        back_to_home_button.on_click = Func(home, 2, t, c)
+        back_to_home_button.on_click = Func(home, 2, [t, c])
     else:
         destroy(t)
         destroy(ok_b)
 
 
 def output(d):
+    global lang
     if not classes.output_nums():
-        t = Text(text="You didn't solve the 3D Sudoku correctly", color=color.red, scale=1.25, position=(-0.5, -0.4),
-                 font='fonts/Soulgood.ttf')
-        ok_button = Button(text="OK", color=color.red, position=(0.15, -0.42))
-        ok_button.text_entity.font = 'fonts/Soulgood.ttf'
+        if lang[0] == "arialbd.ttf":
+            solve = get_display(arabic_reshaper.reshape(lang[10]))
+            ok = get_display(arabic_reshaper.reshape(lang[11]))
+        else:
+            solve = lang[10]
+            ok = lang[11]
+        t = Text(text=solve, color=color.red, scale=1.25, position=(-0.5, -0.4),
+                 font=f'fonts/{lang[1]}')
+        ok_button = Button(text=ok, color=color.red, position=(0.15, -0.42))
+        ok_button.text_entity.font = f'fonts/{lang[1]}'
         ok_button.fit_to_text()
         ok_button.on_click = Func(after_check, d, t, ok_button)
         classes.sudoku_buttons.append(t)
@@ -277,19 +343,36 @@ def output(d):
         after_check(d)
 
 
-def home(scene_code=0, t=None, c=None):
-    global home_buttons, stop_thread, setting_changes
+def home(scene_code=0, destroy_list = []):
+    global home_buttons, stop_thread, setting_changes, lang
     stop_thread = True
     home_buttons = []
-    lang_file = open(f"languages/{setting_changes['language']}.txt")
     lang = setting_changes['language']
     globals()[setting_changes['language']] = []
-    en = ['calibrib.ttf', 'Soulgood.ttf', 'Settings', 'About Us', 'Tips', 'Start a New Game']
+    en = ['calibrib.ttf', 'Soulgood.ttf', 'Settings', 'About Us', 'Tips', 'Start a New Game', 'yes', 'no', 'Time is up!'
+                                                 , 'Congratulations!', 'You didn`t solve the 3D Sudoku correctly', 'OK'
+                                                 'easy', 'medium', 'hard', 'expert', 'time limit?', 'check', "Solve",
+                                                                            "Show Changeable Parts", "Back to Home"]
+
     fr = ['calibrib.ttf ', 'Soulgood.ttf', "Réglages", "À propos de nous", 'Des astuces', 'Commencer une nouvelle '
-                                                                                          'partie']
-    de = ['calibrib.ttf ', 'Soulgood.ttf', 'Einstellungen', 'Über uns', 'Tipps', 'Starten Sie ein neues Spiel']
-    fa = ["arialbd.ttf", "BYekan.ttf", "تنظیمات", "درباره ما", "نکات", "یک بازی جدید را شروع کنید"]
-    ar = ["arialbd.ttf", "BYekan.ttf", "إعدادات", "معلومات عنا", "نصائح", "ابدأ لعبة جديدة"]
+    'partie', 'oui', 'non', 'le temps est écoulé!', 'Toutes nos félicitations!', 'Vous n`avez pas correctement'
+                                         ' résolu le Sudoku 3D', 'D`ACCORD', 'facile', 'moyen', 'difficile', 'expert',
+                    'limite de temps?', 'Chèque', "Résoudre", "Afficher les pièces modifiables", "Retour à l'accueil"]
+
+    de = ['calibrib.ttf ', 'Soulgood.ttf', 'Einstellungen', 'Über uns', 'Tipps', 'Starten Sie ein neues Spiel', 'ja',
+    'nein', 'die Zeit ist um!', 'Herzliche Glückwünsche!','Sie haben das 3D-Sudoku nicht richtig gelöst', 'OK'
+                                                                            , 'einfach', 'mittel', 'schwer', 'Experte',
+                             'Zeitlimit?', 'überprüfen', "Lösen", "Änderbare Teile anzeigen", "Zurück zur Startseite"]
+
+    fa = ["arialbd.ttf", "BYekan.ttf", "تنظیمات", "درباره ما", "نکات", "یک بازی جدید را شروع کنید", "آره", "نه",
+                                                "وقت تمومه!","تبریک!", "شما سودوکو سه بعدی را درست حل نکردید", "باشه"
+                                                                                    ,"آسان", "متوسط", "سخت", "متخصص",
+                                            "محدودیت زمانی؟", "بررسی", "حل", "نمایش قطعات قابل تغییر", "بازگشت به خانه"]
+
+    ar = ["arialbd.ttf", "BYekan.ttf", "إعدادات", "معلومات عنا", "نصائح", "ابدأ لعبة جديدة", "نعم", "لا", "انتهى الوقت!"
+                                                 , "تهانينا!", "لم تقم بحل لعبة سودوكو ثلاثية الأبعاد بشكل صحيح", "نعم",
+                                                                                "سهل" , "متوسط" , "صعب" , "خبير",
+                        "المهلة؟", "التحقق من", "حل" , "إظهار الأجزاء القابلة للتغيير" , "الرجوع إلى الصفحة الرئيسية"]
     lang = locals()[lang]
     if scene_code == 1:
         for button in classes.sudoku_buttons:
@@ -297,8 +380,8 @@ def home(scene_code=0, t=None, c=None):
         classes.sudoku_buttons = []
         classes.little_cubes = []
     if scene_code == 2:
-        destroy(t)
-        destroy(c)
+        for i in destroy_list:
+            destroy(i)
         for button in classes.sudoku_buttons:
             destroy(button)
         classes.sudoku_buttons = []
@@ -358,39 +441,59 @@ def home(scene_code=0, t=None, c=None):
     home_buttons.append(xp_show)
     home_buttons.append(['0'])
     del home_buttons[-1][0]
-    easy = Button(text="Easy", position=(-0.122, -0.33), color=rgb(255, 151, 54), enabled=False)
+    if lang[0] == "arialbd.ttf":
+        difficulty_t = get_display(arabic_reshaper.reshape(lang[12]))
+    else:
+        difficulty_t = lang[12]
+    easy = Button(text=difficulty_t, position=(-0.122, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+16 xp", parent=easy, scale=(17, 18), color=rgb(54, 158, 255), position=(-0.58, -0.7),
          font='fonts/Soulgood.ttf')
-    easy.text_entity.font = 'fonts/Soulgood.ttf'
+    easy.text_entity.font = f'fonts/{lang[1]}'
     easy.fit_to_text()
     easy.hide()
     easy.on_click = Func(difficulty, 4, home_buttons[-1])
     home_buttons[-1].append(easy)
-    medium = Button(text="Medium", position=(-0.046, -0.33), color=rgb(255, 151, 54), enabled=False)
+    if lang[0] == "arialbd.ttf":
+        difficulty_t = get_display(arabic_reshaper.reshape(lang[13]))
+    else:
+        difficulty_t = lang[13]
+    medium = Button(text=difficulty_t, position=(-0.046, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+36 xp", parent=medium, scale=(15, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
          font='fonts/Soulgood.ttf')
-    medium.text_entity.font = 'fonts/Soulgood.ttf'
+    medium.text_entity.font = f'fonts/{lang[1]}'
     medium.hide()
     medium.fit_to_text()
     medium.on_click = Func(difficulty, 6, home_buttons[-1])
     home_buttons[-1].append(medium)
-    hard = Button(text="Hard", position=(0.031, -0.33), color=rgb(255, 151, 54), enabled=False)
+    if lang[0] == "arialbd.ttf":
+        difficulty_t = get_display(arabic_reshaper.reshape(lang[14]))
+    else:
+        difficulty_t = lang[14]
+    hard = Button(text=difficulty_t, position=(0.031, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+64 xp", parent=hard, scale=18, color=rgb(54, 158, 255), position=(-0.58, -0.7),
          font='fonts/Soulgood.ttf')
-    hard.text_entity.font = 'fonts/Soulgood.ttf'
+    hard.text_entity.font = f'fonts/{lang[1]}'
     home_buttons[-1].append(hard)
     hard.hide()
     hard.fit_to_text()
     hard.on_click = Func(difficulty, 8, home_buttons[-1])
-    expert = Button(text="Expert", position=(0.109, -0.33), color=rgb(255, 151, 54), enabled=False)
+    if lang[0] == "arialbd.ttf":
+        difficulty_t = get_display(arabic_reshaper.reshape(lang[15]))
+    else:
+        difficulty_t = lang[15]
+    expert = Button(text=difficulty_t, position=(0.109, -0.33), color=rgb(255, 151, 54), enabled=False)
     Text(text="+512 xp", parent=expert, scale=(14, 18), color=rgb(54, 158, 255), position=(-0.5, -0.7),
          font='fonts/Soulgood.ttf')
-    expert.text_entity.font = 'fonts/Soulgood.ttf'
+    expert.text_entity.font = f'fonts/{lang[1]}'
     home_buttons[-1].append(expert)
     expert.hide()
     expert.fit_to_text()
     expert.on_click = Func(difficulty, -1, home_buttons[-1])
-    time_limit = Text(text="Time limit? (+32 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
+    if lang[0] == "arialbd.ttf":
+        limit = get_display(arabic_reshaper.reshape(lang[16]))
+    else:
+        limit = lang[16]
+    time_limit = Text(text=f"{limit} (+32 xp)", color=rgb(54, 158, 255), position=(-0.2, -0.33))
     time_limit.hide()
     home_buttons[-1].append(time_limit)
     close_d = Button(scale=(0.076, 0.067), parent=new_game, position=(0.45, -0.53), color=rgb(255, 151, 54),
@@ -413,24 +516,40 @@ def game(d, t=False):
     sudoku_parent.rotation = (45, 0, -45)
     global indexes
     numbers, indexes, generated_sudoku, correct_answers = generator.generate_and_remove(d)
-    check_button = Button(text="Check", color=rgb(54, 158, 255), position=(-0.74, -0.45))
-    check_button.text_entity.font = 'fonts/Soulgood.ttf'
+    if lang[0] == "arialbd.ttf":
+        check = get_display(arabic_reshaper.reshape(lang[17]))
+    else:
+        check = lang[17]
+    check_button = Button(text=check, color=rgb(54, 158, 255), position=(-0.74, -0.45))
+    check_button.text_entity.font = f'fonts/{lang[1]}'
     check_button.fit_to_text()
     classes.Cube(sudoku_parent, numbers, generated_sudoku)
     check_button.on_click = Func(output, d)
     classes.sudoku_buttons.append(check_button)
-    solve = Button(text="Solve", color=rgb(54, 158, 255), position=(-0.82, -0.45))
-    solve.text_entity.font = 'fonts/Soulgood.ttf'
+    if lang[0] == "arialbd.ttf":
+        solve = get_display(arabic_reshaper.reshape(lang[18]))
+    else:
+        solve = lang[18]
+    solve = Button(text=solve, color=rgb(54, 158, 255), position=(-0.82, -0.45))
+    solve.text_entity.font = f'fonts/{lang[1]}'
     solve.fit_to_text()
     solve.on_click = Func(solver, correct_answers)
     classes.sudoku_buttons.append(solve)
-    changeable = Button(text="Show Changeable Parts", color=rgb(54, 158, 255), position=(-0.55, -0.45))
-    changeable.text_entity.font = 'fonts/Soulgood.ttf'
+    if lang[0] == "arialbd.ttf":
+        scp = get_display(arabic_reshaper.reshape(lang[19]))
+    else:
+        scp = lang[19]
+    changeable = Button(text=scp, color=rgb(54, 158, 255), position=(-0.55, -0.45))
+    changeable.text_entity.font = f'fonts/{lang[1]}'
     changeable.fit_to_text()
     classes.sudoku_buttons.append(changeable)
     changeable.on_click = Func(classes.show_changeable, generated_sudoku, changeable)
-    back_to_home_button = Button(color=rgb(255, 151, 54), text="Back to Home", position=(-0.7, 0.4))
-    back_to_home_button.text_entity.font = 'fonts/Soulgood.ttf'
+    if lang[0] == "arialbd.ttf":
+        bth = get_display(arabic_reshaper.reshape(lang[20]))
+    else:
+        bth = lang[20]
+    back_to_home_button = Button(color=rgb(255, 151, 54), text=bth, position=(-0.7, 0.4))
+    back_to_home_button.text_entity.font = f'fonts/{lang[1]}'
     back_to_home_button.fit_to_text()
     classes.sudoku_buttons.append(back_to_home_button)
     back_to_home_button.on_click = Func(home, 1)
