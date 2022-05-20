@@ -504,7 +504,7 @@ def home(scene_code=0, destroy_list = []):
 
 
 def game(d, t=False):
-    global home_buttons, back_to_home_button
+    global home_buttons, back_to_home_button, setting_changes
     if time_show is not None:
         destroy(time_show)
     for button in home_buttons[:-1]:
