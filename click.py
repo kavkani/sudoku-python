@@ -21,6 +21,7 @@ def is_clicked(sudoku_buttons, code1, little_cubes, code2, indexes):
                         c1 = 0
                     if c2 > 2:
                         c2 = 0
+                    print(str(little_cubes[code2[0]][c2].icon))
                     sudoku_buttons[item[c1]].icon = f'images/{str(little_cubes[code2[0]][c2].icon)[-1]}'
                     sudoku_buttons[item[c1]].little_cube = little_cubes[code2[0]][i]
                     c1 += 1

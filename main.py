@@ -4,6 +4,9 @@ import generator
 import classes
 import time
 import threading
+from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
+import arabic_reshaper
+from bidi.algorithm import get_display
 
 app = Ursina()
 window.title = "3D Sudoku"
@@ -14,6 +17,7 @@ window.fps_counter.enabled = False
 window.exit_button.enabled = False
 stop_thread = False
 time_show = None
+setting_changes = {"texture": "wood_islam", "sound_effect": "on", "language": "en"}
 
 
 def exit_game():
@@ -61,16 +65,13 @@ def close_tip(t_l):
 
 
 def give_tip(tip_button):
+    global setting_changes
     tip_list = []
     border = Entity(parent=tip_button, model='wireframe_quad', position=(1.04, -2.08), scale=3.043,
                     color=rgb(54, 158, 255))
     tip_list.append(border)
-    t = Text(parent=border, text="Click on New Game and start\nplaying!\n\nIn the game if you hold right click,\nyou "
-                                 "can rotate the cube. To put a\nlittle cube in an empty place, click\non one side of "
-                                 "the little cube and\nthen click on where you want it to\nbe positioned. If you want "
-                                 "to undo\nany placement, just click on one\nside of the positioned little cube\nand "
-                                 "click backspace.\n\nGood Luck!\n:)",
-             scale=2.47, position=(-0.49, 0.49))
+    t = classes.Image(photo=f"images/Tips - {setting_changes['language']}", scale=(1.05, 1.2), position=(-0.05, 0),
+                      parent=border)
     tip_list.append(t)
     out = Button(scale=0.08, parent=border, position=(0.46, 0.46), color=rgb(54, 158, 255), icon="images/close")
     tip_list.append(out)
@@ -115,6 +116,55 @@ def to_home(a_l):
     for item in a_l:
         destroy(item)
     home()
+
+
+def settings_menu():
+    global home_buttons, setting_changes
+    for button in home_buttons[:-1]:
+        destroy(button)
+    for button in home_buttons[-1]:
+        destroy(button)
+    home_buttons = []
+    settings_list = []
+    language_text = Text(text="Language:", position=(-0.3, 0.1))
+    settings_list.append(language_text)
+
+    def change_language(lang):
+        setting_changes["language"] = lang
+    language_dropdown = DropdownMenu('Choose Language', position=(-0.13, 0.1), buttons=(
+        DropdownMenuButton('English', on_click=Func(change_language, "en"), highlight_color=rgb(54, 158, 255)),
+        DropdownMenuButton("Persian", on_click=Func(change_language, "fa"), highlight_color=rgb(54, 158, 255)),
+        DropdownMenuButton('French', on_click=Func(change_language, "fr"), highlight_color=rgb(54, 158, 255)),
+        DropdownMenuButton('German', on_click=Func(change_language, "de"), highlight_color=rgb(54, 158, 255)),
+        DropdownMenuButton('Arabic', on_click=Func(change_language, "ar"), highlight_color=rgb(54, 158, 255)),
+    ))
+    language_dropdown.highlight_color = rgb(54, 158, 255)
+    settings_list.append(language_dropdown)
+
+    def change_texture(wood_texture):
+        setting_changes["texture"] = wood_texture
+    texture_text = Text(text="Texture:", position=(-0.3, 0.3))
+    settings_list.append(texture_text)
+    texture_dropdown = DropdownMenu('Choose Texture', position=(-0.13, 0.3), buttons=(
+        DropdownMenuButton('Wood', on_click=Func(change_texture, "wood")),
+        DropdownMenuButton('Woodcarving', on_click=Func(change_texture, "wood_islam")),
+    ))
+    settings_list.append(texture_dropdown)
+    sound_effect_text = Text(text="Sound Effect:", position=(-0.3, 0.2))
+    settings_list.append(sound_effect_text)
+    sound_effect_choose = ButtonGroup(('off', 'on'), position=(-0.08, 0.21), min_selection=1, default='on')
+    settings_list.append(sound_effect_choose)
+
+    def on_value_changed_sound():
+        setting_changes["sound_effect"] = str(sound_effect_choose.value)
+
+    sound_effect_choose.on_value_changed = on_value_changed_sound
+
+    back = Button(color=rgb(255, 151, 54), text="Back", position=(-0.7, 0.4))
+    back.text_entity.font = 'fonts/Soulgood.ttf'
+    back.fit_to_text()
+    settings_list.append(back)
+    back.on_click = Func(to_home, settings_list)
 
 
 def about():
@@ -228,9 +278,19 @@ def output(d):
 
 
 def home(scene_code=0, t=None, c=None):
-    global home_buttons, stop_thread
+    global home_buttons, stop_thread, setting_changes
     stop_thread = True
     home_buttons = []
+    lang_file = open(f"languages/{setting_changes['language']}.txt")
+    lang = setting_changes['language']
+    globals()[setting_changes['language']] = []
+    en = ['calibrib.ttf', 'Soulgood.ttf', 'Settings', 'About Us', 'Tips', 'Start a New Game']
+    fr = ['calibrib.ttf ', 'Soulgood.ttf', "Réglages", "À propos de nous", 'Des astuces', 'Commencer une nouvelle '
+                                                                                          'partie']
+    de = ['calibrib.ttf ', 'Soulgood.ttf', 'Einstellungen', 'Über uns', 'Tipps', 'Starten Sie ein neues Spiel']
+    fa = ["arialbd.ttf", "BYekan.ttf", "تنظیمات", "درباره ما", "نکات", "یک بازی جدید را شروع کنید"]
+    ar = ["arialbd.ttf", "BYekan.ttf", "إعدادات", "معلومات عنا", "نصائح", "ابدأ لعبة جديدة"]
+    lang = locals()[lang]
     if scene_code == 1:
         for button in classes.sudoku_buttons:
             destroy(button)
@@ -247,30 +307,45 @@ def home(scene_code=0, t=None, c=None):
     # tutorial.on_click = Func(login_run)
     # home_buttons.append(tutorial)
     # tutorial.tooltip = Tooltip("Tutorial")
-    account = Button(icon="images/account", scale=0.13, position=(0.7, 0.35), color=rgb(255, 151, 54))
-    # account.on_click = Func(login_run)
-    home_buttons.append(account)
-    account.tooltip = Tooltip("Account")
+    if lang[0] == "arialbd.ttf":
+        txt = get_display(arabic_reshaper.reshape(lang[2]))
+    else:
+        txt = lang[2]
+    settings = Button(icon="images/settings", scale=0.13, position=(0.7, 0.35), color=rgb(255, 151, 54))
+    settings.icon_entity.scale = 0.9
+    settings.on_click = Func(settings_menu)
+    home_buttons.append(settings)
+    settings.tooltip = Tooltip(text=txt, font=lang[0])
     # t = Text(text="New Game", parent=new_game, position=(-0.2, -0.35), scale=5, font='fonts/Soulgood.ttf')
-    about_us = Button(text="ABOUT US", position=(0, 0.3), color=rgb(255, 151, 54))
-    about_us.text_entity.font = 'fonts/Soulgood.ttf'
+    if lang[0] == "arialbd.ttf":
+        txt = get_display(arabic_reshaper.reshape(lang[3]))
+    else:
+        txt = lang[3]
+    about_us = Button(text=txt, position=(0, 0.3), color=rgb(255, 151, 54))
+    about_us.text_entity.font = lang[1]
     about_us.fit_to_text()
     about_us.on_click = Func(about)
     # home_buttons.append(t)
     home_buttons.append(about_us)
+    if lang[0] == "arialbd.ttf":
+        txt = get_display(arabic_reshaper.reshape(lang[4]))
+    else:
+        txt = lang[4]
     tips = Button(scale=0.13, position=(-0.7, 0.35), color=rgb(255, 151, 54), icon='images/tip')
     tips.on_click = Func(give_tip, tips)
-    tips.tooltip = Tooltip("Tips")
+    tips.tooltip = Tooltip(text=txt, font=lang[0])
     home_buttons.append(tips)
     sudoku = Text(text="3D Sudoku", position=(-0.23, 0.45), scale=5, color=rgb(54, 158, 255), font='fonts/Soulgood.ttf')
     home_buttons.append(sudoku)
-    masjed_imam = classes.Image("images/masjed")
-    """masjed_imam = Button(icon="masjed", color=rgb(64, 64, 64), disabled=True, position=(0.47, -0.25),
-                         scale=(0.842, 0.5))"""
+    masjed_imam = classes.Image("images/masjed", (0.48, -0.26), (0.825, 0.49), camera.ui)
     sheykh_bahayi = Button(icon="images/sheykh", color=rgb(64, 64, 64), disabled=True, position=(-0.71, -0.31),
                            scale=(0.366, 0.375))
+    if lang[0] == "arialbd.ttf":
+        txt = get_display(arabic_reshaper.reshape(lang[5]))
+    else:
+        txt = lang[5]
     new_game = Button(icon="images/sudoku2", scale=(0.45, 0.55), color=rgb(255, 151, 54), position=(0, -0.028))
-    new_game.tooltip = Tooltip("Start a new game")
+    new_game.tooltip = Tooltip(text=txt, font=lang[0])
     try:
         file = open("data/points.pmd", 'r+')
         xp = eval(file.read())
@@ -384,4 +459,7 @@ back_to_home_button = None
 home_buttons = []
 indexes = []
 home()
+"""text = "سلام"
+reshaped_text = 
+Text(text=bidi_text, font="fonts/arialbd.ttf")"""
 app.run()

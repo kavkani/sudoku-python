@@ -143,12 +143,12 @@ class Cube:
 
 
 class Image(Entity):
-    def __init__(self, photo):
+    def __init__(self, photo, position, scale, parent=camera.ui):
         super().__init__(
-            parent=camera.ui,
+            parent=parent,
             model='quad',
-            position=(0.48, -0.26),
-            scale=(0.825, 0.49),
+            position=position,
+            scale=scale,
             texture=photo)
 
 
