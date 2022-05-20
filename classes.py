@@ -5,6 +5,7 @@ delete = -1
 sudoku_buttons = []
 little_cubes = []
 clicked = [None, None]
+effect = Audio('jump.mp3', loop=False, autoplay=False)
 
 
 def close_changeable():
@@ -59,7 +60,7 @@ class Voxel(Button):
 
 
 class Voxel2(Button):
-    def __init__(self, parent, list_code, colour, settings, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
+    def __init__(self, parent, list_code, colour, sound, icon=None, position=(0, 0, 0), rotation=(0, 0, 0), size=1):
         super().__init__(
             parent=parent,
             position=position,
@@ -73,15 +74,19 @@ class Voxel2(Button):
             texture="images/wood-islam",
             dragable=True)
         self.list_code = list_code
+        self.sound = sound
 
     def input(self, key):
+        global effect
         if self.hovered:
             if key == 'left mouse down':
+                if self.sound == "on":
+                    effect.play()
                 clicked[1] = self.list_code
 
 
 class Cube:
-    def __init__(self, cube, little_g, generated, left=True, right=True, up=True, left2=True, right2=True, back=True):
+    def __init__(self, cube, little_g, generated, settings, left=True, right=True, up=True, left2=True, right2=True, back=True):
         b = Voxel(cube, -1, generated, colour=color.lime, position=(0, 0, 0 + 0.5), rotation=(0, 90, 0))
         destroy(b)
 
@@ -116,7 +121,7 @@ class Cube:
             x = 13.5 - ((idx // 6) * 2 + 3)
             y = (4 - (idx % 6)) * 2 - 3.2
             sudoku_out_parent = Entity(model=None, position=((x - 3) * 0.7, y * 0.7, 0), rotation=Vec3(-40, -35, 0), scale=0.75)
-            b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), position=(2.5, 0.1, 0.5),
+            b1 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 0]), sound=settings["sound_effect"], position=(2.5, 0.1, 0.5),
                         rotation=(0, 90, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0])}')
             if str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][0]) == "0":
@@ -124,7 +129,7 @@ class Cube:
                 b1.hide()
             sudoku_buttons.append(b1)
             little_cubes[(i - 3) * 2 + (3 - ((j + 3) // 2))].append(b1)
-            b2 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 1]), position=(3, 0.1, 0),
+            b2 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 1]), sound=settings["sound_effect"], position=(3, 0.1, 0),
                         rotation=(0, 0, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][1])}')
             sudoku_buttons.append(b2)
@@ -132,7 +137,7 @@ class Cube:
             if str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][1]) == '0':
                 b2.enabled = False
                 b2.hide()
-            b3 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 2]), position=(3, 0.55, 0.55),
+            b3 = Voxel2(sudoku_out_parent, list([(i - 3) * 2 + (3 - ((j + 3) // 2)), 2]), sound=settings["sound_effect"], position=(3, 0.55, 0.55),
                         rotation=(90, 0, 0), colour=rgb(188, 134, 90),
                         icon=f'images/{str(little_g[(i - 3) * 2 + (3 - ((j + 3) // 2))][2])}')
             sudoku_buttons.append(b3)
